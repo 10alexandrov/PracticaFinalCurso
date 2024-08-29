@@ -7,13 +7,19 @@
       <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
         Filtro
       </label>
-      <div class="col-sm-5">
+      <div class="col-sm-3">
         <input type="text" [(ngModel)]="filterSearch" class="form-control"
           name="filterDesc" id="filterDesc" placeholder="filtramos por...">
       </div>
-      <label class="col-form-label col-sm-5">
-        Filtrado por {{filterSearch}}
+      <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+        Categoria
       </label>
+      <div class="col-sm-3 mt-2">
+        <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch">
+            <option value="0">Seleccione una categoria</option>
+            <option *ngFor = "let categoria of categorias" [value]="categoria.id_categoria">{{categoria.c_nombre}}</option>
+        </select>
+      </div>
     </div>
   </form>
 
@@ -29,7 +35,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor = "let producto of productos | productFilter: filterSearch">
+        <tr *ngFor = "let producto of productos | productFilter:filterSearch:categoriaSearch">
           <td>{{producto.p_nombre}}</td>
           <td>{{producto.p_categoria}}</td>
           <td>{{producto.p_cantidad_almacen}}</td>

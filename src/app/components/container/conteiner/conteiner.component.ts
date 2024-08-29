@@ -3,6 +3,7 @@ import { IProduct } from '../../../interfaces/iproduct';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductFilterPipe } from '../../../pipes/product-filter.pipe'
+import { Icategoria } from '../../../interfaces/icategoria';
 
 @Component({
   selector: 'app-conteiner',
@@ -82,6 +83,23 @@ export class ConteinerComponent {
   }
 ]
 
+categorias: Icategoria[] = [{
+    id_categoria: 1,
+    c_nombre:'Bebidas'
+  }, {
+      id_categoria: 2,
+      c_nombre:'Cereales'
+  }, {
+    id_categoria: 3,
+    c_nombre:'Enlatada'
+  }, {
+    id_categoria: 4,
+    c_nombre:'Pasteleria'
+  }, {
+    id_categoria: 5,
+    c_nombre:'Alcohol'
+  }]
+
 constructor () {}
 
 ngOnInit () {}
@@ -89,6 +107,8 @@ ngOnInit () {}
 // filter
 
 filterSearch = '';
+
+categoriaSearch = 0;
 
 
 }
