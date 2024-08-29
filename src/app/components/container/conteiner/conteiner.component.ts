@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { IProduct } from '../../../interfaces/iproduct';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { ProductFilterPipe } from '../../../pipes/product-filter.pipe'
 import { Icategoria } from '../../../interfaces/icategoria';
+import { IProduct } from '../../../interfaces/iproduct';
+import { ShowProductComponent } from '../../show-product/show-product.component';
 
 @Component({
   selector: 'app-conteiner',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductFilterPipe,],
+  imports: [CommonModule, FormsModule, ProductFilterPipe, ShowProductComponent,],
   templateUrl: './conteiner.component.html',
   styleUrl: './conteiner.component.scss'
 })
@@ -20,7 +22,7 @@ export class ConteinerComponent {
     product_id: 1,
     p_nombre: "Agua Minerale 0,5l",
     p_categoria: 1,
-    p_description: "string;",
+    p_description: "Esta agua es super-agua",
     p_ancho: 70,
     p_altura: 170,
     p_longitud: 70,
@@ -109,6 +111,24 @@ ngOnInit () {}
 filterSearch = '';
 
 categoriaSearch = 0;
+
+// Mostrar producto
+
+mostrarProductoId:number = 0;  // numero producto para mostrar
+productoMostrar:IProduct = this.productos[this.mostrarProductoId];   // producto para mostrar
+regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar producto
+
+mostrarProducto(id:number) {
+  this.mostrarProductoId = id - 1;
+  this.productoMostrar = this.productos[this.mostrarProductoId];
+  this.regimenMostrar = true;   // Encender el modo de visualisar de producto
+}
+
+// Volver a modo de lista de productos
+volverMostrarProducto () {
+  this.regimenMostrar = false;   // Encender el modo de visualisar de producto
+  console.log(this.regimenMostrar);
+}
 
 
 }

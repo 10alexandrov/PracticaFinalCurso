@@ -1,52 +1,57 @@
 
 <div class="card-block">
 
-  <!-- filter -->
-  <form class="form mt-3">
-    <div class="form-group row">
-      <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
-        Filtro
-      </label>
-      <div class="col-sm-3">
-        <input type="text" [(ngModel)]="filterSearch" class="form-control"
-          name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+  <div *ngIf="!regimenMostrar">
+    <!-- filter -->
+    <form class="form mt-3 mb-3">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+          Filtro
+        </label>
+        <div class="col-sm-3">
+          <input type="text" [(ngModel)]="filterSearch" class="form-control"
+            name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+        </div>
+        <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+          Categoria
+        </label>
+        <div class="col-sm-3 mt-2">
+          <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch">
+              <option value="0">Seleccione una categoria</option>
+              <option *ngFor = "let categoria of categorias" [value]="categoria.id_categoria">{{categoria.c_nombre}}</option>
+          </select>
+        </div>
       </div>
-      <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
-        Categoria
-      </label>
-      <div class="col-sm-3 mt-2">
-        <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch">
-            <option value="0">Seleccione una categoria</option>
-            <option *ngFor = "let categoria of categorias" [value]="categoria.id_categoria">{{categoria.c_nombre}}</option>
-        </select>
-      </div>
+    </form>
+
+    <!--La tabla de produtos-->
+    <div class="table-responsive" *ngIf ="productos && productos.length">
+      <table class="table table-striped table-primary table-bordered">
+        <thead>
+          <tr>
+            <th >{{headers.nombre}}</th>
+            <th>{{headers.categoria}}</th>
+            <th>{{headers.cantidad}}</th>
+            <th>{{headers.precio}}</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor = "let producto of productos | productFilter:filterSearch:categoriaSearch">
+            <td (click) ="mostrarProducto(producto.product_id)">{{producto.p_nombre}}</td>
+            <td>{{producto.p_categoria}}</td>
+            <td>{{producto.p_cantidad_almacen}}</td>
+            <td>{{producto.p_precio_venta}}</td>
+          </tr>
+
+        </tbody>
+      </table>
     </div>
-  </form>
-
-  <!--La tabla de produtos-->
-  <div class="table-responsive" *ngIf ="productos && productos.length">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>{{headers.nombre}}</th>
-          <th>{{headers.categoria}}</th>
-          <th>{{headers.cantidad}}</th>
-          <th>{{headers.precio}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor = "let producto of productos | productFilter:filterSearch:categoriaSearch">
-          <td>{{producto.p_nombre}}</td>
-          <td>{{producto.p_categoria}}</td>
-          <td>{{producto.p_cantidad_almacen}}</td>
-          <td>{{producto.p_precio_venta}}</td>
-        </tr>
-
-      </tbody>
-    </table>
   </div>
    <!--Fin la tabla de produtos-->
 
-
+   <div *ngIf="regimenMostrar">
+    <app-show-product [productoMostrar]="productoMostrar"></app-show-product>
+    <button class="btn btn-info" (click)="volverMostrarProducto()">Volver</button>
+   </div>
 
 </div>
