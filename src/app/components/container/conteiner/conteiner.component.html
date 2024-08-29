@@ -1,21 +1,46 @@
-<div class="table-responsive" *ngIf ="productos && productos.length">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>{{headers.nombre}}</th>
-        <th>{{headers.categoria}}</th>
-        <th>{{headers.cantidad}}</th>
-        <th>{{headers.precio}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor = "let producto of productos">
-        <td>{{producto.p_nombre}}</td>
-        <td>{{producto.p_categoria}}</td>
-        <td>{{producto.p_cantidad_almacen}}</td>
-        <td>{{producto.p_precio_venta}}</td>
-      </tr>
 
-    </tbody>
-  </table>
+<div class="card-block">
+
+  <!-- filter -->
+  <form class="form mt-3">
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+        Filtro
+      </label>
+      <div class="col-sm-5">
+        <input type="text" [(ngModel)]="filterSearch" class="form-control"
+          name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+      </div>
+      <label class="col-form-label col-sm-5">
+        Filtrado por {{filterSearch}}
+      </label>
+    </div>
+  </form>
+
+  <!--La tabla de produtos-->
+  <div class="table-responsive" *ngIf ="productos && productos.length">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>{{headers.nombre}}</th>
+          <th>{{headers.categoria}}</th>
+          <th>{{headers.cantidad}}</th>
+          <th>{{headers.precio}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let producto of productos | productFilter: filterSearch">
+          <td>{{producto.p_nombre}}</td>
+          <td>{{producto.p_categoria}}</td>
+          <td>{{producto.p_cantidad_almacen}}</td>
+          <td>{{producto.p_precio_venta}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+   <!--Fin la tabla de produtos-->
+
+
+
 </div>

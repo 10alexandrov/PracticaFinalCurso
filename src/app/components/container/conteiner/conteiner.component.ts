@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../../interfaces/iproduct';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ProductFilterPipe } from '../../../pipes/product-filter.pipe'
 
 @Component({
   selector: 'app-conteiner',
   standalone: true,
-  imports: [CommonModule,],
+  imports: [CommonModule, FormsModule, ProductFilterPipe,],
   templateUrl: './conteiner.component.html',
   styleUrl: './conteiner.component.scss'
 })
@@ -83,6 +85,10 @@ export class ConteinerComponent {
 constructor () {}
 
 ngOnInit () {}
+
+// filter
+
+filterSearch = '';
 
 
 }
