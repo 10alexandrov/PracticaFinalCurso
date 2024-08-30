@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import { IProduct } from '../interfaces/iproduct';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { Icategoria } from '../interfaces/icategoria';
 
 @Injectable({
@@ -6,24 +10,13 @@ import { Icategoria } from '../interfaces/icategoria';
 })
 export class CategoriasService {
 
-  constructor() { }
+  private categoriaUrl = 'http://localhost:8080/api/categorias'
 
-  getCategorias (): Icategoria[] {
-    return [{
-      id_categoria: 1,
-      c_nombre:'Bebidas'
-    }, {
-        id_categoria: 2,
-        c_nombre:'Cereales'
-    }, {
-      id_categoria: 3,
-      c_nombre:'Enlatada'
-    }, {
-      id_categoria: 4,
-      c_nombre:'Pasteleria'
-    }, {
-      id_categoria: 5,
-      c_nombre:'Alcohol'
-    }]
+  constructor(private http: HttpClient) {}
+
+  getCategorias (): Observable<Icategoria[]> {
+    return this.http.get<Icategoria[]>(this.categoriaUrl).pipe(
+      map(response => response)
+    );
   }
 }

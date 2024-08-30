@@ -38,7 +38,7 @@
         <tbody class="table-group-divider">
           <tr *ngFor = "let producto of productos | productFilter:filterSearch:categoriaSearch">
             <td (click) ="mostrarProducto(producto.product_id)">{{producto.p_nombre}}</td>
-            <td>{{producto.p_categoria}}</td>
+            <td>{{producto.p_nombre_categoria}}</td>
             <td>{{producto.p_cantidad_almacen}}</td>
             <td>{{producto.p_precio_venta}}</td>
           </tr>

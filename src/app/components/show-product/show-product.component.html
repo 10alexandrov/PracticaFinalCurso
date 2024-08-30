@@ -1,54 +1,61 @@
 <div class="wrapper">
   <h2 class="mt-2"> {{productoMostrar.p_nombre}}</h2>
-  <div class="description mb-2" *ngIf = "productoMostrar.p_description">{{productoMostrar.p_description}}</div>
-  <table class="table table-striped table-bordered">
-    <thead class="table-primary">
-      <tr>
-        <th>Precio de compra</th>
-        <th>Precio de venta</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td> {{productoMostrar.p_precio_compra}}</td>
-        <td> {{productoMostrar.p_precio_venta}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5>Cantidad</h5>
-  <table class="table table-striped table-bordered">
-    <thead class="table-primary">
-      <tr>
-        <th>En Almacen</th>
-        <th>En Entrega</th>
-        <th>Reservado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td> {{productoMostrar.p_cantidad_almacen}}</td>
-        <td> {{productoMostrar.p_cantidad_entregado}}</td>
-        <td> {{productoMostrar.p_cantidad_reservado}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5>Demenciones</h5>
-  <table class="table table-striped table-bordered">
-    <thead class="table-primary">
-      <tr>
-        <th>Altura, mm</th>
-        <th>Anchura, mm</th>
-        <th>Longitud, mm</th>
-        <th>Peso, gr</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td> {{productoMostrar.p_altura}}</td>
-        <td> {{productoMostrar.p_ancho}}</td>
-        <td> {{productoMostrar.p_longitud}}</td>
-        <td> {{productoMostrar.p_peso}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="description mb-2">{{productoMostrar.p_description}}</div>
+    <div class="row d-flex">
+      <div class="col-8">
+        <table class="table table-striped table-bordered">
+            <thead class="table-primary">
+              <tr>
+                <th>Precio de compra</th>
+                <th>Precio de venta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> {{productoMostrar.p_precio_compra}}</td>
+                <td> {{productoMostrar.p_precio_venta}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h5>Cantidad</h5>
+          <table class="table table-striped table-bordered">
+            <thead class="table-primary">
+              <tr>
+                <th>En Almacen</th>
+                <th>En Entrega</th>
+                <th>Reservado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> {{productoMostrar.p_cantidad_almacen}}</td>
+                <td> {{productoMostrar.p_cantidad_entregado}}</td>
+                <td> {{productoMostrar.p_cantidad_reservado}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h5>Demenciones</h5>
+          <table class="table table-striped table-bordered">
+            <thead class="table-primary">
+              <tr>
+                <th>Altura, mm</th>
+                <th>Anchura, mm</th>
+                <th>Longitud, mm</th>
+                <th>Peso, gr</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> {{productoMostrar.p_altura}}</td>
+                <td> {{productoMostrar.p_ancho}}</td>
+                <td> {{productoMostrar.p_longitud}}</td>
+                <td> {{productoMostrar.p_peso}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div class="col-4">
+          <img *ngIf="productoMostrar.imagenUrl" [src]="productoMostrar.imagenUrl">
+      </div>
+    </div>
 </div>

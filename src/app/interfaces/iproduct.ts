@@ -1,3 +1,5 @@
+import { SafeUrl } from "@angular/platform-browser";
+
 export interface IProduct {
 
   product_id: number;
@@ -16,5 +18,6 @@ export interface IProduct {
   p_precio_compra: number;
   p_precio_venta: number;
   p_codigo: string;
-
+  p_nombre_categoria: string;
+  imagenUrl?: SafeUrl
 }
