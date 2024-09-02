@@ -1,1 +1,58 @@
-<p>usuarios works!</p>
+
+<div class="card-block">
+
+  <div *ngIf="!regimenMostrar">
+    <!-- filter -->
+    <form class="form mt-3 mb-3">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+          Filtro
+        </label>
+        <div class="col-sm-3">
+          <input type="text" [(ngModel)]="usuarioSearch" class="form-control"
+            name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+        </div>
+        <label class="col-form-label col-sm-2 text-sm-right" for="roleSarch">
+          Role
+        </label>
+        <div class="col-sm-3 mt-2">
+          <select name="roleSearch" id="roleSearch" [(ngModel)]="roleSearch">
+              <option value="0">Seleccione una role</option>
+              <option *ngFor = "let role of roles" [value]="role">{{role}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <!--La tabla de usuarios-->
+    <div class="table-responsive" *ngIf ="usuarios && usuarios.length">
+      <table class="table table-striped table-primary table-bordered">
+        <thead>
+          <tr>
+            <th >{{headers.nombre}}</th>
+            <th>{{headers.login}}</th>
+            <th>{{headers.role}}</th>
+            <th>{{headers.dateAt}}</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor = "let usuario of usuarios | iusuariosFilter:roleSearch:usuarioSearch">
+            <td (click) ="mostrarUsuario(usuario.usuario_id)">{{usuario.u_nombre}}</td>
+            <td>{{usuario.u_login}}</td>
+            <td>{{usuario.u_role}}</td>
+            <td>{{usuario.created_at}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+   <!--Fin la tabla de usuarios-->
+
+   <div *ngIf="regimenMostrar">
+    <app-show-usuario [usuarioMostrar]="usuarioMostrar"></app-show-usuario>
+    <button class="btn btn-info" (click)="volverMostrarUsuario()">Volver</button>
+   </div>
+
+</div>
+

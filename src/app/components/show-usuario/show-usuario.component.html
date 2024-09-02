@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <h2 class="mt-2"> {{usuarioMostrar.u_nombre}}</h2>
+
+    <div class="row d-flex">
+      <div class="col-8">
+        <table class="table table-striped table-bordered">
+            <thead class="table-primary">
+              <tr>
+                <th>Login</th>
+                <th>Role</th>
+                <th>Password</th>
+                <th>Created at</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> {{usuarioMostrar.u_login}}</td>
+                <td> {{usuarioMostrar.u_role}}</td>
+                <td> {{usuarioMostrar.u_password}}</td>
+                <td> {{usuarioMostrar.created_at}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-export interface Ifactura {
+export interface IFactura {
 
   product_id: number;
   f_id_cliente: number;
