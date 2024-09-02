@@ -1,6 +1,5 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "assets": ["./assets"],
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -101,8 +100,14 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
-              }
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              {
+              "glob": "favicon.ico",
+              "input": "src",
+              "output": "/"
+            }
             ],
             "styles": [
               "src/styles.scss"
