@@ -17,7 +17,7 @@
         </label>
         <div class="col-sm-3 mt-2">
           <select name="roleSearch" id="roleSearch" [(ngModel)]="roleSearch">
-              <option value="0">Seleccione una role</option>
+              <option value="">Seleccione una role</option>
               <option *ngFor = "let role of roles" [value]="role">{{role}}</option>
           </select>
         </div>
@@ -36,7 +36,7 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr *ngFor = "let usuario of usuarios | iusuariosFilter:roleSearch:usuarioSearch">
+          <tr *ngFor = "let usuario of usuarios | iusuariosFilter:usuarioSearch:roleSearch">
             <td (click) ="mostrarUsuario(usuario.usuario_id)">{{usuario.u_nombre}}</td>
             <td>{{usuario.u_login}}</td>
             <td>{{usuario.u_role}}</td>

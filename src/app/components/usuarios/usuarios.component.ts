@@ -38,7 +38,7 @@ usuarioSearch = '';
 
 roleSearch = '';
 
-// Mostrar producto   ****************
+// Mostrar usuarios   ****************
 
 mostrarUsuarioId:number = 0;  // numero usuario para mostrar
 usuarioMostrar!: IUsuarios;   // использовать "!" для non-null assertion

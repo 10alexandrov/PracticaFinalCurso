@@ -1,1 +1,68 @@
-<p>facturas works!</p>
+
+<div class="card-block">
+
+  <div *ngIf="!regimenMostrar">
+    <!-- filter -->
+    <form class="form mt-3 mb-3">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-1 text-sm-right" for="filterDesc">
+          Client
+        </label>
+        <div class="col-sm-2">
+          <input type="text" [(ngModel)]="clientSearch" class="form-control"
+            name="filterDesc" id="filterDesc" placeholder="buscamos ...">
+        </div>
+        <label class="col-form-label col-sm-2 text-sm-right" for="direccionSearch">
+          Direccion
+        </label>
+        <div class="col-sm-3 mt-2">
+          <select name="direccionSearch" id="direccionSearch" [(ngModel)]="direccionSearch">
+              <option [value]=-1>Seleccione direccion</option>
+              <option [value]=0>Entante</option>
+              <option [value]=1>Saliente</option>
+          </select>
+        </div>
+        <label class="col-form-label col-sm-1 text-sm-right" for="statusSearch">
+          Status
+        </label>
+        <div class="col-sm-3 mt-2">
+          <select name="statusSearch" id="statusSearch" [(ngModel)]="statusSearch">
+              <option [value]=-1>Seleccione Status</option>
+              <option [value]=0>En processo</option>
+              <option [value]=1>Terminado</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <!--La tabla de facturas-->
+    <div class="table-responsive" *ngIf ="facturas && facturas.length">
+      <table class="table table-striped table-primary table-bordered">
+        <thead>
+          <tr>
+            <th>{{headers.numero}}</th>
+            <th >{{headers.nombre}}</th>
+            <th>{{headers.suma}}</th>
+            <th>{{headers.created}}</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor = "let factura of facturas | facturasFilter:clientSearch:direccionSearch:statusSearch">
+            <td (click) ="mostrarFactura(factura.factura_id)">{{factura.factura_id}}</td>
+            <td>{{factura.f_id_cliente}}</td>
+            <td>{{factura.f_suma}}</td>
+            <td>{{factura.created_at}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+   <!--Fin la tabla de facturas-->
+
+   <div *ngIf="regimenMostrar">
+    <app-show-factura [facturaMostrar]="facturaMostrar"></app-show-factura>
+    <button class="btn btn-info" (click)="volverMostrarFactura()">Volver</button>
+   </div>
+
+</div>
