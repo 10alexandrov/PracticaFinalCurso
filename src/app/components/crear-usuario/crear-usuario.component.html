@@ -1,0 +1,36 @@
+<h1>Crear nuevo usuario</h1>
+<div class="wrapper">
+  <form>
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" name="u_nombre" placeholder="Nombre..." class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="login" class="form-label">Login</label>
+      <input type="text" name="u_login" placeholder="Login..." class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="contrsena" class="form-label">Contrasena</label>
+      <input type="text" name="u_password" placeholder="Password..." class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="contrsena" class="form-label">Repete su contrasena</label>
+      <input type="text" name="u_password2" placeholder="Password..." class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="role" class="form-label">Role</label>
+      <select name="u_role" class="form-control">
+        <option value="">-- Elije un role --</option>
+        <option value="admin">Admin</option>
+        <option value="vendedor">Vendedor</option>
+        <option value="client">Client</option>
+        <option value="receptor">Receptor</option>
+        <option value="reponedor">Reponedor</option>
+        <option value="manager">Manager</option>
+      </select>
+    </div>
+    <div class="m-3">
+      <button type="submit" class="btn btn-primary">Отправить</button>
+    </div>
+  </form>
+</div>

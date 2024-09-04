@@ -1,7 +1,7 @@
 
 <div class="card-block">
 
-  <div *ngIf="!regimenMostrar">
+  <div *ngIf="!regimenMostrar && !regimenCrear">
     <!-- filter -->
     <form class="form mt-3 mb-3">
       <div class="form-group row">
@@ -46,13 +46,28 @@
         </tbody>
       </table>
     </div>
+    <div>
+      <button class="btn btn-info" (click)="crearNuevoUsuario()">Crear nuevo Usuario</button>
+    </div>
   </div>
    <!--Fin la tabla de usuarios-->
 
+   <!--Comienzo regimen mostrar de usuarios-->
    <div *ngIf="regimenMostrar">
     <app-show-usuario [usuarioMostrar]="usuarioMostrar"></app-show-usuario>
-    <button class="btn btn-info" (click)="volverMostrarUsuario()">Volver</button>
+    <button class="btn btn-info" (click)="volverListaUsuarias()">Volver</button>
    </div>
+   <!--Fin regimen mostrar de usuarios-->
+
+
+   <!--Comienzo regimen Crear de usuarios-->
+
+   <div *ngIf="regimenCrear">
+    <app-crear-usuario></app-crear-usuario>
+    <button class="btn btn-info" (click)="volverListaUsuarias()">Volver</button>
+   </div>
+
+   <!--Comienzo regimen Crear de usuarios-->
 
 </div>
 

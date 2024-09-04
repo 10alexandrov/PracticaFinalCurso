@@ -7,11 +7,12 @@ import { IUsuarios } from '../../interfaces/iusuarios';
 import { UsuariosService } from '../../services/usuarios.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ShowUsuarioComponent } from '../show-usuario/show-usuario.component';
+import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule, FormsModule, ShowUsuarioComponent, IusuariosFilterPipe ],
+  imports: [CommonModule, FormsModule, ShowUsuarioComponent, IusuariosFilterPipe, CrearUsuarioComponent ],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })
@@ -42,7 +43,10 @@ roleSearch = '';
 
 mostrarUsuarioId:number = 0;  // numero usuario para mostrar
 usuarioMostrar!: IUsuarios;   // использовать "!" для non-null assertion
-regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar producto
+
+
+regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar usuarios
+regimenCrear:boolean = false;  // encender regimen crear nuevu usuario
 
 mostrarUsuario(id:number) {
   const findUsuario = this.usuarios.find(usuario => usuario.usuario_id == id);
@@ -55,9 +59,14 @@ mostrarUsuario(id:number) {
   this.regimenMostrar = true;   // Encender el modo de visualisar de usuario
 }
 
+crearNuevoUsuario() {
+  this.regimenCrear = true;   // Encender el modo de visualisar de usuario
+}
+
 // Volver a modo de lista de usuarios
-volverMostrarUsuario () {
-  this.regimenMostrar = false;   // Encender el modo de visualisar de usuario
+volverListaUsuarias () {
+  this.regimenMostrar = false;   // Apagar el modo de visualisar de usuario
+  this.regimenCrear = false;   // Apagar el modo de crear de usuario
   console.log(this.regimenMostrar);
 }
 
