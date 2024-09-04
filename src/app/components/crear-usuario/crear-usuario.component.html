@@ -1,25 +1,43 @@
 <h1>Crear nuevo usuario</h1>
 <div class="wrapper">
-  <form>
+  <form [formGroup] = "formCreateUser" (ngSubmit)="sendDatos()">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" name="u_nombre" placeholder="Nombre..." class="form-control">
+      <div class="d-flex">
+        <input type="text" formControlName="u_nombre" placeholder="Nombre..." class="col-5 form-control-AW form-w">
+        <span *ngIf="formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched" class="col-3 pl-3" style="color:red"> Este campo es obligatorio </span>
+      </div>
     </div>
     <div class="mb-3">
       <label for="login" class="form-label">Login</label>
-      <input type="text" name="u_login" placeholder="Login..." class="form-control">
+      <div class="d-flex">
+        <input type="text" formControlName="u_login" placeholder="Login..." class="form-control-AW form-w">
+        <span *ngIf="formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_nombre')?.touched" class="col-3 pl-3" style="color:red"> Este campo es obligatorio </span>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="contrsena" class="form-label">Contrasena</label>
-      <input type="text" name="u_password" placeholder="Password..." class="form-control">
+
+    <!-- Группа для паролей -->
+    <div formGroupName="passGroup">
+      <div class="mb-3">
+        <label for="contrsena" class="form-label">Contraseña</label>
+        <div class="d-flex">
+          <input type="password" formControlName="u_password" placeholder="Password..." class="form-control-AW form-w">
+          <span *ngIf="formCreateUser.get('passGroup')?.get('u_password')?.invalid && formCreateUser.get('passGroup')?.get('u_password')?.touched" class="col-3 pl-3" style="color:red">Este campo es obligatorio</span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="contrsena" class="form-label">Repite su contraseña</label>
+        <div class="d-flex">
+          <input type="password" formControlName="u_password2" placeholder="Password..." class="form-control-AW form-w">
+          <span *ngIf="formCreateUser.get('passGroup')?.get('u_password2')?.invalid && formCreateUser.get('passGroup')?.get('u_password2')?.touched" class="col-3 pl-3" style="color:red">Este campo es obligatorio</span>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="contrsena" class="form-label">Repete su contrasena</label>
-      <input type="text" name="u_password2" placeholder="Password..." class="form-control">
-    </div>
+
+
     <div class="mb-3">
       <label for="role" class="form-label">Role</label>
-      <select name="u_role" class="form-control">
+      <select formControlName="u_role" class="form-control-AW form-w">
         <option value="">-- Elije un role --</option>
         <option value="admin">Admin</option>
         <option value="vendedor">Vendedor</option>
