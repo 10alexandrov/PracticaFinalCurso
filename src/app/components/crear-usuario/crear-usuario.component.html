@@ -3,16 +3,24 @@
   <form [formGroup] = "formCreateUser" (ngSubmit)="sendDatos()">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
-      <div class="d-flex">
-        <input type="text" formControlName="u_nombre" placeholder="Nombre..." class="col-5 form-control-AW form-w">
-        <span *ngIf="formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched" class="col-3 pl-3" style="color:red"> Este campo es obligatorio </span>
+      <div class="d-flex col-md-6">
+        <input type="text" formControlName="u_nombre" placeholder="Nombre..." class="form-control col-md-6"
+            [ngClass]="{ 'is-valid': formCreateUser.get('u_nombre')?.valid && formCreateUser.get('u_nombre')?.touched,
+                        'is-invalid': formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched }">
+          <div *ngIf="formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched" class="invalid-feedback col-md-4 ps-3">
+            * Este campo es obligatorio!
+          </div>
       </div>
     </div>
     <div class="mb-3">
       <label for="login" class="form-label">Login</label>
-      <div class="d-flex">
-        <input type="text" formControlName="u_login" placeholder="Login..." class="form-control-AW form-w">
-        <span *ngIf="formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_nombre')?.touched" class="col-3 pl-3" style="color:red"> Este campo es obligatorio </span>
+      <div class="d-flex col-md-6">
+        <input type="text" formControlName="u_login" placeholder="Login..." class="form-control col-md-6"
+            [ngClass]="{ 'is-valid': formCreateUser.get('u_login')?.valid && formCreateUser.get('u_login')?.touched,
+                        'is-invalid': formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_login')?.touched }">
+          <div *ngIf="formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_login')?.touched" class="invalid-feedback col-md-4 ps-3">
+            * Este campo es obligatorio!
+          </div>
       </div>
     </div>
 
@@ -20,16 +28,29 @@
     <div formGroupName="passGroup">
       <div class="mb-3">
         <label for="contrsena" class="form-label">Contraseña</label>
-        <div class="d-flex">
-          <input type="password" formControlName="u_password" placeholder="Password..." class="form-control-AW form-w">
-          <span *ngIf="formCreateUser.get('passGroup')?.get('u_password')?.invalid && formCreateUser.get('passGroup')?.get('u_password')?.touched" class="col-3 pl-3" style="color:red">Este campo es obligatorio</span>
+        <div class="d-flex col-md-6">
+          <input type="password" formControlName="u_password" placeholder="Password..." class="form-control col-md-6"
+              [ngClass]="{ 'is-valid': formCreateUser.get('passGroup')?.get('u_password')?.valid && formCreateUser.get('passGroup')?.get('u_password')?.touched,
+               'is-invalid': formCreateUser.get('passGroup')?.get('u_password')?.invalid && formCreateUser.get('passGroup')?.get('u_password')?.touched }">
+            <div *ngIf="formCreateUser.get('passGroup.u_password')?.invalid && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback col-md-4 ps-3">
+              Это поле обязательно
+            </div>
         </div>
       </div>
+<!-- В поле "Repite su contraseña" -->
       <div class="mb-3">
-        <label for="contrsena" class="form-label">Repite su contraseña</label>
-        <div class="d-flex">
-          <input type="password" formControlName="u_password2" placeholder="Password..." class="form-control-AW form-w">
-          <span *ngIf="formCreateUser.get('passGroup')?.get('u_password2')?.invalid && formCreateUser.get('passGroup')?.get('u_password2')?.touched" class="col-3 pl-3" style="color:red">Este campo es obligatorio</span>
+        <label for="contrsena" class="form-label">
+          Repite su contraseña
+        </label>
+        <div class="d-flex col-md-6">
+          <input type="password" formControlName="u_password2" placeholder="Password..." class="form-control col-md-6"
+          [ngClass]="{ 'is-valid': formCreateUser.get('passGroup.u_password2')?.valid && formCreateUser.get('passGroup.u_password2')?.touched,
+                     'is-invalid': formCreateUser.get('passGroup.u_password2')?.invalid && formCreateUser.get('passGroup.u_password2')?.touched
+                    || formCreateUser.get('passGroup')?.errors?.['match'] && formCreateUser.get('passGroup.u_password2')?.touched }">
+          <!-- Сообщение о несовпадении паролей -->
+          <div *ngIf="formCreateUser.get('passGroup')?.errors?.['match'] && formCreateUser.get('passGroup.u_password2')?.touched" class="invalid-feedback-AW col-md-4 ps-3">
+            Пароли не совпадают
+          </div>
         </div>
       </div>
     </div>
@@ -37,18 +58,25 @@
 
     <div class="mb-3">
       <label for="role" class="form-label">Role</label>
-      <select formControlName="u_role" class="form-control-AW form-w">
-        <option value="">-- Elije un role --</option>
-        <option value="admin">Admin</option>
-        <option value="vendedor">Vendedor</option>
-        <option value="client">Client</option>
-        <option value="receptor">Receptor</option>
-        <option value="reponedor">Reponedor</option>
-        <option value="manager">Manager</option>
-      </select>
+      <div class="d-flex col-md-6">
+        <select formControlName="u_role" class="form-control col-md-6"
+            [ngClass]="{ 'is-valid': formCreateUser.get('u_role')?.valid && formCreateUser.get('u_role')?.touched,
+            'is-invalid': formCreateUser.get('u_role')?.invalid && formCreateUser.get('u_role')?.touched }">
+          <option value="">-- Elije un role --</option>
+          <option value="admin">Admin</option>
+          <option value="vendedor">Vendedor</option>
+          <option value="client">Client</option>
+          <option value="receptor">Receptor</option>
+          <option value="reponedor">Reponedor</option>
+          <option value="manager">Manager</option>
+        </select>
+          <div *ngIf="formCreateUser.get('u_role')?.invalid && formCreateUser.get('u_role')?.touched" class="invalid-feedback col-md-4 ps-3">
+            * Este campo es obligatorio!
+          </div>      </div>
     </div>
     <div class="m-3">
       <button type="submit" class="btn btn-primary">Отправить</button>
     </div>
   </form>
 </div>
+

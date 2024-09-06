@@ -11,7 +11,6 @@ export function matchPassword(c: AbstractControl): { [key: string]: boolean } | 
   return pass1 === pass2 ? null : { match: true };
  }
 
-
 @Component({
   selector: 'app-crear-usuario',
   standalone: true,
@@ -33,16 +32,19 @@ export class CrearUsuarioComponent implements OnInit{
       }
     }
 
-  ngOnInit(): void {
-    this.formCreateUser = this.fb.group({
-       u_nombre: ['', Validators.required],
-       u_login: ['', Validators.required],
-       passGroup: this.fb.group({
-        u_password: ['', Validators.required],
-        u_password2: ['', Validators.required],
-       }, { validator: matchPassword }),
+    ngOnInit(): void {
+      this.formCreateUser = this.fb.group({
+        u_nombre: ['', Validators.required],
+        u_login: ['', Validators.required],
+        passGroup: this.fb.group({
+          u_password: ['', Validators.required],
+          u_password2: ['', Validators.required],
+        }, { validator: matchPassword }),
         u_role: ['', Validators.required],
-        receiveInfo: new FormControl(true) });
-      }
+        receiveInfo: [true]
+      });
+    }
+
+    public checkPasswords() { const passGroup = this.formCreateUser.get('passGroup'); console.log('Текущие ошибки:', passGroup?.errors); }
 
 }
