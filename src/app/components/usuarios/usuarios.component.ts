@@ -22,7 +22,7 @@ export class UsuariosComponent implements OnInit{
     private sanitizer: DomSanitizer) {}  // injectar relaciones con BD
 
 
-headers = {nombre: "Nombre", login: "Login", role: "Role", dateAt:"Created"};
+headers = {nombre: "Nombre", login: "Login", role: "Role", active:"Active"};
 roles = ['admin', 'vendedor', 'client', 'receptor', 'reponedor','manager'];
 
 usuarios: IUsuarios[] = [] // inicializar array usuarios

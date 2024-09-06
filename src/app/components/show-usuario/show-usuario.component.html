@@ -9,6 +9,7 @@
                 <th>Login</th>
                 <th>Role</th>
                 <th>Password</th>
+                <th>Active</th>
                 <th>Created at</th>
               </tr>
             </thead>
@@ -17,7 +18,10 @@
                 <td> {{usuarioMostrar.u_login}}</td>
                 <td> {{usuarioMostrar.u_role}}</td>
                 <td> {{usuarioMostrar.u_password}}</td>
-                <td> {{usuarioMostrar.created_at}}</td>
+                <td>
+                  <span *ngIf="usuarioMostrar.u_active" style="font-weight: 600; color: green;" >Active</span>
+                </td>
+                <td> {{usuarioMostrar.u_active}}</td>
               </tr>
             </tbody>
           </table>

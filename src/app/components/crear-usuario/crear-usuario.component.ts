@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup, FormBuilder, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { IUsuarios } from '../../interfaces/iusuarios';
+import { UsuariosStoreService } from '../../services/usuarios-store.service';
 
 
 export function matchPassword(c: AbstractControl): { [key: string]: boolean } | null {
@@ -32,13 +34,21 @@ export function matchPassword(c: AbstractControl): { [key: string]: boolean } | 
 })
 export class CrearUsuarioComponent implements OnInit{
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private usuarioStoreService: UsuariosStoreService) {}
   public formCreateUser!: FormGroup;
 
   public sendDatos() {
-     if (this.formCreateUser.valid) {
-       console.log(this.formCreateUser.value);
-     } else {
+    if (this.formCreateUser.valid) {
+      const usuarioNew: IUsuarios = {
+        u_nombre: this.formCreateUser.value.u_nombre,
+        u_login: this.formCreateUser.value.u_login,
+        u_password: this.formCreateUser.value.passGroup.u_password, // Извлекаем пароль из passGroup
+        u_role: this.formCreateUser.value.u_role,
+        u_active: this.formCreateUser.value.u_active
+      };
+      this.usuarioStoreService.createUsuario(usuarioNew).subscribe((response) => console.log(response));
+      console.log(usuarioNew);
+    } else {
        console.log("Форма не валидна");
        this.formCreateUser.markAllAsTouched(); // Помечаем все поля как затронутые, чтобы показать ошибки
       }
@@ -58,7 +68,5 @@ export class CrearUsuarioComponent implements OnInit{
         receiveInfo: [true]
       });
     }
-
-    public checkPasswords() { const passGroup = this.formCreateUser.get('passGroup'); console.log('Текущие ошибки:', passGroup?.errors); }
 
 }

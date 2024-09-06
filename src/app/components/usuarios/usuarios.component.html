@@ -32,7 +32,7 @@
             <th >{{headers.nombre}}</th>
             <th>{{headers.login}}</th>
             <th>{{headers.role}}</th>
-            <th>{{headers.dateAt}}</th>
+            <th>{{headers.active}}</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -40,7 +40,9 @@
             <td (click) ="mostrarUsuario(usuario.usuario_id)">{{usuario.u_nombre}}</td>
             <td>{{usuario.u_login}}</td>
             <td>{{usuario.u_role}}</td>
-            <td>{{usuario.created_at}}</td>
+            <td>
+              <span *ngIf="usuario.u_active" style="font-weight: 600; color: green;" >Active</span>
+            </td>
           </tr>
 
         </tbody>
