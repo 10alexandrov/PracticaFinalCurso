@@ -2,7 +2,7 @@
 <div class="wrapper">
   <form [formGroup] = "formCreateUser" (ngSubmit)="sendDatos()">
     <div class="mb-3">
-      <label for="nombre" class="form-label">Nombre</label>
+      <label for="nombre" class="form-label-AW">Nombre</label>
       <div class="d-flex col-md-6">
         <input type="text" formControlName="u_nombre" placeholder="Nombre..." class="form-control col-md-6"
             [ngClass]="{ 'is-valid': formCreateUser.get('u_nombre')?.valid && formCreateUser.get('u_nombre')?.touched,
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="login" class="form-label">Login</label>
+      <label for="login" class="form-label-AW">Login</label>
       <div class="d-flex col-md-6">
         <input type="text" formControlName="u_login" placeholder="Login..." class="form-control col-md-6"
             [ngClass]="{ 'is-valid': formCreateUser.get('u_login')?.valid && formCreateUser.get('u_login')?.touched,
@@ -27,19 +27,27 @@
     <!-- Группа для паролей -->
     <div formGroupName="passGroup">
       <div class="mb-3">
-        <label for="contrsena" class="form-label">Contraseña</label>
+        <label for="contrsena" class="form-label-AW">Contraseña</label>
         <div class="d-flex col-md-6">
           <input type="password" formControlName="u_password" placeholder="Password..." class="form-control col-md-6"
               [ngClass]="{ 'is-valid': formCreateUser.get('passGroup')?.get('u_password')?.valid && formCreateUser.get('passGroup')?.get('u_password')?.touched,
                'is-invalid': formCreateUser.get('passGroup')?.get('u_password')?.invalid && formCreateUser.get('passGroup')?.get('u_password')?.touched }">
-            <div *ngIf="formCreateUser.get('passGroup.u_password')?.invalid && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback col-md-4 ps-3">
-              Это поле обязательно
-            </div>
+                <div class="col-md-10">
+                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['required'] && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback-AW ps-3">
+                    Contraseña es obligatoria.
+                  </div>
+                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['minlength'] && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback-AW ps-3">
+                    La contraseña debe tener al menos 8 caracteres
+                  </div>
+                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['passwordStrength'] && formCreateUser.get('passGroup.u_password')?.touched && !formCreateUser.get('passGroup.u_password')?.errors?.['required']" class="invalid-feedback-AW ps-3">
+                    La contraseña debe contener letras, números y caracteres especiales
+                  </div>
+                </div>
         </div>
       </div>
 <!-- В поле "Repite su contraseña" -->
       <div class="mb-3">
-        <label for="contrsena" class="form-label">
+        <label for="contrsena" class="form-label-AW">
           Repite su contraseña
         </label>
         <div class="d-flex col-md-6">
@@ -49,7 +57,7 @@
                     || formCreateUser.get('passGroup')?.errors?.['match'] && formCreateUser.get('passGroup.u_password2')?.touched }">
           <!-- Сообщение о несовпадении паролей -->
           <div *ngIf="formCreateUser.get('passGroup')?.errors?.['match'] && formCreateUser.get('passGroup.u_password2')?.touched" class="invalid-feedback-AW col-md-4 ps-3">
-            Пароли не совпадают
+            Las contraseñas no coinciden
           </div>
         </div>
       </div>
@@ -57,7 +65,7 @@
 
 
     <div class="mb-3">
-      <label for="role" class="form-label">Role</label>
+      <label for="role" class="form-label-AW">Role</label>
       <div class="d-flex col-md-6">
         <select formControlName="u_role" class="form-control col-md-6"
             [ngClass]="{ 'is-valid': formCreateUser.get('u_role')?.valid && formCreateUser.get('u_role')?.touched,
@@ -74,8 +82,22 @@
             * Este campo es obligatorio!
           </div>      </div>
     </div>
+
+
+    <div class="form-check form-check-inline">
+       <input class="form-check-input" type="radio" formControlName="u_active" [value]="true" id="activeTrue">
+       <label class="form-check-label form-label-AW" for="activeFalse">
+          Usuario active
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" formControlName="u_active" [value]="false" id="activeFalse">
+        <label class="form-check-label form-label-AW" for="activeFalse">
+           Usuario inactive
+         </label>
+    </div>
     <div class="m-3">
-      <button type="submit" class="btn btn-primary">Отправить</button>
+      <button type="submit" class="btn btn-primary">Crear usuario</button>
     </div>
   </form>
 </div>
