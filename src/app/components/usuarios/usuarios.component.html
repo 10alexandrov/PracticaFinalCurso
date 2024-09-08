@@ -37,7 +37,7 @@
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor = "let usuario of usuarios | iusuariosFilter:usuarioSearch:roleSearch">
-            <td (click) ="mostrarUsuario(usuario.usuario_id)">{{usuario.u_nombre}}</td>
+            <td (click) ="mostrarUsuario(usuario.usuario_id ?? 1 )">{{usuario.u_nombre}}</td>
             <td>{{usuario.u_login}}</td>
             <td>{{usuario.u_role}}</td>
             <td>

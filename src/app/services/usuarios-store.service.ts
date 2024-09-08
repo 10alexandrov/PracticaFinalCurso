@@ -10,12 +10,12 @@ import { response } from 'express';
 })
 export class UsuariosStoreService {
 
-  private usuariosUrl = 'http://localhost:8080/api/usuarios/store'
+  private usuariosUrl = 'http://localhost:8080/api/usuarios'
 
   constructor(private http: HttpClient) {}
 
-  createUsuario (data: any): Observable<any> {
-    return this.http.post(this.usuariosUrl, data);
+  createUsuario (usario: IUsuarios): Observable<any> {
+    return this.http.post(this.usuariosUrl, usario);
   }
 
 }
