@@ -10,7 +10,7 @@ import { response } from 'express';
 })
 export class UsuariosStoreService {
 
-  private usuariosUrl = 'http://localhost:8080/api/usuarios'
+  private usuariosUrl = 'http://localhost:8080/api/usuarios/'
 
   constructor(private http: HttpClient) {}
 

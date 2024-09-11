@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -32,9 +32,12 @@ export function matchPassword(c: AbstractControl): { [key: string]: boolean } | 
   templateUrl:  './crear-usuario.component.html',
   styleUrls: ['./crear-usuario.component.scss']
 })
+
+
 export class CrearUsuarioComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private usuarioStoreService: UsuariosStoreService) {}
+  @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
   public formCreateUser!: FormGroup;
 
   public sendDatos() {
@@ -46,10 +49,10 @@ export class CrearUsuarioComponent implements OnInit{
         u_role: this.formCreateUser.value.u_role,
         u_active: this.formCreateUser.value.u_active
       };
-      this.usuarioStoreService.createUsuario(usuarioNew).subscribe((response) => console.log(response));
+      this.usuarioStoreService.createUsuario(usuarioNew).subscribe((response) => this.volverMostrar.emit(true));
       console.log(usuarioNew);
     } else {
-       console.log("Форма не валидна");
+       console.log("form no es validate");
        this.formCreateUser.markAllAsTouched(); // Помечаем все поля как затронутые, чтобы показать ошибки
       }
     }

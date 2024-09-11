@@ -28,10 +28,8 @@ roles = ['admin', 'vendedor', 'client', 'receptor', 'reponedor','manager'];
 usuarios: IUsuarios[] = [] // inicializar array usuarios
 
 ngOnInit () {
-  this.usuariosService.getUsuarios().subscribe (
-    (data) => {this.usuarios = data;},
-    (error) => { console.log('Error data de producto', error)}
-  );
+
+  this.obtenerListaUsuarios();
 
 }
 
@@ -64,10 +62,22 @@ crearNuevoUsuario() {
 }
 
 // Volver a modo de lista de usuarios
-volverListaUsuarias () {
+volverListaUsuarias ($flag: boolean) {
   this.regimenMostrar = false;   // Apagar el modo de visualisar de usuario
   this.regimenCrear = false;   // Apagar el modo de crear de usuario
-  console.log(this.regimenMostrar);
+
+  if ($flag) this.obtenerListaUsuarios();
+}
+
+// funccion para obtener la lista con todas usuarios
+obtenerListaUsuarios() {
+  this.usuariosService.getUsuarios().subscribe (
+    (data) => {this.usuarios = data;},
+    (error) => { console.log('Error data de producto', error)}
+  );
+
+  console.log(this.usuarios);
+
 }
 
 }
