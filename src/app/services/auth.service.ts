@@ -75,7 +75,7 @@ logout(): void {
     const expiry = this.getTokenExpiry();
 
     // Если токен истекает через 5 минут, можно показать уведомление или обновить токен
-    if (expiry && Date.now() > (expiry - 5 * 60 * 1000)) {
+    if (expiry && Date.now() > expiry) {
       this.removeToken ();
       this.router.navigate(['/login']);
       return false;

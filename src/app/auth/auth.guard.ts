@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(): boolean {
-    const token = localStorage.getItem('jwtToken');
-    console.log (token);
-    if (token) {
-      return true;  // Разрешаем доступ, если токен существует
+    if (this.authService.isAuthenticated()) {
+      return true; // Доступ разрешён
     } else {
-      this.router.navigate(['/login']);  // Перенаправляем на страницу входа, если токена нет
-      return false;
+      this.router.navigate(['/login']); // Перенаправление на страницу логина
+      return false; // Доступ запрещён
     }
   }
 }
