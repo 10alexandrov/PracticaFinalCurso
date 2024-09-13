@@ -1,0 +1,14 @@
+
+<div class="body-AW">
+	<div class="main">
+			<div class="signup">
+				<form [formGroup] = "formLogin" (ngSubmit)="login()">
+					<label for="chk">Log In</label>
+					<input type="text" formControlName="u_login" placeholder="Login" required="">
+					<input type="password" formControlName="u_password" placeholder="Password" required="">
+					<button>Login</button>
+				</form>
+			</div>
+	</div>
+</div>
+

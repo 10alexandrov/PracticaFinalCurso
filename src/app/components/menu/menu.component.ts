@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class MenuComponent {
 
+constructor (private authService: AuthService) {};
 // abrir submenu
 submenu = [false,false,false,false];
 
@@ -24,4 +27,11 @@ submenuToggle (num: number) {
   }
 }
 
+// function para logout
+
+logout (): void {
+  this.authService.logout ();
 }
+
+}
+
