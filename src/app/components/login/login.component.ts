@@ -31,9 +31,10 @@ export class LoginComponent {
     console.log (this.u_login, this.u_password);
 
     this.authService.login(this.u_login, this.u_password).subscribe( (response: any) => {
-       if (response.access_token) {
-         this.authService.setToken(response.access_token);
+       if (response.token) {
+         this.authService.setToken(response.token);
          this.authService.setTokenExpiry (Date.now() + response.expires_in*1000);
+         this.authService.setRole(response.role)
          this.router.navigate(['/inicio']);
          } else { console.log('Error: autorización fallida'); }
      },

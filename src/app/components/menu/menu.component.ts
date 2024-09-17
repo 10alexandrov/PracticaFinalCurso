@@ -13,6 +13,8 @@ import { AuthService } from '../../services/auth.service';
 export class MenuComponent {
 
 constructor (private authService: AuthService) {};
+
+role = localStorage.getItem('role');  // obtener role usuario
 // abrir submenu
 submenu = [false,false,false,false];
 

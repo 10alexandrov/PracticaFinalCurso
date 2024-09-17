@@ -1,5 +1,5 @@
 <div class="desktop-menu">
-  <div class="wrapper">
+  <div class="wrapper" *ngIf="role === 'admin'">
       <button class="cta" id = "desktop-menu-admin" (click) = "submenuToggle(0)">
       <span class = "desktop-menu-title">ADMIN</span>
       <span>
@@ -35,9 +35,9 @@
           </a>
       </div>
   </div>
-  <div class="wrapper">
+  <div class="wrapper" *ngIf role ='manager'>
       <a class="cta" href="#">
-      <span>Recepción</span>
+      <span>Almacén</span>
       <span>
           <svg width="66px" height="60px" viewBox="0 10 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -49,9 +49,9 @@
       </span>
       </a>
   </div>
-  <div class="wrapper">
+  <div class="wrapper" *ngIf role ='receptor'>
       <a class="cta" href="#">
-      <span class = "desktop-menu-title">Almacén</span>
+      <span class = "desktop-menu-title">Entrada</span>
       <span>
           <svg width="66px" height="60px" viewBox="0 10 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -63,7 +63,7 @@
       </span>
       </a>
   </div>
-  <div class="wrapper">
+  <div class="wrapper" *ngIf role ='recojedor'>
       <a class="cta" href="#">
       <span class = "desktop-menu-title">Recogida</span>
       <span>
@@ -77,7 +77,7 @@
       </span>
       </a>
   </div>
-  <div class="wrapper">
+  <div class="wrapper" *ngIf role ='vendedor' || role = 'cliente'>
           <button class="cta" id="desktop-menu-pedido" (click) = "submenuToggle(3)">
           <span class = "desktop-menu-title">Pedido</span>
           <span>
