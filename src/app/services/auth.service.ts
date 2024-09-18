@@ -53,6 +53,7 @@ logout(): void {
   }
 
   getToken(): string | null {
+    console.log('authToken'+localStorage.getItem("jwtToken"));
     return localStorage.getItem('jwtToken');
   }
 
@@ -69,8 +70,9 @@ logout(): void {
 
   // Проверка аутентификации пользователя
   isAuthenticated(): boolean {
-    const token = this.getToken();
-    return !!token && !this.isTokenExpired(); // Проверка наличия токена и его срока действия
+      const token = this.getToken();
+      return !!token && !this.isTokenExpired(); // Проверка наличия токена и его срока действия
+
   }
 
   checkTokenExpiration(): boolean {

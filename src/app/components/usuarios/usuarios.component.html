@@ -1,77 +1,87 @@
+<div class="d-flex">
+  <div class="sidebar">
+    <app-menu></app-menu>
+  </div>
 
-<div class="card-block">
+  <!-- Inicio Info-conteiner -->
+  <div class="info-container">
+    <div class="card-block">
 
-  <div *ngIf="!regimenMostrar && !regimenCrear">
-    <!-- filter -->
-    <form class="form mt-3 mb-3">
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
-          Filtro
-        </label>
-        <div class="col-sm-3">
-          <input type="text" [(ngModel)]="usuarioSearch" class="form-control"
-            name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+      <div *ngIf="!regimenMostrar && !regimenCrear">
+        <!-- filter -->
+        <form class="form mt-3 mb-3">
+          <div class="form-group row">
+            <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+              Filtro
+            </label>
+            <div class="col-sm-3">
+              <input type="text" [(ngModel)]="usuarioSearch" class="form-control"
+                name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+            </div>
+            <label class="col-form-label col-sm-2 text-sm-right" for="roleSarch">
+              Role
+            </label>
+            <div class="col-sm-3 mt-2">
+              <select name="roleSearch" id="roleSearch" [(ngModel)]="roleSearch">
+                  <option value="">Seleccione una role</option>
+                  <option *ngFor = "let role of roles" [value]="role">{{role}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+
+        <!--La tabla de usuarios-->
+        <div class="table-responsive" *ngIf ="usuarios && usuarios.length">
+          <table class="table table-striped table-primary table-bordered">
+            <thead>
+              <tr>
+                <th >{{headers.nombre}}</th>
+                <th>{{headers.login}}</th>
+                <th>{{headers.role}}</th>
+                <th>{{headers.active}}</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr *ngFor = "let usuario of usuarios | iusuariosFilter:usuarioSearch:roleSearch">
+                <td (click) ="mostrarUsuario(usuario.usuario_id ?? 1 )">{{usuario.u_nombre}}</td>
+                <td>{{usuario.u_login}}</td>
+                <td>{{usuario.u_role}}</td>
+                <td>
+                  <span *ngIf="usuario.u_active" style="font-weight: 600; color: green;" >Active</span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
         </div>
-        <label class="col-form-label col-sm-2 text-sm-right" for="roleSarch">
-          Role
-        </label>
-        <div class="col-sm-3 mt-2">
-          <select name="roleSearch" id="roleSearch" [(ngModel)]="roleSearch">
-              <option value="">Seleccione una role</option>
-              <option *ngFor = "let role of roles" [value]="role">{{role}}</option>
-          </select>
+        <div>
+          <button class="btn btn-info" (click)="crearNuevoUsuario()">Crear nuevo Usuario</button>
         </div>
       </div>
-    </form>
+      <!--Fin la tabla de usuarios-->
 
-    <!--La tabla de usuarios-->
-    <div class="table-responsive" *ngIf ="usuarios && usuarios.length">
-      <table class="table table-striped table-primary table-bordered">
-        <thead>
-          <tr>
-            <th >{{headers.nombre}}</th>
-            <th>{{headers.login}}</th>
-            <th>{{headers.role}}</th>
-            <th>{{headers.active}}</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr *ngFor = "let usuario of usuarios | iusuariosFilter:usuarioSearch:roleSearch">
-            <td (click) ="mostrarUsuario(usuario.usuario_id ?? 1 )">{{usuario.u_nombre}}</td>
-            <td>{{usuario.u_login}}</td>
-            <td>{{usuario.u_role}}</td>
-            <td>
-              <span *ngIf="usuario.u_active" style="font-weight: 600; color: green;" >Active</span>
-            </td>
-          </tr>
+      <!--Comienzo regimen mostrar de usuarios-->
+      <div *ngIf="regimenMostrar">
+        <app-show-usuario [usuarioMostrar]="usuarioMostrar"
+                          (volverMostrar) = "volverListaUsuarias (true)">
+        </app-show-usuario>
+        <button class="btn btn-info" (click)="volverListaUsuarias(false)">Volver</button>
+      </div>
+      <!--Fin regimen mostrar de usuarios-->
 
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <button class="btn btn-info" (click)="crearNuevoUsuario()">Crear nuevo Usuario</button>
+
+      <!--Comienzo regimen Crear de usuarios-->
+
+      <div *ngIf="regimenCrear">
+        <app-crear-usuario (volverMostrar) = "volverListaUsuarias (true)"></app-crear-usuario>
+        <button class="btn btn-info" (click)="volverListaUsuarias(false)">Volver</button>
+      </div>
+
+      <!--Fin regimen Crear de usuarios-->
+
     </div>
   </div>
-   <!--Fin la tabla de usuarios-->
+  <!-- Fin info-container -->
 
-   <!--Comienzo regimen mostrar de usuarios-->
-   <div *ngIf="regimenMostrar">
-    <app-show-usuario [usuarioMostrar]="usuarioMostrar"
-                      (volverMostrar) = "volverListaUsuarias (true)">
-    </app-show-usuario>
-    <button class="btn btn-info" (click)="volverListaUsuarias(false)">Volver</button>
-   </div>
-   <!--Fin regimen mostrar de usuarios-->
-
-
-   <!--Comienzo regimen Crear de usuarios-->
-
-   <div *ngIf="regimenCrear">
-    <app-crear-usuario (volverMostrar) = "volverListaUsuarias (true)"></app-crear-usuario>
-    <button class="btn btn-info" (click)="volverListaUsuarias(false)">Volver</button>
-   </div>
-
-   <!--Comienzo regimen Crear de usuarios-->
 
 </div>
-

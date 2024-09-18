@@ -9,11 +9,12 @@ import { ShowProductComponent } from '../../show-product/show-product.component'
 import { ProductsService } from '../../../services/products.service';
 import { CategoriasService } from '../../../services/categorias.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { MenuComponent } from '../../menu/menu.component';
 
 @Component({
   selector: 'app-conteiner',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductFilterPipe, ShowProductComponent,],
+  imports: [CommonModule, FormsModule, ProductFilterPipe, ShowProductComponent, MenuComponent,],
   templateUrl: './conteiner.component.html',
   styleUrl: './conteiner.component.scss'
 })

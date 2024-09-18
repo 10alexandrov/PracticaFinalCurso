@@ -10,11 +10,12 @@ import { CategoriasService } from '../../services/categorias.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { UsuariosService } from '../../services/usuarios.service';
 import { FacturasFilterPipe  } from '../../pipes/facturas-filter.pipe'
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-facturas',
   standalone: true,
-  imports: [CommonModule, FormsModule, ShowFacturaComponent, FacturasFilterPipe],
+  imports: [CommonModule, FormsModule, ShowFacturaComponent, FacturasFilterPipe, MenuComponent],
   templateUrl: './facturas.component.html',
   styleUrl: './facturas.component.scss'
 })

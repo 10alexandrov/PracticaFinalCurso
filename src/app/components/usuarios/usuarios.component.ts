@@ -8,11 +8,12 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ShowUsuarioComponent } from '../show-usuario/show-usuario.component';
 import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule, FormsModule, ShowUsuarioComponent, IusuariosFilterPipe, CrearUsuarioComponent ],
+  imports: [CommonModule, FormsModule, ShowUsuarioComponent, IusuariosFilterPipe, CrearUsuarioComponent, MenuComponent ],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })

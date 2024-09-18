@@ -15,19 +15,6 @@ export class MenuComponent {
 constructor (private authService: AuthService) {};
 
 role = localStorage.getItem('role');  // obtener role usuario
-// abrir submenu
-submenu = [false,false,false,false];
-
-submenuToggle (num: number) {
-  console.log (num);
-  for (let i =0; i<this.submenu.length; i++) {
-    if (i == num) {
-      this.submenu[i] = ! this.submenu[i];
-    } else {
-      this.submenu[i] = false
-    }
-  }
-}
 
 // function para logout
 
