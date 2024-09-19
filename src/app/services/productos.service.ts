@@ -41,6 +41,17 @@ export class ProductosService {
       }
     }
 
+    createProducto (product: IProduct): Observable<any> {
+
+      const headers = this.getHeaderAuth ();
+      if (this.authService.checkTokenExpiration()) {
+        return this.http.post(this.productUrl, product, { headers});
+      } else {
+        return EMPTY;
+      }
+    }
+
+
     getHeaderAuth (): HttpHeaders {  // creamos header para authenticacion
       const token = this.authService.getToken();
       return new HttpHeaders({

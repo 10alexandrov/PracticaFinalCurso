@@ -1,69 +1,83 @@
-<h1>Crear nuevo usuario</h1>
+<h1>Crear nuevo Producto</h1>
 <div class="wrapper">
-  <form [formGroup] = "formCreateUser" (ngSubmit)="sendDatos()">
-    <div class="mb-3">
-      <label for="nombre" class="form-label-AW">Nombre</label>
-      <div class="d-flex col-md-6">
-        <input type="text" formControlName="u_nombre" placeholder="Nombre..." class="form-control col-md-6"
-            [ngClass]="{ 'is-valid': formCreateUser.get('u_nombre')?.valid && formCreateUser.get('u_nombre')?.touched,
-                        'is-invalid': formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched }">
-          <div *ngIf="formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched" class="invalid-feedback col-md-4 ps-3">
-            * Este campo es obligatorio!
-          </div>
-      </div>
-    </div>
-    <div class="mb-3">
-      <label for="login" class="form-label-AW">Login</label>
-      <div class="d-flex col-md-6">
-        <input type="text" formControlName="u_login" placeholder="Login..." class="form-control col-md-6"
-            [ngClass]="{ 'is-valid': formCreateUser.get('u_login')?.valid && formCreateUser.get('u_login')?.touched,
-                        'is-invalid': formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_login')?.touched }">
-          <div *ngIf="formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_login')?.touched" class="invalid-feedback col-md-4 ps-3">
-            * Este campo es obligatorio!
-          </div>
-      </div>
-    </div>
-
-    <!-- Группа для паролей -->
-    <div formGroupName="passGroup">
-      <div class="mb-3">
-        <label for="contrsena" class="form-label-AW">Contraseña</label>
+  <form [formGroup] = "formCreateProducto" (ngSubmit)="sendDatos()">
+    <div class="d-flex">
+      <div class="mb-3 col-6">
+        <label for="nombre" class="form-label-AW">Nombre producto</label>
         <div class="d-flex col-md-6">
-          <input type="password" formControlName="u_password" placeholder="Password..." class="form-control col-md-6"
-              [ngClass]="{ 'is-valid': formCreateUser.get('passGroup')?.get('u_password')?.valid && formCreateUser.get('passGroup')?.get('u_password')?.touched,
-               'is-invalid': formCreateUser.get('passGroup')?.get('u_password')?.invalid && formCreateUser.get('passGroup')?.get('u_password')?.touched }">
-                <div class="col-md-10">
-                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['required'] && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback-AW ps-3">
-                    Contraseña es obligatoria.
-                  </div>
-                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['minlength'] && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback-AW ps-3">
-                    La contraseña debe tener al menos 8 caracteres
-                  </div>
-                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['passwordStrength'] && formCreateUser.get('passGroup.u_password')?.touched && !formCreateUser.get('passGroup.u_password')?.errors?.['required']" class="invalid-feedback-AW ps-3">
-                    La contraseña debe contener letras, números y caracteres especiales
-                  </div>
-                </div>
+          <input type="text" formControlName="p_nombre" placeholder="Nombre..." class="form-control col-md-6"
+              [ngClass]="{ 'is-valid': formCreateProducto.get('p_nombre')?.valid && formCreateProducto.get('p_nombre')?.touched,
+                          'is-invalid': formCreateProducto.get('p_nombre')?.invalid && formCreateProducto.get('p_nombre')?.touched }">
+            <div *ngIf="formCreateProducto.get('p_nombre')?.invalid && formCreateProducto.get('p_nombre')?.touched" class="invalid-feedback col-md-4 ps-3">
+              * Este campo es obligatorio!
+            </div>
         </div>
       </div>
-<!-- В поле "Repite su contraseña" -->
-      <div class="mb-3">
-        <label for="contrsena" class="form-label-AW">
-          Repite su contraseña
-        </label>
+
+
+      <!-- Categoria select -->
+      <div class="mb-3 col-6">
+        <label for="p_categoria" class="form-label-AW">Categoria</label>
         <div class="d-flex col-md-6">
-          <input type="password" formControlName="u_password2" placeholder="Password..." class="form-control col-md-6"
-          [ngClass]="{ 'is-valid': formCreateUser.get('passGroup.u_password2')?.valid && formCreateUser.get('passGroup.u_password2')?.touched,
-                     'is-invalid': formCreateUser.get('passGroup.u_password2')?.invalid && formCreateUser.get('passGroup.u_password2')?.touched
-                    || formCreateUser.get('passGroup')?.errors?.['match'] && formCreateUser.get('passGroup.u_password2')?.touched }">
-          <!-- Сообщение о несовпадении паролей -->
-          <div *ngIf="formCreateUser.get('passGroup')?.errors?.['match'] && formCreateUser.get('passGroup.u_password2')?.touched" class="invalid-feedback-AW col-md-4 ps-3">
-            Las contraseñas no coinciden
-          </div>
+          <input type="text" formControlName="p_categoria" placeholder="Categoria..." class="form-control col-md-6"
+            [ngClass]="{ 'is-valid': formCreateProducto.get('p_categoria')?.valid && formCreateProducto.get('p_categoria')?.touched,
+            'is-invalid': formCreateProducto.get('p_categoria')?.invalid && formCreateProducto.get('p_categoria')?.touched }">
+            <div *ngIf="formCreateProducto.get('p_categoria')?.invalid && formCreateProducto.get('p_categoria')?.touched" class="invalid-feedback col-md-4 ps-3">
+            * Este campo es obligatorio!
+            </div>
         </div>
       </div>
     </div>
 
+    <!-- Description  -->
+    <div class="mb-3">
+      <label for="description" class="form-label-AW">Description</label>
+      <div class="d-flex col-md-6">
+        <input type="text" formControlName="p_description" placeholder="Login..." class="form-control col-md-6">
+      </div>
+    </div>
 
+
+    <!-- Group para demensiones -->
+    <div class="d-flex">
+
+      <div class="col-md-3">
+        <label for="p_longitud" class="form-label">Longitud, mm</label>
+        <input type="text" formControlName="p_longitud" placeholder="Longitud..." class="form-control col-md-6">
+        <div class="valid-feedback">
+          Все хорошо!
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="p_altura" class="form-label">Altura, mm</label>
+        <input type="text" formControlName="p_altura" placeholder="Altura..." class="form-control col-md-6">
+        <div class="valid-feedback">
+          Все хорошо!
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="p_anchura" class="form-label">Anchura, mm</label>
+        <input type="text" formControlName="p_anchura" placeholder="Anchura..." class="form-control col-md-6">
+        <div class="valid-feedback">
+          Все хорошо!
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="p_peso" class="form-label">Peso, kg</label>
+        <input type="text" formControlName="p_peso" placeholder="Peso..." class="form-control col-md-6">
+        <div class="valid-feedback">
+          Все хорошо!
+        </div>
+      </div>
+
+
+    </div>
+
+
+<!--
     <div class="mb-3">
       <label for="role" class="form-label-AW">Role</label>
       <div class="d-flex col-md-6">
@@ -82,20 +96,8 @@
             * Este campo es obligatorio!
           </div>      </div>
     </div>
+   -->
 
-
-    <div class="form-check form-check-inline">
-       <input class="form-check-input" type="radio" formControlName="u_active" [value]="true" id="activeTrue">
-       <label class="form-check-label form-label-AW" for="activeFalse">
-          Usuario active
-        </label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" formControlName="u_active" [value]="false" id="activeFalse">
-        <label class="form-check-label form-label-AW" for="activeFalse">
-           Usuario inactive
-         </label>
-    </div>
     <div class="m-3">
       <button type="submit" class="btn btn-primary">Crear usuario</button>
     </div>
