@@ -9,24 +9,15 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class ProductosService {
 
   private productUrl = 'http://localhost:8080/api/productos'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
-/*
-  getProductos (): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.productUrl).pipe(
-      map(response => response)
-    );
-  }*/
 
     getProductos (): Observable<IProduct[]> {
 
-      const token = this.authService.getToken(); // Извлекаем токен из localStorage
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}` // Устанавливаем заголовок
-      });
+      const headers = this.getHeaderAuth ();
 
       if (this.authService.checkTokenExpiration()) {
         return this.http.get<IProduct[]>(this.productUrl, { headers }).pipe(
@@ -35,6 +26,27 @@ export class ProductsService {
       } else {
         return EMPTY;
       }
+    }
+
+
+    deleteProducto (id: number): Observable<void> {
+
+      const headers = this.getHeaderAuth ();
+      console.log (id);
+
+      const deleteURL = `http://localhost:8080/api/facturas/${id}`;
+      if (this.authService.checkTokenExpiration()) {
+          return this.http.delete<void>(deleteURL, { headers });
+      } else {
+          return EMPTY;
+      }
+    }
+
+    getHeaderAuth (): HttpHeaders {  // creamos header para authenticacion
+      const token = this.authService.getToken();
+      return new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
     }
 
 }

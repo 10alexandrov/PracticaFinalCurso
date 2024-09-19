@@ -8,7 +8,7 @@
 
       <div class="card-block">
 
-        <div *ngIf="!regimenMostrar">
+        <div *ngIf="!regimenMostrar && !regimenCrear">
           <!-- filter -->
           <form class="form mt-3 mb-3">
             <div class="form-group row">
@@ -65,15 +65,29 @@
             </table>
           </div>
           <div>
-            <button class="btn btn-info" (click)="crearNuevoProducto()">Crear nuevo Producto</button>
+            <button class="btn btn-info" (click)="crearNuevaFactura()">Crear nuevo Pedido</button>
           </div>
         </div>
         <!--Fin la tabla de facturas-->
 
-        <div *ngIf="regimenMostrar">
-          <app-show-factura [facturaMostrar]="facturaMostrar"></app-show-factura>
-          <button class="btn btn-info" (click)="volverMostrarFactura()">Volver</button>
-        </div>
+       <!--Comienzo regimen mostrar de usuarios-->
+      <div *ngIf="regimenMostrar">
+        <app-show-factura [facturaMostrar]="facturaMostrar"
+                          (volverMostrar) = "volverListaFacturas (true)">
+        </app-show-factura>
+        <button class="btn btn-info" (click)="volverListaFacturas(false)">Volver</button>
+      </div>
+      <!--Fin regimen mostrar de facturas-->
+
+
+      <!--Comienzo regimen Crear de usuarios-->
+
+      <div *ngIf="regimenCrear">
+        <app-crear-factura (volverMostrar) = "volverListaFacturas (true)"></app-crear-factura>
+        <button class="btn btn-info" (click)="volverListaFacturas(false)">Volver</button>
+      </div>
+
+      <!--Fin regimen Crear de usuarios-->
 
       </div>
 

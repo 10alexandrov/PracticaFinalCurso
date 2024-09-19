@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IFactura } from '../../interfaces/ifactura';
+import { FacturasService } from '../../services/facturas.service';
 
 @Component({
   selector: 'app-show-factura',
@@ -11,6 +12,27 @@ import { IFactura } from '../../interfaces/ifactura';
 })
 export class ShowFacturaComponent {
 
+  constructor( private facturasService: FacturasService) {}
   @Input() facturaMostrar!:IFactura;
+  @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
+
+
+  deleteFactura(id_factura: number): void {
+    console.log ('delete');
+
+		if (id_factura) {
+			this.facturasService.deleteFactura(id_factura).subscribe(
+			  () => {
+				console.log(`Usuario with  id ${id_factura} deleted successfully.`);
+        this.volverMostrar.emit(true);
+			  },
+			  (error) => {
+				console.error(`Error deleting evento with id ${id_factura}: ${error}`);
+			  }
+			);
+		  } else {
+			console.error(`Evento with title ${id_factura} has not found.`);
+	  }
+  }
 
 }

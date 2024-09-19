@@ -31,4 +31,9 @@ export class FacturasService {
       return EMPTY;
     }
   }
+
+  deleteFactura (id: number): Observable<void> {
+    const deleteURL = `http://localhost:8080/api/facturas/${id}`;
+    return this.http.delete<void>(deleteURL);
+  }
 }

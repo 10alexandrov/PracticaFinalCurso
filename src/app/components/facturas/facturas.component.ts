@@ -11,11 +11,12 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { UsuariosService } from '../../services/usuarios.service';
 import { FacturasFilterPipe  } from '../../pipes/facturas-filter.pipe'
 import { MenuComponent } from '../menu/menu.component';
+import { CrearFacturaComponent } from '../crear-factura/crear-factura.component';
 
 @Component({
   selector: 'app-facturas',
   standalone: true,
-  imports: [CommonModule, FormsModule, ShowFacturaComponent, FacturasFilterPipe, MenuComponent],
+  imports: [CommonModule, FormsModule, ShowFacturaComponent, FacturasFilterPipe, MenuComponent, CrearFacturaComponent,],
   templateUrl: './facturas.component.html',
   styleUrl: './facturas.component.scss'
 })
@@ -31,12 +32,11 @@ direccion = ['entrante', 'saliente'];
 facturas: IFactura[] = [] // inicializar array usuarios
 
 ngOnInit () {
-  this.facturasService.getFacturas().subscribe (
-    (data) => {this.facturas = data;},
-    (error) => { console.log('Error data de facturas', error)}
-  );
+
+  this.obtenerListaFacturas();
 
 }
+
 
 clientSearch = '';  // Para buscar por cliente
 
@@ -49,7 +49,7 @@ statusSearch: number = -1; // Para buscar por status de factura
 mostrarFacturaId:number = 0;  // numero usuario para mostrar
 facturaMostrar!: IFactura;   // использовать "!" для non-null assertion
 regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar producto
-
+regimenCrear:boolean = false;  // encender regimen crear nuevu usuario
 
 mostrarFactura(id:number) {
   const findFactura = this.facturas.find(factura => factura.factura_id == id);
@@ -59,13 +59,30 @@ mostrarFactura(id:number) {
     console.log('Error: no hay factura con este id: ', id);
   }
 
-  this.regimenMostrar = true;   // Encender el modo de visualisar de usuario
+  this.regimenMostrar = true;   // Encender el modo de visualisar de facturas
 }
 
 // Volver a modo de lista de usuarios
-volverMostrarFactura () {
-  this.regimenMostrar = false;   // Encender el modo de visualisar de usuario
-  console.log(this.regimenMostrar);
+volverListaFacturas ($flag: boolean) {
+  this.regimenMostrar = false;   // Apagar el modo de visualisar de usuario
+  this.regimenCrear = false;   // Apagar el modo de crear de usuario
+
+  if ($flag) this.obtenerListaFacturas();
+}
+
+// funccion para obtener la lista con todas usuarios
+obtenerListaFacturas() {
+  this.facturasService.getFacturas().subscribe (
+    (data) => {this.facturas = data;},
+    (error) => { console.log('Error data de producto', error)}
+  );
+
+  console.log(this.facturas);
+
+}
+
+crearNuevaFactura() {
+  this.regimenCrear = true;   // Encender el modo de visualisar de usuario
 }
 
 }

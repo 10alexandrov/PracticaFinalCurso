@@ -6,21 +6,22 @@ import { ProductFilterPipe } from '../../../pipes/product-filter.pipe'
 import { Icategoria } from '../../../interfaces/icategoria';
 import { IProduct } from '../../../interfaces/iproduct';
 import { ShowProductComponent } from '../../show-product/show-product.component';
-import { ProductsService } from '../../../services/products.service';
+import { ProductosService } from '../../../services/productos.service';
 import { CategoriasService } from '../../../services/categorias.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MenuComponent } from '../../menu/menu.component';
+import { CrearProductoComponent } from '../../crear-producto/crear-producto.component';
 
 @Component({
   selector: 'app-conteiner',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductFilterPipe, ShowProductComponent, MenuComponent,],
+  imports: [CommonModule, FormsModule, ProductFilterPipe, ShowProductComponent, MenuComponent, CrearProductoComponent],
   templateUrl: './conteiner.component.html',
   styleUrl: './conteiner.component.scss'
 })
 export class ConteinerComponent {
 
-  constructor (private productosService: ProductsService,
+  constructor (private productosService: ProductosService,
       private categoriasService: CategoriasService,
       private sanitizer: DomSanitizer) {}  // injectar relaciones con BD
 
@@ -30,6 +31,44 @@ export class ConteinerComponent {
   categorias: Icategoria[] = []  // Inicializar array categories
 
 ngOnInit () {
+  this.obtenerListaProductos()
+}
+
+// filter
+
+filterSearch = '';
+
+categoriaSearch = 0;
+
+// Mostrar producto   ****************
+
+mostrarProductoId:number = 0;  // numero producto para mostrar
+productoMostrar:IProduct = this.productos[this.mostrarProductoId];   // producto para mostrar
+regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar producto
+regimenCrear:boolean = false;  // encender regimen crear nuevo producto
+
+mostrarProducto(id:number) {
+  const findProduct = this.productos.find(product => product.product_id == id);
+  if (findProduct) {
+   this.productoMostrar = findProduct;
+  } else {
+    console.log('Error: no hay producto con este id: ', id);
+  }
+
+  this.regimenMostrar = true;   // Encender el modo de visualisar de producto
+}
+
+// Volver a modo de lista de productos
+volverMostrarProducto ($flag: boolean) {
+  this.regimenMostrar = false;   // Encender el modo de visualisar de producto
+  this.regimenCrear = false;
+  console.log(this.regimenMostrar);
+
+  if ($flag) this.obtenerListaProductos();
+}
+
+// funccion para obtener la lista con todas productos
+obtenerListaProductos() {
   this.productosService.getProductos().subscribe (
     (data) => {this.productos = data;},
     (error) => { console.log('Error data de producto', error)}
@@ -47,36 +86,14 @@ ngOnInit () {
       producto.imagenUrl = this.sanitizer.bypassSecurityTrustUrl(`data:${contentType};base64,${base64String}`);
     }
   });
+
 }
 
-// filter
-
-filterSearch = '';
-
-categoriaSearch = 0;
-
-// Mostrar producto   ****************
-
-mostrarProductoId:number = 0;  // numero producto para mostrar
-productoMostrar:IProduct = this.productos[this.mostrarProductoId];   // producto para mostrar
-regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar producto
-
-mostrarProducto(id:number) {
-  const findProduct = this.productos.find(product => product.product_id == id);
-  if (findProduct) {
-   this.productoMostrar = findProduct;
-  } else {
-    console.log('Error: no hay producto con este id: ', id);
-  }
-
-  this.regimenMostrar = true;   // Encender el modo de visualisar de producto
+crearNuevoProducto() {
+  this.regimenCrear = true;   // Encender el modo de visualisar de usuario
 }
 
-// Volver a modo de lista de productos
-volverMostrarProducto () {
-  this.regimenMostrar = false;   // Encender el modo de visualisar de producto
-  console.log(this.regimenMostrar);
-}
+
 
 
 

@@ -56,6 +56,10 @@
       </div>
       <div class="col-4">
           <img *ngIf="productoMostrar.imagenUrl" [src]="productoMostrar.imagenUrl">
+          <div class="d-flex">
+            <button class="btn btn-warning m-3" >Editar</button>
+            <button class="btn btn-danger m-3" (click)="(productoMostrar.product_id) ? deleteProducto(productoMostrar.product_id) : null" >Borrar</button>
+          </div>
       </div>
     </div>
 </div>
