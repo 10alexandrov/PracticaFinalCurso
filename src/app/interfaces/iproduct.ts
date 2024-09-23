@@ -11,8 +11,8 @@ export interface IProduct {
   p_longitud: number;
   p_peso: number;
   p_foto?: ArrayBuffer;
-  p_cantidad_almacen?: number;
-  p_cantidad_entregado: number;
+  p_cantidad_almacen: number;
+  p_cantidad_entrega: number;
   p_cantidad_reservado: number;
   p_cantidad_enviado: number;
   p_precio_compra: number;

@@ -44,9 +44,12 @@ export class ProductosService {
     createProducto (product: IProduct): Observable<any> {
 
       const headers = this.getHeaderAuth ();
+
       if (this.authService.checkTokenExpiration()) {
+        console.log('grab');
         return this.http.post(this.productUrl, product, { headers});
       } else {
+        console.log('no grab');
         return EMPTY;
       }
     }
