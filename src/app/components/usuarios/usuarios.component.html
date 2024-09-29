@@ -7,7 +7,7 @@
   <div class="info-container">
     <div class="card-block">
 
-      <div *ngIf="!regimenMostrar && !regimenCrear">
+      <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate">
         <!-- filter -->
         <form class="form mt-3 mb-3">
           <div class="form-group row">
@@ -63,7 +63,8 @@
       <!--Comienzo regimen mostrar de usuarios-->
       <div *ngIf="regimenMostrar">
         <app-show-usuario [usuarioMostrar]="usuarioMostrar"
-                          (volverMostrar) = "volverListaUsuarias (true)">
+                          (volverMostrar) = "volverListaUsuarias (true)"
+                          (encenderRegimenEditar) = "encenderRegimenEditar (true)">
         </app-show-usuario>
         <button class="btn btn-info" (click)="volverListaUsuarias(false)">Volver</button>
       </div>
@@ -72,8 +73,12 @@
 
       <!--Comienzo regimen Crear de usuarios-->
 
-      <div *ngIf="regimenCrear">
-        <app-crear-usuario (volverMostrar) = "volverListaUsuarias (true)"></app-crear-usuario>
+      <div *ngIf="regimenCrear  || regimenUpdate">
+        <app-crear-usuario (volverMostrar) = "volverListaUsuarias (true)"
+                            [regimenUpdate]="regimenUpdate"
+                            [usuarioParaEditar]="usuarioMostrar">
+
+        </app-crear-usuario>
         <button class="btn btn-info" (click)="volverListaUsuarias(false)">Volver</button>
       </div>
 

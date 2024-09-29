@@ -1,11 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup, FormBuilder, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { IProduct } from '../../interfaces/iproduct';
 import { ProductosService } from '../../services/productos.service';
-import { response } from 'express';
 import { Icategoria } from '../../interfaces/icategoria';
 import { CategoriasService } from '../../services/categorias.service';
 
@@ -26,7 +25,8 @@ export class CrearProductoComponent implements OnInit {
 
   p_foto : ArrayBuffer | undefined = undefined;
   categorias: Icategoria[] = []  // Inicializar array categories
-
+  @Input() productoParaEditar:IProduct | null = null;
+  @Input() regimenUpdate: boolean = false;
 
   ngOnInit(): void {
 
@@ -52,6 +52,25 @@ export class CrearProductoComponent implements OnInit {
       receiveInfo: [true]
     });
 
+    if (this.regimenUpdate) {
+      console.log ("regimen editar:" + this.regimenUpdate);
+      if (this.productoParaEditar) {
+        this.formCreateProducto.patchValue({
+          p_nombre: this.productoParaEditar.p_nombre,
+          p_description: this.productoParaEditar.p_description,
+          p_ancho: this.productoParaEditar.p_ancho,
+          p_longitud: this.productoParaEditar.p_longitud,
+          p_altura: this.productoParaEditar.p_altura,
+          p_peso: this.productoParaEditar.p_peso,
+          p_categoria: this.productoParaEditar.p_categoria-1,
+          p_foto: this.productoParaEditar.p_foto,
+          p_precio_compra: this.productoParaEditar.p_precio_compra,
+          p_precio_venta: this.productoParaEditar.p_precio_venta,
+          p_codigo: this.productoParaEditar.p_codigo,
+        });
+      }
+    }
+
   }
 
 
@@ -74,8 +93,15 @@ export class CrearProductoComponent implements OnInit {
           p_cantidad_almacen: 0,
           p_foto: this.p_foto,
         };
-        this.productosService.createProducto(productoNew).subscribe((response) => this.volverMostrar.emit(true));
-        console.log(productoNew);
+        if (!this.regimenUpdate) {    // si no regimen update - creamos producto nuevo
+          this.productosService.createProducto(productoNew).subscribe((response) => this.volverMostrar.emit(true));
+          console.log("grabado: " + productoNew);
+        } else {   // si es regimen update - update producto
+          if (this.productoParaEditar && this.productoParaEditar.product_id) {
+            this.productosService.actualizarProducto(this.productoParaEditar.product_id, productoNew).subscribe((response) => this.volverMostrar.emit(true));
+            console.log("editado: " + productoNew);
+          }
+        }
       } else {
          console.log("form no es validate");
          this.formCreateProducto.markAllAsTouched(); // Помечаем все поля как затронутые, чтобы показать ошибки
@@ -94,6 +120,12 @@ export class CrearProductoComponent implements OnInit {
 
           reader.readAsDataURL(file);
         }
+      }
+
+
+
+      public updateDatos (){
+
       }
 
 }

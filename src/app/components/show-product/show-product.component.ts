@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { IProduct } from '../../interfaces/iproduct';
 import { FacturasService } from '../../services/facturas.service';
 import { ProductosService } from '../../services/productos.service';
-import { UpdateProductComponent } from '../update-product/update-product.component';
 
 
 @Component({
   selector: 'app-show-product',
   standalone: true,
-  imports: [CommonModule, UpdateProductComponent,],
+  imports: [CommonModule,],
   templateUrl: './show-product.component.html',
   styleUrl: './show-product.component.scss'
 })
@@ -17,8 +16,10 @@ export class ShowProductComponent implements OnInit {
 
   constructor( private productoService: ProductosService) {}
   @Input() productoMostrar!:IProduct;
+  @Output () encenderRegimenEditar = new EventEmitter <boolean> ();
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
   productoParaEditar:IProduct | null = null;
+  regimenEditar: boolean = false;
 
   ngOnInit() {
 
@@ -42,14 +43,8 @@ export class ShowProductComponent implements OnInit {
 	  }
   }
 
-  regimenUpdate: boolean = false;  // Regimen de update producto nuevo
-
-
-  encenderRegimenUpdate () {
-    this.regimenUpdate = !this.regimenUpdate;  //
-    console.log (this.regimenUpdate);
-    if (this.regimenUpdate) {
-      this.productoParaEditar = this.productoMostrar;
-    }
+  editarProducto() {
+    console.log ("editar");
+    this.encenderRegimenEditar.emit(true);
   }
 }

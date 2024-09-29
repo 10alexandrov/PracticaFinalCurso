@@ -1,6 +1,15 @@
-<h1>Crear nuevo usuario</h1>
 <div class="wrapper">
   <form [formGroup] = "formCreateUser" (ngSubmit)="sendDatos()">
+    <div class="d-flex mt-3 mb-5">
+      <h1 *ngIf = "!regimenUpdate">Crear nuevo Producto</h1>
+      <h1 *ngIf = "regimenUpdate">Editar producto</h1>
+      <div *ngIf = "!regimenUpdate" class="ms-5 mt-2" >
+        <button type="submit" class="btn btn-primary btn-AW">Crear usuario</button>
+      </div>
+      <div *ngIf = "regimenUpdate" class="ms-5 mt-2" >
+        <button type="submit" class="btn btn-primary btn-AW">Editar datos</button>
+      </div>
+    </div>
     <div class="mb-3">
       <label for="nombre" class="form-label-AW">Nombre</label>
       <div class="d-flex col-md-6">
@@ -86,18 +95,16 @@
 
     <div class="form-check form-check-inline">
        <input class="form-check-input" type="radio" formControlName="u_active" [value]="true" id="activeTrue">
-       <label class="form-check-label form-label-AW" for="activeFalse">
+       <label class="form-check-label form-label-AW" for="activeTrue">
           Usuario active
         </label>
     </div>
+
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" formControlName="u_active" [value]="false" id="activeFalse">
         <label class="form-check-label form-label-AW" for="activeFalse">
            Usuario inactive
          </label>
-    </div>
-    <div class="m-3">
-      <button type="submit" class="btn btn-primary">Crear usuario</button>
     </div>
   </form>
 </div>

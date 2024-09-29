@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IUsuarios } from '../../interfaces/iusuarios';
-import { UsuariosDeleteService } from '../../services/usuarios-delete.service';
+import { UsuariosService } from '../../services/usuarios.service';
 
 @Component({
   selector: 'app-show-usuario',
@@ -12,16 +12,19 @@ import { UsuariosDeleteService } from '../../services/usuarios-delete.service';
 })
 export class ShowUsuarioComponent {
 
-  constructor( private usuarioDeleteService: UsuariosDeleteService) {}
+  constructor( private usuarioService: UsuariosService) {}
   @Input() usuarioMostrar!:IUsuarios;
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
+  @Output () encenderRegimenEditar = new EventEmitter <boolean> ();
 
+  usuarioParaEditar:IUsuarios | null = null;
+  regimenEditar: boolean = false;
 
 
   deleteUsuario(id_usuario: number): void {
 
 		if (id_usuario) {
-			this.usuarioDeleteService.deleteUsuario(id_usuario).subscribe(
+			this.usuarioService.deleteUsuario(id_usuario).subscribe(
 			  () => {
 				console.log(`Usuario with  id ${id_usuario} deleted successfully.`);
         this.volverMostrar.emit(true);
@@ -33,6 +36,11 @@ export class ShowUsuarioComponent {
 		  } else {
 			console.error(`Evento with title ${id_usuario} has not found.`);
 	  }
+  }
+
+  editarUsuario() {
+    console.log ("editar");
+    this.encenderRegimenEditar.emit(true);
   }
 
 }

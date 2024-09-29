@@ -1,4 +1,4 @@
-<div *ngIf ="!regimenUpdate" class="wrapper">
+<div class="wrapper">
   <h2 class="mt-2"> {{productoMostrar.p_nombre}}</h2>
   <div class="description mb-2">{{productoMostrar.p_description}}</div>
     <div class="row d-flex">
@@ -57,7 +57,7 @@
       <div class="col-4">
           <img *ngIf="productoMostrar.imagenUrl" [src]="productoMostrar.imagenUrl">
           <div class="d-flex">
-            <button class="btn btn-warning m-3" (click)="(productoMostrar.product_id) ? encenderRegimenUpdate () : null">Editar</button>
+            <button class="btn btn-warning m-3" (click)="editarProducto()">Editar</button>
             <button class="btn btn-danger m-3" (click)="(productoMostrar.product_id) ? deleteProducto(productoMostrar.product_id) : null" >Borrar</button>
           </div>
       </div>
@@ -66,11 +66,11 @@
 
       <!--Comienzo regimen Mostrar de producto-->
 
-      <div *ngIf="regimenUpdate && productoParaEditar">
+      <!--<div *ngIf="regimenUpdate && productoParaEditar">
         <app-update-product [productoParaEditar]="productoParaEditar">
-                          <!--(volverMostrar) = "volverMostrarProducto (true)">-->
+                          (volverMostrar) = "volverMostrarProducto (true)">
         </app-update-product>
-        <!-- <button class="btn btn-info" (click)="volverMostrarProducto(false)">Volver</button> -->
-      </div>
+        <button class="btn btn-info" (click)="volverMostrarProducto(false)">Volver</button>
+      </div>-->
 
       <!--Fin regimen Mostrar de producto -->

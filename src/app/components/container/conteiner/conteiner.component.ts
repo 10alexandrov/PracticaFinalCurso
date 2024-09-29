@@ -46,6 +46,7 @@ mostrarProductoId:number = 0;  // numero producto para mostrar
 productoMostrar:IProduct = this.productos[this.mostrarProductoId];   // producto para mostrar
 regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar producto
 regimenCrear:boolean = false;  // encender regimen crear nuevo producto
+regimenUpdate: boolean = false; //  encender regimen editar producto
 
 mostrarProducto(id:number) {
   const findProduct = this.productos.find(product => product.product_id == id);
@@ -54,7 +55,7 @@ mostrarProducto(id:number) {
   } else {
     console.log('Error: no hay producto con este id: ', id);
   }
-
+  this.regimenUpdate = false;
   this.regimenMostrar = true;   // Encender el modo de visualisar de producto
 }
 
@@ -62,6 +63,7 @@ mostrarProducto(id:number) {
 volverMostrarProducto ($flag: boolean) {
   this.regimenMostrar = false;   // Encender el modo de visualisar de producto
   this.regimenCrear = false;
+  this.regimenUpdate = false;
   console.log(this.regimenMostrar);
 
   if ($flag) this.obtenerListaProductos();
@@ -90,7 +92,16 @@ obtenerListaProductos() {
 }
 
 crearNuevoProducto() {
-  this.regimenCrear = true;   // Encender el modo de visualisar de usuario
+  this.regimenCrear = true;   // Encender el modo de visualisar de producto
+}
+
+encenderRegimenEditar (flag: boolean) {   // Encender el modo de Update de producto
+  console.log ("flag");
+  if (flag) {
+    this.regimenUpdate = true;
+    this.regimenMostrar = false;
+    this.regimenCrear = false;
+  }
 }
 
 

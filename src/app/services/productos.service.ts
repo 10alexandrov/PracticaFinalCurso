@@ -54,6 +54,20 @@ export class ProductosService {
       }
     }
 
+    actualizarProducto (id: number, product: IProduct): Observable<any> {
+
+      const headers = this.getHeaderAuth ();
+      const urlConId = `${this.productUrl}/${id}`;
+
+      if (this.authService.checkTokenExpiration()) {
+        console.log('update');
+        return this.http.put(urlConId, product, { headers});
+      } else {
+        console.log('no update');
+        return EMPTY;
+      }
+    }
+
 
     getHeaderAuth (): HttpHeaders {  // creamos header para authenticacion
       const token = this.authService.getToken();

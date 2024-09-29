@@ -53,7 +53,6 @@ logout(): void {
   }
 
   getToken(): string | null {
-    console.log('authToken'+localStorage.getItem("jwtToken"));
     return localStorage.getItem('jwtToken');
   }
 

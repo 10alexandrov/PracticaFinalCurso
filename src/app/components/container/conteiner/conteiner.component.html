@@ -8,7 +8,7 @@
 
     <div class="card-block">
 
-      <div *ngIf="!regimenMostrar && !regimenCrear">
+      <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate">
         <!-- filter -->
         <form class="form mt-3 mb-3">
           <div class="form-group row">
@@ -66,8 +66,11 @@
 
       <!--Comienzo regimen Crear de productos-->
 
-      <div *ngIf="regimenCrear">
-        <app-crear-producto (volverMostrar) = "volverMostrarProducto (true)"></app-crear-producto>
+      <div *ngIf="regimenCrear || regimenUpdate">
+        <app-crear-producto (volverMostrar) = "volverMostrarProducto (true)"
+                            [regimenUpdate]="regimenUpdate"
+                            [productoParaEditar]="productoMostrar">
+        </app-crear-producto>
         <button class="btn btn-info" (click)="volverMostrarProducto(false)">Volver</button>
       </div>
 
@@ -79,7 +82,8 @@
 
       <div *ngIf="regimenMostrar">
         <app-show-product [productoMostrar]="productoMostrar"
-                          (volverMostrar) = "volverMostrarProducto (true)">
+                          (volverMostrar) = "volverMostrarProducto (true)"
+                          (encenderRegimenEditar) = "encenderRegimenEditar (true)">
         </app-show-product>
         <button class="btn btn-info" (click)="volverMostrarProducto(false)">Volver</button>
       </div>

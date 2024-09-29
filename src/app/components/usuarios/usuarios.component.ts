@@ -46,6 +46,7 @@ usuarioMostrar!: IUsuarios;   // использовать "!" для non-null as
 
 regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar usuarios
 regimenCrear:boolean = false;  // encender regimen crear nuevu usuario
+regimenUpdate: boolean = false; //  encender regimen editar producto
 
 mostrarUsuario(id:number) {
   const findUsuario = this.usuarios.find(usuario => usuario.usuario_id == id);
@@ -56,18 +57,30 @@ mostrarUsuario(id:number) {
   }
 
   this.regimenMostrar = true;   // Encender el modo de visualisar de usuario
+  this.regimenUpdate = false;    // Apagamos regimen de update usuario
 }
 
 crearNuevoUsuario() {
   this.regimenCrear = true;   // Encender el modo de visualisar de usuario
+  this.regimenUpdate = false;    // Apagamos regimen de update usuario
 }
 
 // Volver a modo de lista de usuarios
 volverListaUsuarias ($flag: boolean) {
   this.regimenMostrar = false;   // Apagar el modo de visualisar de usuario
   this.regimenCrear = false;   // Apagar el modo de crear de usuario
+  this.regimenUpdate = false;    // Apagamos regimen de update usuario
 
   if ($flag) this.obtenerListaUsuarios();
+}
+
+encenderRegimenEditar (flag: boolean) {   // Encender el modo de Update de usuario
+  console.log ("flag");
+  if (flag) {
+    this.regimenUpdate = true;
+    this.regimenMostrar = false;
+    this.regimenCrear = false;
+  }
 }
 
 // funccion para obtener la lista con todas usuarios
