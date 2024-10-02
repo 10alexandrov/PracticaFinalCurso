@@ -43,4 +43,8 @@ export class ShowUsuarioComponent {
     this.encenderRegimenEditar.emit(true);
   }
 
+  volverMostrarUsuario() {
+    this.volverMostrar.emit (false);
+  }
+
 }

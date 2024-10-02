@@ -1,13 +1,18 @@
 <div class="wrapper">
+
+
   <form [formGroup] = "formCreateUser" (ngSubmit)="sendDatos()">
     <div class="d-flex mt-3 mb-5">
-      <h1 *ngIf = "!regimenUpdate">Crear nuevo Producto</h1>
+      <h1 *ngIf = "!regimenUpdate">Crear nuevo Usuario</h1>
       <h1 *ngIf = "regimenUpdate">Editar producto</h1>
       <div *ngIf = "!regimenUpdate" class="ms-5 mt-2" >
         <button type="submit" class="btn btn-primary btn-AW">Crear usuario</button>
       </div>
       <div *ngIf = "regimenUpdate" class="ms-5 mt-2" >
         <button type="submit" class="btn btn-primary btn-AW">Editar datos</button>
+      </div>
+      <div  class="ms-5 mt-2" >
+        <button (click) = "volverMostrarUsuario()" class="btn btn-info btn-AW">Volver</button>
       </div>
     </div>
     <div class="mb-3">

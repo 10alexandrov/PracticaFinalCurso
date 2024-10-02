@@ -25,6 +25,10 @@ export class ShowProductComponent implements OnInit {
 
   }
 
+  volverMostrarProducto() {
+    this.volverMostrar.emit (false);
+  }
+
   deleteProducto(id_product: number): void {
     console.log ('delete');
 

@@ -61,6 +61,7 @@ mostrarFactura(id:number) {
 volverListaFacturas ($flag: boolean) {
   this.regimenMostrar = false;   // Apagar el modo de visualisar de usuario
   this.regimenCrear = false;   // Apagar el modo de crear de usuario
+  console.log ("flag recarga:", $flag);
 
   if ($flag) this.obtenerListaFacturas();
 }

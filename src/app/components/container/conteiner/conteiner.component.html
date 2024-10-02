@@ -67,11 +67,10 @@
       <!--Comienzo regimen Crear de productos-->
 
       <div *ngIf="regimenCrear || regimenUpdate">
-        <app-crear-producto (volverMostrar) = "volverMostrarProducto (true)"
+        <app-crear-producto (volverMostrar) = "volverMostrarProducto ($event)"
                             [regimenUpdate]="regimenUpdate"
                             [productoParaEditar]="productoMostrar">
         </app-crear-producto>
-        <button class="btn btn-info" (click)="volverMostrarProducto(false)">Volver</button>
       </div>
 
       <!--Fin regimen Crear de productos -->
@@ -82,10 +81,9 @@
 
       <div *ngIf="regimenMostrar">
         <app-show-product [productoMostrar]="productoMostrar"
-                          (volverMostrar) = "volverMostrarProducto (true)"
-                          (encenderRegimenEditar) = "encenderRegimenEditar (true)">
+                          (volverMostrar) = "volverMostrarProducto ($event)"
+                          (encenderRegimenEditar) = "encenderRegimenEditar ($event)">
         </app-show-product>
-        <button class="btn btn-info" (click)="volverMostrarProducto(false)">Volver</button>
       </div>
 
       <!--Fin regimen Mostrar de producto -->

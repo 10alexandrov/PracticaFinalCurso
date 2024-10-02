@@ -97,4 +97,8 @@ export class CrearUsuarioComponent implements OnInit{
 
     }
 
+    volverMostrarUsuario() {
+      this.volverMostrar.emit(false);
+    }
+
 }

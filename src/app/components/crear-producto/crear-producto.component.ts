@@ -128,4 +128,8 @@ export class CrearProductoComponent implements OnInit {
 
       }
 
+      public volverMostrarProductos (){
+        this.volverMostrar.emit(false);
+      }
+
 }

@@ -81,9 +81,8 @@
        <!--Comienzo regimen mostrar de factura-->
       <div *ngIf="regimenMostrar">
         <app-show-factura [mostrarFacturaId]="mostrarFacturaId"
-                          (volverMostrar) = "volverListaFacturas (true)">
+                          (volverMostrar) = "volverListaFacturas ($event)">
         </app-show-factura>
-        <button class="btn btn-info" (click)="volverListaFacturas(false)">Volver</button>
       </div>
       <!--Fin regimen mostrar de facturas-->
 

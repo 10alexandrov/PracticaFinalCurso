@@ -33,9 +33,12 @@ export class ShowFacturaComponent implements OnInit{
 
   editarFactura () {}
 
-  borrarFactura (id_factura: number): void  {
+  volverMostrarFactura () {
+    console.log ("volver");
+    this.volverMostrar.emit(false);
+  }
 
-    console.log ('delete');
+  borrarFactura (id_factura: number): void  {
 
 		if (id_factura) {
 			this.facturasService.deleteFactura(id_factura).subscribe(
