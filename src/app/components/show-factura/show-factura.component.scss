@@ -1,0 +1,27 @@
+.btn-AW {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+  padding: 8px 14px 7px;
+}
+
+.btn-AW:hover{
+  box-shadow: 0 3px 6px rgba(0,0,0,.2),0 3px 6px rgba(0,0,0,.26);
+}
+
+.btn-AW {
+  outline: 0!important
+}
+
+.btn-AW:hover {
+  transition: all .3s
+}

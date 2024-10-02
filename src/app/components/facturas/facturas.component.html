@@ -50,6 +50,8 @@
                   <th>{{headers.numero}}</th>
                   <th >{{headers.nombre}}</th>
                   <th>{{headers.suma}}</th>
+                  <th>{{headers.direccion}}</th>
+                  <th>{{headers.estado}}</th>
                   <th>{{headers.created}}</th>
                 </tr>
               </thead>
@@ -58,7 +60,13 @@
                   <td (click) ="mostrarFactura(factura.factura_id)">{{factura.factura_id}}</td>
                   <td>{{factura.f_id_cliente}}</td>
                   <td>{{factura.f_suma}}</td>
-                  <td>{{factura.created_at}}</td>
+                  <td *ngIf="!factura.f_tipo">Entrada</td>
+                  <td *ngIf="factura.f_tipo">Salida</td>
+                  <td *ngIf="!factura.f_tipo && !factura.f_aceptado">No aceptado</td>
+                  <td *ngIf="!factura.f_tipo && factura.f_aceptado" style="color:green">Aceptado</td>
+                  <td *ngIf="factura.f_tipo && !factura.f_aceptado">No preparado</td>
+                  <td *ngIf="factura.f_tipo && factura.f_aceptado">Preparado</td>
+                  <td>{{factura.created_at | date : "mediumDate"}}</td>
                 </tr>
 
               </tbody>
@@ -70,9 +78,9 @@
         </div>
         <!--Fin la tabla de facturas-->
 
-       <!--Comienzo regimen mostrar de usuarios-->
+       <!--Comienzo regimen mostrar de factura-->
       <div *ngIf="regimenMostrar">
-        <app-show-factura [facturaMostrar]="facturaMostrar"
+        <app-show-factura [mostrarFacturaId]="mostrarFacturaId"
                           (volverMostrar) = "volverListaFacturas (true)">
         </app-show-factura>
         <button class="btn btn-info" (click)="volverListaFacturas(false)">Volver</button>

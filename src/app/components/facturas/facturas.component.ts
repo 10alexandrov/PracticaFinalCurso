@@ -26,7 +26,7 @@ export class FacturasComponent implements OnInit{
     private sanitizer: DomSanitizer) {}  // injectar relaciones con BD
 
 
-headers = {numero: "Numero", nombre: "Client", suma: "Suma", created: "Creado"};
+headers = {numero: "Numero", nombre: "Client", suma: "Suma", direccion: "Direccion", estado: "Estado", created: "Creado"};
 direccion = ['entrante', 'saliente'];
 
 facturas: IFactura[] = [] // inicializar array usuarios
@@ -46,19 +46,14 @@ statusSearch: number = -1; // Para buscar por status de factura
 
 // Mostrar facturas   ****************
 
-mostrarFacturaId:number = 0;  // numero usuario para mostrar
+mostrarFacturaId:number = 0;  // numero factura para mostrar
 facturaMostrar!: IFactura;   // использовать "!" для non-null assertion
 regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar producto
 regimenCrear:boolean = false;  // encender regimen crear nuevu usuario
 
 mostrarFactura(id:number) {
-  const findFactura = this.facturas.find(factura => factura.factura_id == id);
-  if (findFactura) {
-   this.facturaMostrar = findFactura;
-  } else {
-    console.log('Error: no hay factura con este id: ', id);
-  }
-
+  console.log(id);
+  this.mostrarFacturaId = id;
   this.regimenMostrar = true;   // Encender el modo de visualisar de facturas
 }
 
