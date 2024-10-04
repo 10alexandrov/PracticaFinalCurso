@@ -1,0 +1,34 @@
+<div class="d-flex mt-3 justify-content-between" >
+  <h2> Factura nueva</h2>
+  <button (click) = "sendDatos()" class="btn btn-primary btn-AW">Editar datos</button>
+</div>
+<table class="table table-striped table-primary table-bordered">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Suma</th>
+      <th>Borrar</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <tr *ngFor = "let mercancia of mercancias">
+      <td> {{mercancia.m_nombre_producto}} </td>
+      <td>
+        <input style="width:50px;"
+        type="number"
+        [(ngModel)]="mercancia.m_cantidad_pedida"
+        (blur)="updateQuantity(mercancia.m_id_productos, mercancia.m_cantidad_pedida)"/>
+      </td>
+      <td> {{mercancia.m_precio}} </td>
+      <td> {{mercancia.m_suma_pedida}} </td>
+      <td>
+        <button id="{{mercancia.m_id_productos}}" class="btn btn-primary btn-AW borrar">Borrar</button>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<div class="lineaTotal"></div>
+<div class="sumaTotal">Total: {{getSumaFactura () | removeZeroAndForma }} euros</div>

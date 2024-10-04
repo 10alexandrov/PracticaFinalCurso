@@ -12,6 +12,8 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { FacturasFilterPipe  } from '../../pipes/facturas-filter.pipe'
 import { MenuComponent } from '../menu/menu.component';
 import { CrearFacturaComponent } from '../crear-factura/crear-factura.component';
+import { IMercancia } from '../../interfaces/imercancia';
+import { RemoveZeroAndFormaPipe } from '../../pipes/remove-zero-and-forma.pipe';
 
 @Component({
   selector: 'app-facturas',
@@ -29,7 +31,7 @@ export class FacturasComponent implements OnInit{
 headers = {numero: "Numero", nombre: "Client", suma: "Suma", direccion: "Direccion", estado: "Estado", created: "Creado"};
 direccion = ['entrante', 'saliente'];
 
-facturas: IFactura[] = [] // inicializar array usuarios
+facturas: IFactura[] = [] // inicializar array facturas
 
 ngOnInit () {
 
@@ -48,8 +50,9 @@ statusSearch: number = -1; // Para buscar por status de factura
 
 mostrarFacturaId:number = 0;  // numero factura para mostrar
 facturaMostrar!: IFactura;   // использовать "!" для non-null assertion
-regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar producto
-regimenCrear:boolean = false;  // encender regimen crear nuevu usuario
+regimenMostrar:boolean = false;   // encender regimen entre lista de factura/mostrar producto
+regimenCrear:boolean = false;  // encender regimen crear nuevu factura
+regimenUpdate: boolean = false; //  encender regimen editar factura
 
 mostrarFactura(id:number) {
   console.log(id);
@@ -59,8 +62,9 @@ mostrarFactura(id:number) {
 
 // Volver a modo de lista de usuarios
 volverListaFacturas ($flag: boolean) {
-  this.regimenMostrar = false;   // Apagar el modo de visualisar de usuario
-  this.regimenCrear = false;   // Apagar el modo de crear de usuario
+  this.regimenMostrar = false;   // Apagar el modo de visualisar de factura
+  this.regimenCrear = false;   // Apagar el modo de crear de factura
+  this.regimenUpdate = false; //  encender regimen editar factura
   console.log ("flag recarga:", $flag);
 
   if ($flag) this.obtenerListaFacturas();
@@ -77,8 +81,20 @@ obtenerListaFacturas() {
 
 }
 
-crearNuevaFactura() {
-  this.regimenCrear = true;   // Encender el modo de visualisar de usuario
-}
+  crearNuevaFactura() {
+    this.regimenCrear = true;   // Encender el modo de visualisar de usuario
+    this.regimenMostrar = false;
+    this.regimenUpdate = false;
+  }
+
+  encenderRegimenEditar (flag: boolean) {   // Encender el modo de Update de producto
+    console.log ("flag");
+    if (flag) {
+      this.regimenUpdate = true;
+      this.regimenMostrar = false;
+      this.regimenCrear = false;
+    }
+
+  }
 
 }

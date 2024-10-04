@@ -42,4 +42,19 @@ export class ImercanciaService {
       'Authorization': `Bearer ${token}`
     });
   }
+
+  createMercancia (mercancias: IMercancia [], f_suma: number): Observable<IMercancia[]> {
+
+    const headers = this.getHeaderAuth ();
+    const body = {mercancias, f_suma};
+
+    if (this.authService.checkTokenExpiration()) {
+      const getURL = `http://localhost:8080/api/mercancias`;
+      return this.http.post<IMercancia[]>(getURL, body, {headers}).pipe(
+        map(response => response)
+      );
+    } else {
+      return EMPTY;
+    }
+  }
 }

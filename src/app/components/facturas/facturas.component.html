@@ -87,14 +87,16 @@
       <!--Fin regimen mostrar de facturas-->
 
 
-      <!--Comienzo regimen Crear de usuarios-->
+      <!--Comienzo regimen Crear de factura-->
 
-      <div *ngIf="regimenCrear">
-        <app-crear-factura (volverMostrar) = "volverListaFacturas (true)"></app-crear-factura>
-        <button class="btn btn-info" (click)="volverListaFacturas(false)">Volver</button>
+      <div *ngIf="regimenCrear || regimenUpdate">
+        <app-crear-factura (volverMostrar) = "volverListaFacturas ($event)"
+                          [regimenUpdate]="regimenUpdate">
+
+        </app-crear-factura>
       </div>
 
-      <!--Fin regimen Crear de usuarios-->
+      <!--Fin regimen Crear de factura-->
 
       </div>
 

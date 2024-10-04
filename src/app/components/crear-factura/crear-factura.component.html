@@ -1,1 +1,87 @@
-<p>crear-factura works!</p>
+<div class="wrapper">
+
+    <div class="d-flex mt-3 mb-5">
+      <h1 *ngIf = "!regimenUpdate">Crear nueva Factura</h1>
+      <h1 *ngIf = "regimenUpdate">Editar factura</h1>
+      <div  class="ms-5 mt-2" >
+        <button (click) = "volverMostrarFacturas (false)" class="btn btn-info btn-AW">Volver</button>
+      </div>
+    </div>
+
+
+
+    <!-- filter -->
+    <form class="form mt-3 mb-3">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+          Filtro
+        </label>
+        <div class="col-sm-3">
+          <input type="text" [(ngModel)]="filterSearch" class="form-control"
+            name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+        </div>
+        <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+          Categoria
+        </label>
+        <div class="col-sm-3 mt-2">
+          <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch">
+              <option value="0">Seleccione una categoria</option>
+              <option *ngFor = "let categoria of categorias" [value]="categoria.id_categoria">{{categoria.c_nombre}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+    <!-- Fin de filter -->
+
+
+    <!--La tabla de produtos-->
+    <div class="table-responsive" *ngIf ="productos && productos.length">
+      <table class="table table-striped table-primary table-bordered">
+        <thead>
+          <tr>
+            <th>{{headers.nombre}}</th>
+            <th>{{headers.categoria}}</th>
+            <th>{{headers.cantidad}}</th>
+            <th>{{headers.precio}}</th>
+            <th>Añadir</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor = "let producto of productos | productFilter:filterSearch:categoriaSearch">
+            <td >{{producto.p_nombre}}</td>
+            <td>{{producto.p_nombre_categoria}}</td>
+            <td>{{producto.p_cantidad_almacen}}</td>
+            <td>{{producto.p_precio_compra}}</td>
+            <td>
+              <button id="{{producto.product_id}}" class="btn btn-primary btn-AW anadir">+</button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+<!--
+  <form [formGroup] = "formCreateProducto" (ngSubmit)="sendDatos()">
+    <div class="d-flex mt-3 mb-5">
+      <h2 *ngIf = "!regimenUpdate">Crear nueva Factura</h2>
+      <h2 *ngIf = "regimenUpdate">Editar factura</h2>
+      <div *ngIf = "!regimenUpdate" class="ms-5 mt-2" >
+        <button type="submit" class="btn btn-primary btn-AW">Crear</button>
+      </div>
+      <div *ngIf = "regimenUpdate" class="ms-5 mt-2" >
+        <button type="submit" class="btn btn-primary btn-AW">Editar datos</button>
+      </div>
+    </div>
+  </form>
+</div>  -->
+
+  <!--   Forma nueva factura -->
+    <div *ngIf ="mercancias.length">
+        <app-crear-factura-new
+            [mercancias]="mercancias"
+            [regimenUpdate]="regimenUpdate"
+            (mercanciasRenovar)="actualizarMercancias($event)"
+            (volverMostrar) = "volverMostrarFacturas ($event)">
+        </app-crear-factura-new>
+    </div>
+
