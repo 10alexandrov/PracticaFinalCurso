@@ -21,7 +21,7 @@
         [(ngModel)]="mercancia.m_cantidad_pedida"
         (blur)="updateQuantity(mercancia.m_id_productos, mercancia.m_cantidad_pedida)"/>
       </td>
-      <td> {{mercancia.m_precio}} </td>
+      <td> {{mercancia.m_precio_venta}} </td>
       <td> {{mercancia.m_suma_pedida}} </td>
       <td>
         <button id="{{mercancia.m_id_productos}}" class="btn btn-primary btn-AW borrar">Borrar</button>

@@ -51,7 +51,7 @@
             <td >{{producto.p_nombre}}</td>
             <td>{{producto.p_nombre_categoria}}</td>
             <td>{{producto.p_cantidad_almacen}}</td>
-            <td>{{producto.p_precio_compra}}</td>
+            <td>{{producto.p_precio_venta}}</td>
             <td>
               <button id="{{producto.product_id}}" class="btn btn-primary btn-AW anadir">+</button>
             </td>
@@ -80,6 +80,7 @@
         <app-crear-factura-new
             [mercancias]="mercancias"
             [regimenUpdate]="regimenUpdate"
+            [updateFacturaId]="updateFacturaId"
             (mercanciasRenovar)="actualizarMercancias($event)"
             (volverMostrar) = "volverMostrarFacturas ($event)">
         </app-crear-factura-new>

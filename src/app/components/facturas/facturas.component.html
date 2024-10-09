@@ -8,7 +8,7 @@
 
       <div class="card-block">
 
-        <div *ngIf="!regimenMostrar && !regimenCrear">
+        <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate">
           <!-- filter -->
           <form class="form mt-3 mb-3">
             <div class="form-group row">
@@ -56,7 +56,7 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor = "let factura of facturas | facturasFilter:clientSearch:direccionSearch:statusSearch">
+                <tr *ngFor = "let factura of facturasPaginated | facturasFilter:clientSearch:direccionSearch:statusSearch">
                   <td (click) ="mostrarFactura(factura.factura_id)">{{factura.factura_id}}</td>
                   <td>{{factura.f_id_cliente}}</td>
                   <td>{{factura.f_suma}}</td>
@@ -71,6 +71,14 @@
 
               </tbody>
             </table>
+
+               <!-- pagination -->
+                  <div class="pagination-controls">
+                    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+                    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                  </div>
+
           </div>
           <div>
             <button class="btn btn-info" (click)="crearNuevaFactura()">Crear nuevo Pedido</button>
@@ -81,7 +89,8 @@
        <!--Comienzo regimen mostrar de factura-->
       <div *ngIf="regimenMostrar">
         <app-show-factura [mostrarFacturaId]="mostrarFacturaId"
-                          (volverMostrar) = "volverListaFacturas ($event)">
+                          (volverMostrar) = "volverListaFacturas ($event)"
+                          (encenderRegimenEditar) = "encenderRegimenEditar ($event)">
         </app-show-factura>
       </div>
       <!--Fin regimen mostrar de facturas-->
@@ -91,7 +100,8 @@
 
       <div *ngIf="regimenCrear || regimenUpdate">
         <app-crear-factura (volverMostrar) = "volverListaFacturas ($event)"
-                          [regimenUpdate]="regimenUpdate">
+                          [regimenUpdate]="regimenUpdate"
+                          [updateFacturaId] = "mostrarFacturaId">
 
         </app-crear-factura>
       </div>

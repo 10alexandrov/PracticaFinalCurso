@@ -73,7 +73,11 @@ volverListaFacturas ($flag: boolean) {
 // funccion para obtener la lista con todas usuarios
 obtenerListaFacturas() {
   this.facturasService.getFacturas().subscribe (
-    (data) => {this.facturas = data;},
+    (data) => {
+      this.facturas = data;
+      this.totalPages = Math.ceil(this.facturas.length / this.itemsPerPage);   //  cuantos paginas para paginacion
+      this.facturasPaginated = this.getPaginatedData();                       //   obtener primera pagina
+    },
     (error) => { console.log('Error data de producto', error)}
   );
 
@@ -96,5 +100,37 @@ obtenerListaFacturas() {
     }
 
   }
+
+
+    // Pagination
+
+    itemsPerPage = 5;           // Cantidad de paginas
+    currentPage = 1;             // Carrent pagina
+    totalPages = 1;              // Cantidad total de paginas
+    facturasPaginated: IFactura[] = [];     // array paginado
+
+    // Возвращаем данные для текущей страницы
+    getPaginatedData() {
+      console.log (this.facturas);
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.facturas.slice(startIndex, endIndex);
+    }
+
+    // Переход на предыдущую страницу
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.facturasPaginated = this.getPaginatedData();
+      }
+    }
+
+    // Переход на следующую страницу
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.facturasPaginated = this.getPaginatedData();
+      }
+    }
 
 }

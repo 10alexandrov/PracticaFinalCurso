@@ -20,7 +20,7 @@ export class CrearFacturaNewComponent implements OnInit, AfterViewChecked, OnCha
   @Output() mercanciasRenovar = new EventEmitter <IMercancia[]>();
   @Input() regimenUpdate: boolean = false;
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de facturas
-
+  @Input() updateFacturaId: number = 0;
 
   mercanciasEnPedido: IMercancia [] = this.mercancias;
 
@@ -78,8 +78,8 @@ ngAfterViewChecked(): void {
       if (value >= 0) {  // Можно добавить проверку на корректность введенного значения
         const index = this.mercancias.findIndex(obj => obj.m_id_productos === idProducto);
         this.mercancias[index].m_cantidad_pedida = value;
-        if (this.mercancias[index].m_precio) {
-          const suma = value * this.mercancias[index].m_precio;
+        if (this.mercancias[index].m_precio_venta) {
+          const suma = value * this.mercancias[index].m_precio_venta;
           this.mercancias[index].m_suma_pedida = suma;
           this.sumarFactura ();
         }
@@ -107,15 +107,15 @@ ngAfterViewChecked(): void {
   sendDatos() {
     console.log('send');
     if (!this.regimenUpdate) {    // si no regimen update - creamos producto nuevo console.log ('exit!')
-      this.mercanciaService.createMercancia(this.mercancias, this.sumaFactura).subscribe((response) => console.log ('exit!')); //this.volverMostrar.emit(true)
+      this.mercanciaService.createMercancia(this.mercancias, this.sumaFactura).subscribe((response) => this.volverMostrar.emit(true)); //this.volverMostrar.emit(true)
       console.log("grabado: ");
     } else {   // si es regimen update - update producto
-      // if (this.productoParaEditar && this.productoParaEditar.product_id) {
-      //   this.mercanciaService.actualizarProducto(this.productoParaEditar.product_id, productoNew).subscribe((response) => this.volverMostrar.emit(true));
+       if (this.mercancias && this.updateFacturaId) {
+         this.mercanciaService.actualizarFactura(this.updateFacturaId, this.mercancias, this.sumaFactura).subscribe((response) => this.volverMostrar.emit(true));
         console.log("editado: ");
       }
-      this.volverMostrarFacturas ()
     }
+  }
 
     // funccion para volver con lista de facturas
      volverMostrarFacturas () {

@@ -10,6 +10,7 @@ import { CategoriasService } from '../../services/categorias.service';
 import { IMercancia } from '../../interfaces/imercancia';
 import { ProductFilterPipe } from '../../pipes/product-filter.pipe';
 import { CrearFacturaNewComponent } from '../crear-factura-new/crear-factura-new.component';
+import { ImercanciaService } from '../../services/imercancia.service';
 
 @Component({
   selector: 'app-crear-factura',
@@ -23,6 +24,7 @@ export class CrearFacturaComponent implements OnInit, AfterViewChecked {
   constructor(private fb: FormBuilder,
     private productosService: ProductosService,
     private categoriasService: CategoriasService,
+    private mercanciaService: ImercanciaService,
     private elRef: ElementRef) {}
 
 @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de facturas
@@ -34,6 +36,7 @@ productos: IProduct [] = [] // Inicializar array productas
 mercancias: IMercancia[] = [] // inicializar array mercancias de factura
 
 @Input() regimenUpdate: boolean = false;
+@Input() updateFacturaId: number = 0;
 
 
 headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
@@ -51,6 +54,11 @@ private buttonsInitialized = false;  // Флаг для предотвращен
    // Cargamos listas de productas
   ngOnInit(): void {
     this.obtenerListaProductos()
+
+    // Si es regimen de update - cargar mercancias de Factura
+    if (this.regimenUpdate) {
+      this.obtenerMercanciasParaUpdate(this.updateFacturaId);
+    }
 
   }
 
@@ -88,7 +96,6 @@ obtenerListaProductos() {
   initButtons(): void {
     // Получение всех кнопок с классом 'anadir' после загрузки данных
     const buttons = this.elRef.nativeElement.querySelectorAll('.btn');
-    console.log (buttons);
     // Добавление обработчика событий на каждую кнопку с классом 'aaa'
     buttons.forEach((button: HTMLElement) => {
       button.addEventListener('click', (event: MouseEvent) => {
@@ -100,7 +107,7 @@ obtenerListaProductos() {
           const newMercancia: IMercancia = {
             m_id_productos: buttonId,
             m_nombre_producto: producto.p_nombre,
-            m_precio: producto.p_precio_compra,
+            m_precio_venta: producto.p_precio_venta,
             m_cantidad_pedida: 1,
             m_cantidad_recogida: 0,
             m_suma_pedida: producto.p_precio_venta,
@@ -118,5 +125,17 @@ obtenerListaProductos() {
   // volveremos datos de factura de componente crear-factura-new
   actualizarMercancias(nuevasMercancias: IMercancia[]): void
   { this.mercancias = nuevasMercancias; }
+
+
+  // obtener datos de factura en regimen Update
+  obtenerMercanciasParaUpdate(id: number) {
+    this.mercanciaService.getMercancias(id).subscribe (
+      (data) => {
+        this.mercancias = data;
+        this.buttonsInitialized = false; // Сбрасываем флаг для повторной инициализации после загрузки данных
+      },
+      (error) => { console.log('Error data de mercancias', error)}
+    );
+  }
 
 }

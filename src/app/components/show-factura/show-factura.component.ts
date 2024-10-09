@@ -17,6 +17,8 @@ export class ShowFacturaComponent implements OnInit{
   constructor( private facturasService: FacturasService, private mercanciaService: ImercanciaService) {}
   @Input() mostrarFacturaId:number = -1;
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
+  @Output () encenderRegimenEditar = new EventEmitter <boolean> (); // Encender regimen editar de factura
+
   mercancias: IMercancia[] = [] // inicializar array usuarios
 
   ngOnInit(): void {
@@ -31,7 +33,12 @@ export class ShowFacturaComponent implements OnInit{
 
   }
 
-  editarFactura () {}
+
+  // Encender regimen de editar factura
+  editarFactura () {
+      console.log ("editar");
+      this.encenderRegimenEditar.emit(true);
+  }
 
   volverMostrarFactura () {
     console.log ("volver");

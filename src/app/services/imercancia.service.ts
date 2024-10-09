@@ -57,4 +57,21 @@ export class ImercanciaService {
       return EMPTY;
     }
   }
+
+
+  actualizarFactura (id: number, mercancias: IMercancia [], f_suma: number): Observable<any> {
+
+    const headers = this.getHeaderAuth ();
+    const body = {mercancias, f_suma};
+    const urlConId = `${this.mercanciaUrl}/${id}`;
+
+    if (this.authService.checkTokenExpiration()) {
+      console.log('update');
+      return this.http.put(urlConId, body, { headers});
+    } else {
+      console.log('no update');
+      return EMPTY;
+    }
+  }
+
 }

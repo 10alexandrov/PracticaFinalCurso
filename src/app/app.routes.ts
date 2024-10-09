@@ -6,6 +6,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { rolesGuard } from './guards/roles.guard';
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent  },  // перенаправление на страницу продуктов
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'inicio', component: InicioComponent,canActivate: [AuthGuard] },
   { path: 'productos', component: ConteinerComponent, canActivate: [AuthGuard] },
   { path: 'facturas', component: FacturasComponent, canActivate: [AuthGuard] },
+  { path: 'estadistica', component: EstadisticaComponent, canActivate: [AuthGuard] },
   { path: 'usuarios',
      component: UsuariosComponent,
      canActivate: [AuthGuard, rolesGuard],
