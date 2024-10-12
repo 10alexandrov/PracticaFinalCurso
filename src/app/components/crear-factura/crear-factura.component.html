@@ -1,8 +1,8 @@
 <div class="wrapper">
 
-    <div class="d-flex mt-3 mb-5">
+    <div class="d-flex mt-3">
       <h1 *ngIf = "!regimenUpdate">Crear nueva Factura</h1>
-      <h1 *ngIf = "regimenUpdate">Editar factura</h1>
+      <h1 *ngIf = "regimenUpdate">Editar factura #{{ mercancias[0].m_id_facturas}}</h1>
       <div  class="ms-5 mt-2" >
         <button (click) = "volverMostrarFacturas (false)" class="btn btn-info btn-AW">Volver</button>
       </div>
@@ -17,14 +17,14 @@
           Filtro
         </label>
         <div class="col-sm-3">
-          <input type="text" [(ngModel)]="filterSearch" class="form-control"
+          <input type="text" [(ngModel)]="filterSearch" (input)="applyFilter()" class="form-control"
             name="filterDesc" id="filterDesc" placeholder="filtramos por...">
         </div>
         <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
           Categoria
         </label>
         <div class="col-sm-3 mt-2">
-          <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch">
+          <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch" (ngModelChange)="applyFilter()">
               <option value="0">Seleccione una categoria</option>
               <option *ngFor = "let categoria of categorias" [value]="categoria.id_categoria">{{categoria.c_nombre}}</option>
           </select>
@@ -47,12 +47,12 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr *ngFor = "let producto of productos | productFilter:filterSearch:categoriaSearch">
-            <td >{{producto.p_nombre}}</td>
+          <tr *ngFor = "let producto of productosPaginated">
+            <td>{{producto.p_nombre}}</td>
             <td>{{producto.p_nombre_categoria}}</td>
             <td>{{producto.p_cantidad_almacen}}</td>
             <td>{{producto.p_precio_venta}}</td>
-            <td>
+            <td id="AW-td">
               <button id="{{producto.product_id}}" class="btn btn-primary btn-AW anadir">+</button>
             </td>
           </tr>
@@ -60,20 +60,14 @@
         </tbody>
       </table>
     </div>
-<!--
-  <form [formGroup] = "formCreateProducto" (ngSubmit)="sendDatos()">
-    <div class="d-flex mt-3 mb-5">
-      <h2 *ngIf = "!regimenUpdate">Crear nueva Factura</h2>
-      <h2 *ngIf = "regimenUpdate">Editar factura</h2>
-      <div *ngIf = "!regimenUpdate" class="ms-5 mt-2" >
-        <button type="submit" class="btn btn-primary btn-AW">Crear</button>
-      </div>
-      <div *ngIf = "regimenUpdate" class="ms-5 mt-2" >
-        <button type="submit" class="btn btn-primary btn-AW">Editar datos</button>
-      </div>
-    </div>
-  </form>
-</div>  -->
+
+                <!-- pagination -->
+                <div class="pagination-controls mb-2">
+                  <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+                  <span class="ms-3 me-3">Pagina {{ currentPage }} de {{ totalPages }}</span>
+                  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+                </div>
+
 
   <!--   Forma nueva factura -->
     <div *ngIf ="mercancias.length">

@@ -10,30 +10,30 @@
 
         <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate">
           <!-- filter -->
-          <form class="form mt-3 mb-3">
+          <form class="form mt-2 mb-2">
             <div class="form-group row">
               <label class="col-form-label col-sm-1 text-sm-right" for="filterDesc">
                 Client
               </label>
               <div class="col-sm-2">
-                <input type="text" [(ngModel)]="clientSearch" class="form-control"
+                <input type="text" [(ngModel)]="clientSearch" (input)="applyFilter()" class="form-control"
                   name="filterDesc" id="filterDesc" placeholder="buscamos ...">
               </div>
               <label class="col-form-label col-sm-2 text-sm-right" for="direccionSearch">
                 Direccion
               </label>
               <div class="col-sm-3 mt-2">
-                <select name="direccionSearch" id="direccionSearch" [(ngModel)]="direccionSearch">
-                    <option [value]=-1>Seleccione direccion</option>
-                    <option [value]=0>Entante</option>
-                    <option [value]=1>Saliente</option>
+                <select name="direccionSearch" id="direccionSearch" [(ngModel)]="direccionSearch" (ngModelChange)="applyFilter()">
+                    <option [value]="-1">Seleccione direccion</option>
+                    <option [value]="0">Entante</option>
+                    <option [value]="1">Saliente</option>
                 </select>
               </div>
               <label class="col-form-label col-sm-1 text-sm-right" for="statusSearch">
                 Status
               </label>
               <div class="col-sm-3 mt-2">
-                <select name="statusSearch" id="statusSearch" [(ngModel)]="statusSearch">
+                <select name="statusSearch" id="statusSearch" [(ngModel)]="statusSearch" (ngModelChange)="applyFilter()">
                     <option [value]=-1>Seleccione Status</option>
                     <option [value]=0>En processo</option>
                     <option [value]=1>Terminado</option>
@@ -56,9 +56,9 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor = "let factura of facturasPaginated | facturasFilter:clientSearch:direccionSearch:statusSearch">
+                <tr *ngFor = "let factura of facturasPaginated">
                   <td (click) ="mostrarFactura(factura.factura_id)">{{factura.factura_id}}</td>
-                  <td>{{factura.f_id_cliente}}</td>
+                  <td>{{factura.usuario_cliente.u_nombre}}</td>
                   <td>{{factura.f_suma}}</td>
                   <td *ngIf="!factura.f_tipo">Entrada</td>
                   <td *ngIf="factura.f_tipo">Salida</td>
@@ -73,15 +73,16 @@
             </table>
 
                <!-- pagination -->
-                  <div class="pagination-controls">
-                    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-                    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-                    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                  <div class="pagination-controls mb-2">
+                    <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+                    <span class="ms-3 me-3">Pagina {{ currentPage }} de {{ totalPages }}</span>
+                    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
                   </div>
 
           </div>
-          <div>
-            <button class="btn btn-info" (click)="crearNuevaFactura()">Crear nuevo Pedido</button>
+          <div *ngIf="role === 'admin' || role === 'manager'
+                   || role === 'vendedor' || role === 'cliente'">
+            <button class="btn btn-success btn-AW" (click)="crearNuevaFactura()">Crear nuevo Pedido</button>
           </div>
         </div>
         <!--Fin la tabla de facturas-->

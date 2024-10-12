@@ -20,9 +20,10 @@ export class ShowProductComponent implements OnInit {
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
   productoParaEditar:IProduct | null = null;
   regimenEditar: boolean = false;
+  role = localStorage.getItem('role');  // obtener role usuario
 
   ngOnInit() {
-
+    console.log (this.productoMostrar.p_foto);
   }
 
   volverMostrarProducto() {

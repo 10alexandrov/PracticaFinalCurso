@@ -33,6 +33,9 @@ export class ShowFacturaComponent implements OnInit{
 
   }
 
+  // Autorizacion
+  role = localStorage.getItem('role');  // obtener role usuario
+
 
   // Encender regimen de editar factura
   editarFactura () {

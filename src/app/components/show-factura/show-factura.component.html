@@ -1,10 +1,12 @@
 
-<div class="d-flex mt-3 mb-5">
-  <h1 class="pb-3"> Detalles de Factura #{{mostrarFacturaId}}</h1>
-  <div class="ms-5 mt-2" >
+<div class="d-flex mt-2 mb-2">
+  <h1> Detalles de Factura #{{mostrarFacturaId}}</h1>
+  <div *ngIf="role === 'admin' || role === 'manager'
+            || role === 'vendedor' || role === 'cliente'" class="ms-5 mt-2" >
     <button (click)="editarFactura()" class="btn btn-warning btn-AW">Editar</button>
   </div>
-  <div  class="ms-2 mt-2" >
+  <div  *ngIf="role === 'admin' || role === 'manager'
+           || role === 'vendedor' || role === 'cliente'" class="ms-2 mt-2" >
     <button (click)="(mostrarFacturaId) ? borrarFactura(mostrarFacturaId) : null" class="btn btn-danger btn-AW">Borrar</button>
   </div>
   <div  class="ms-5 mt-2" >

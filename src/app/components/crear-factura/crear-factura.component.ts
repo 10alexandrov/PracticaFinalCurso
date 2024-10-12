@@ -42,11 +42,6 @@ mercancias: IMercancia[] = [] // inicializar array mercancias de factura
 headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
 
 
-// filter
-
-filterSearch = '';
-categoriaSearch = 0;
-
 private buttonsInitialized = false;  // Флаг для предотвращения повторной инициализации
 
 
@@ -73,12 +68,15 @@ obtenerListaProductos() {
     (data) => {
       this.productos = data;
       this.buttonsInitialized = false; // Сбрасываем флаг для повторной инициализации после загрузки данных
+      this.applyFilter();
     },
     (error) => { console.log('Error data de producto', error)}
   );
 
   this.categoriasService.getCategorias().subscribe (
-    (data) => {this.categorias = data;},
+    (data) => {
+      this.categorias = data;
+    },
     (error) => { console.log('Error data de categorias', error)}
   );   // obtener datos de BD
 }
@@ -137,5 +135,80 @@ obtenerListaProductos() {
       (error) => { console.log('Error data de mercancias', error)}
     );
   }
+
+
+
+    // Pagination y filtracion
+
+    itemsPerPage = 6;           // Cantidad de paginas
+    currentPage = 1;             // Carrent pagina
+    totalPages = 1;              // Cantidad total de paginas
+    productosFiltrated: IProduct[] = [];     // array paginado
+    productosPaginated: IProduct[] = [];     // array paginado
+
+    filterSearch = '';
+    categoriaSearch: number = 0;
+
+
+    // Filtracion de datos
+
+    applyFilter() {
+
+      console.log ("filtr", this.filterSearch, this.categoriaSearch);
+
+        if(this.filterSearch || this.categoriaSearch >-1) {    // si hay algun filter
+          console.log(this.filterSearch, this.categoriaSearch);
+
+
+          let productosParaFilterar = this.productos.filter(producto =>   // filtrar por nombre
+            producto.p_nombre.toLocaleLowerCase().includes(this.filterSearch.toLocaleLowerCase())
+          );
+
+          if (+this.categoriaSearch >0) {    // filtrar por categoria
+            console.log ("rrr");
+            productosParaFilterar = productosParaFilterar.filter(producto =>
+              producto.p_categoria == this.categoriaSearch)
+           }
+
+          this.productosFiltrated = productosParaFilterar;
+          console.log (productosParaFilterar)
+
+        } else {
+          this.productosFiltrated = [...this.productos];
+        }
+
+        this.totalPages = Math.ceil(this.productosFiltrated.length / this.itemsPerPage);   // Cantar paginas
+        this.currentPage = 1;                    // Restablecer a la primera página
+        this.productosPaginated = this.getPaginatedData();;                //  Encender Paginacion
+
+    }
+
+    // Возвращаем данные для текущей страницы
+    getPaginatedData() {
+
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.productosFiltrated.slice(startIndex, endIndex);
+    }
+
+    // Переход на предыдущую страницу
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.buttonsInitialized = false;
+        this.productosPaginated = this.getPaginatedData();
+      }
+    }
+
+    // Переход на следующую страницу
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.buttonsInitialized = false;
+        this.productosPaginated = this.getPaginatedData();
+      }
+    }
+
+
 
 }

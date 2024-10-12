@@ -2,10 +2,10 @@
 
   <div class="d-flex mt-3 mb-5">
     <h1 class="pb-3"> {{productoMostrar.p_nombre}}</h1>
-    <div class="ms-5 mt-2" >
+    <div *ngIf="role === 'admin' || role === 'manager'" class="ms-5 mt-2" >
       <button (click)="editarProducto()" class="btn btn-warning btn-AW">Editar</button>
     </div>
-    <div  class="ms-2 mt-2" >
+    <div  *ngIf="role === 'admin' || role === 'manager'" class="ms-2 mt-2" >
       <button (click)="(productoMostrar.product_id) ? deleteProducto(productoMostrar.product_id) : null" class="btn btn-danger btn-AW">Borrar</button>
     </div>
     <div  class="ms-5 mt-2" >
@@ -70,6 +70,7 @@
           </table>
       </div>
       <div class="col-4">
+          <img class = "img-AW" [src] = "productoMostrar.p_foto">
           <img *ngIf="productoMostrar.imagenUrl" [src]="productoMostrar.imagenUrl">
       </div>
     </div>

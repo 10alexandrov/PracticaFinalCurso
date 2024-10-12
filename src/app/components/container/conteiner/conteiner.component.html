@@ -16,14 +16,14 @@
               Filtro
             </label>
             <div class="col-sm-3">
-              <input type="text" [(ngModel)]="filterSearch" class="form-control"
+              <input type="text" [(ngModel)]="filterSearch" (input)="applyFilter()" class="form-control"
                 name="filterDesc" id="filterDesc" placeholder="filtramos por...">
             </div>
             <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
               Categoria
             </label>
             <div class="col-sm-3 mt-2">
-              <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch">
+              <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch" (ngModelChange)="applyFilter()">
                   <option value="0">Seleccione una categoria</option>
                   <option *ngFor = "let categoria of categorias" [value]="categoria.id_categoria">{{categoria.c_nombre}}</option>
               </select>
@@ -43,7 +43,7 @@
               </tr>
             </thead>
             <tbody class="table-group-divider">
-              <tr *ngFor = "let producto of productos | productFilter:filterSearch:categoriaSearch">
+              <tr *ngFor = "let producto of productosPaginated">
                 <td (click) ="mostrarProducto(producto.product_id ?? 1)">{{producto.p_nombre}}</td>
                 <td>{{producto.p_nombre_categoria}}</td>
                 <td>{{producto.p_cantidad_almacen}}</td>
@@ -54,8 +54,16 @@
           </table>
         </div>
 
+
+            <!-- pagination -->
+            <div class="pagination-controls mb-2">
+              <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+              <span class="ms-3 me-3">Pagina {{ currentPage }} de {{ totalPages }}</span>
+              <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+            </div>
+
         <div>
-          <button class="btn btn-info" (click)="crearNuevoProducto()">Crear nuevo Producto</button>
+          <button *ngIf="role === 'admin' || role === 'manager'" class="btn btn-success btn-AW" (click)="crearNuevoProducto()">Crear nuevo Producto</button>
         </div>
 
       </div>

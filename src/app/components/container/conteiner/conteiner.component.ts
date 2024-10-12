@@ -27,6 +27,8 @@ export class ConteinerComponent {
 
   headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
 
+  role = localStorage.getItem('role');  // obtener role usuario
+
   productos: IProduct[] = [] // inicializar array productos
   categorias: Icategoria[] = []  // Inicializar array categories
 
@@ -34,11 +36,7 @@ ngOnInit () {
   this.obtenerListaProductos()
 }
 
-// filter
 
-filterSearch = '';
-
-categoriaSearch = 0;
 
 // Mostrar producto   ****************
 
@@ -72,7 +70,10 @@ volverMostrarProducto ($flag: boolean) {
 // funccion para obtener la lista con todas productos
 obtenerListaProductos() {
   this.productosService.getProductos().subscribe (
-    (data) => {this.productos = data;},
+    (data) => {
+      this.productos = data;
+      this.applyFilter();                                 //   usar filter y despues paginacion
+    },
     (error) => { console.log('Error data de producto', error)}
   );
 
@@ -81,13 +82,14 @@ obtenerListaProductos() {
     (error) => { console.log('Error data de categorias', error)}
   );   // obtener datos de BD
 
+  /*
   this.productos.forEach(producto => {  // Convertir Imagen para visualizar
     if (producto.p_foto) {
       const contentType = this.detectImageFormat(producto.p_foto); // Определяем формат изображения
       const base64String = this.arrayBufferToBase64(producto.p_foto);
       producto.imagenUrl = this.sanitizer.bypassSecurityTrustUrl(`data:${contentType};base64,${base64String}`);
     }
-  });
+  }); */
 
 }
 
@@ -106,6 +108,74 @@ encenderRegimenEditar (flag: boolean) {   // Encender el modo de Update de produ
 
 
 
+  // Pagination y filtracion
+
+    itemsPerPage = 8;           // Cantidad de paginas
+    currentPage = 1;             // Carrent pagina
+    totalPages = 1;              // Cantidad total de paginas
+    productosFiltrated: IProduct[] = [];     // array paginado
+    productosPaginated: IProduct[] = [];     // array paginado
+
+    filterSearch = '';
+    categoriaSearch: number = 0;
+
+
+    // Filtracion de datos
+
+    applyFilter() {
+
+      console.log ("filtr", this.filterSearch, this.categoriaSearch);
+
+        if(this.filterSearch || this.categoriaSearch >-1) {    // si hay algun filter
+          console.log(this.filterSearch, this.categoriaSearch);
+
+
+          let productosParaFilterar = this.productos.filter(producto =>   // filtrar por nombre
+            producto.p_nombre.toLocaleLowerCase().includes(this.filterSearch.toLocaleLowerCase())
+          );
+
+          if (+this.categoriaSearch >0) {    // filtrar por categoria
+            console.log ("rrr");
+            productosParaFilterar = productosParaFilterar.filter(producto =>
+              producto.p_categoria == this.categoriaSearch)
+           }
+
+          this.productosFiltrated = productosParaFilterar;
+          console.log (productosParaFilterar)
+
+        } else {
+          this.productosFiltrated = [...this.productos];
+        }
+
+        this.totalPages = Math.ceil(this.productosFiltrated.length / this.itemsPerPage);   // Cantar paginas
+        this.currentPage = 1;                    // Restablecer a la primera página
+        this.productosPaginated = this.getPaginatedData();;                //  Encender Paginacion
+
+    }
+
+    // Возвращаем данные для текущей страницы
+    getPaginatedData() {
+
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.productosFiltrated.slice(startIndex, endIndex);
+    }
+
+    // Переход на предыдущую страницу
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.productosPaginated = this.getPaginatedData();
+      }
+    }
+
+    // Переход на следующую страницу
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.productosPaginated = this.getPaginatedData();
+      }
+    }
 
 
 // Display imagen ****************************

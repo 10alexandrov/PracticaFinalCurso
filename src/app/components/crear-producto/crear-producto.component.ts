@@ -23,7 +23,8 @@ export class CrearProductoComponent implements OnInit {
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
   public formCreateProducto!: FormGroup;
 
-  p_foto : ArrayBuffer | undefined = undefined;
+  role = localStorage.getItem('role');  // obtener role usuario
+  p_foto : string | undefined = undefined;
   categorias: Icategoria[] = []  // Inicializar array categories
   @Input() productoParaEditar:IProduct | null = null;
   @Input() regimenUpdate: boolean = false;
@@ -32,7 +33,7 @@ export class CrearProductoComponent implements OnInit {
 
 
     this.categoriasService.getCategorias().subscribe (
-      (data) => {this.categorias = data; console.log(this.categorias)},
+      (data) => {this.categorias = data;},
       (error) => { console.log('Error data de categorias', error)}
     );   // obtener datos de BD
 
@@ -75,50 +76,67 @@ export class CrearProductoComponent implements OnInit {
 
 
     public sendDatos() {
-      if (this.formCreateProducto.valid) {
-        const productoNew: IProduct = {
-          p_nombre: this.formCreateProducto.value.p_nombre,
-          p_description: this.formCreateProducto.value.p_description,
-          p_categoria: this.formCreateProducto.value.p_categoria+1,
-          p_altura: this.formCreateProducto.value.p_altura,
-          p_ancho: this.formCreateProducto.value.p_ancho,
-          p_longitud: this.formCreateProducto.value.p_longitud,
-          p_peso: this.formCreateProducto.value.p_peso,
-          p_precio_venta: this.formCreateProducto.value.p_precio_venta,
-          p_precio_compra: this.formCreateProducto.value.p_precio_compra,
-          p_codigo: this.formCreateProducto.value.p_codigo,
-          p_cantidad_entrega: 0,
-          p_cantidad_enviado: 0,
-          p_cantidad_reservado: 0,
-          p_cantidad_almacen: 0,
-          p_foto: this.p_foto,
-        };
-        if (!this.regimenUpdate) {    // si no regimen update - creamos producto nuevo
-          this.productosService.createProducto(productoNew).subscribe((response) => this.volverMostrar.emit(true));
-          console.log("grabado: " + productoNew);
-        } else {   // si es regimen update - update producto
+      if (this.formCreateProducto.valid ) {
+        if (this.regimenUpdate && this.productoParaEditar) {
+          const productoNew: IProduct = {
+            p_nombre: this.formCreateProducto.value.p_nombre,
+            p_description: this.formCreateProducto.value.p_description,
+            p_categoria: +this.formCreateProducto.value.p_categoria+1,
+            p_altura: this.formCreateProducto.value.p_altura,
+            p_ancho: this.formCreateProducto.value.p_ancho,
+            p_longitud: this.formCreateProducto.value.p_longitud,
+            p_peso: this.formCreateProducto.value.p_peso,
+            p_precio_venta: this.formCreateProducto.value.p_precio_venta,
+            p_precio_compra: this.formCreateProducto.value.p_precio_compra,
+            p_codigo: this.formCreateProducto.value.p_codigo,
+            p_cantidad_entrega: this.productoParaEditar.p_cantidad_entrega,
+            p_cantidad_enviado: this.productoParaEditar.p_cantidad_enviado,
+            p_cantidad_reservado: this.productoParaEditar.p_cantidad_reservado,
+            p_cantidad_almacen: this.productoParaEditar.p_cantidad_almacen,
+            p_foto: this.p_foto,
+          };
           if (this.productoParaEditar && this.productoParaEditar.product_id) {
             this.productosService.actualizarProducto(this.productoParaEditar.product_id, productoNew).subscribe((response) => this.volverMostrar.emit(true));
             console.log("editado: " + productoNew);
           }
+        } else {
+          const productoNew: IProduct = {
+            p_nombre: this.formCreateProducto.value.p_nombre,
+            p_description: this.formCreateProducto.value.p_description,
+            p_categoria: +this.formCreateProducto.value.p_categoria+1,
+            p_altura: this.formCreateProducto.value.p_altura,
+            p_ancho: this.formCreateProducto.value.p_ancho,
+            p_longitud: this.formCreateProducto.value.p_longitud,
+            p_peso: this.formCreateProducto.value.p_peso,
+            p_precio_venta: this.formCreateProducto.value.p_precio_venta,
+            p_precio_compra: this.formCreateProducto.value.p_precio_compra,
+            p_codigo: this.formCreateProducto.value.p_codigo,
+            p_cantidad_entrega: 0,
+            p_cantidad_enviado: 0,
+            p_cantidad_reservado: 0,
+            p_cantidad_almacen: 0,
+            p_foto: this.p_foto,
+          };
+
+          this.productosService.createProducto(productoNew).subscribe((response) => this.volverMostrar.emit(true));
+          console.log("grabado: " + productoNew);
         }
+
       } else {
          console.log("form no es validate");
          this.formCreateProducto.markAllAsTouched(); // Помечаем все поля как затронутые, чтобы показать ошибки
         }
       }
 
-      onFileSelected(event: any) {
-        const file: File = event.target.files[0];
-
+      onFileSelected(event: any): void {
+        const file = event.target.files[0];
         if (file) {
           const reader = new FileReader();
-
-          reader.onload = (e: any) => {
-            this.p_foto = e.target.result;
-          };
-
           reader.readAsDataURL(file);
+          reader.onload = () => {
+            const base64String = reader.result as string;
+            this.p_foto = base64String;  // Отправляем изображение на бэкенд
+          };
         }
       }
 

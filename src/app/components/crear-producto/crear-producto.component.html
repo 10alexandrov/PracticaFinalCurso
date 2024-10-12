@@ -35,7 +35,7 @@
           <select formControlName="p_categoria" class="form-control col-md-6"
           [ngClass]="{ 'is-valid': formCreateProducto.get('p_categoria')?.valid && formCreateProducto.get('p_categoria')?.touched,
           'is-invalid': formCreateProducto.get('p_categoria')?.invalid && formCreateProducto.get('p_categoria')?.touched }">
-            <option value="">-- Elije un role --</option>
+            <option value="">-- Elije una categoria --</option>
             <option *ngFor="let categoria of categorias; let i = index" [value]="i"> {{ categoria.c_nombre }} </option>
           </select>
             <div *ngIf="formCreateProducto.get('p_categoria')?.invalid && formCreateProducto.get('p_categoria')?.touched" class="invalid-feedback col-md-4 ps-3">

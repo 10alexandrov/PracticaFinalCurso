@@ -1,3 +1,5 @@
+import { IUsuarios } from "./iusuarios";
+
 export interface IFactura {
 
   factura_id: number;
@@ -9,4 +11,5 @@ export interface IFactura {
   f_suma_tramitacion:number;
   f_aceptado: boolean;
   created_at: Date;
+  usuario_cliente: IUsuarios;
 }

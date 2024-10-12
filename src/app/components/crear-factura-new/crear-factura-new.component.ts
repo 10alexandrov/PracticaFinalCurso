@@ -104,14 +104,20 @@ ngAfterViewChecked(): void {
     this.sumaFactura = suma;
   }
 
+  // Autenticacion
+  role = localStorage.getItem('role');  // obtener role usuario
+  usuario = localStorage.getItem('usuario');  // obtener role usuario
+
   sendDatos() {
     console.log('send');
-    if (!this.regimenUpdate) {    // si no regimen update - creamos producto nuevo console.log ('exit!')
-      this.mercanciaService.createMercancia(this.mercancias, this.sumaFactura).subscribe((response) => this.volverMostrar.emit(true)); //this.volverMostrar.emit(true)
+    if (!this.regimenUpdate && this.role && this.usuario) {    // si no regimen update - creamos producto nuevo console.log ('exit!')
+      const usuario = +this.usuario;
+      this.mercanciaService.createMercancia(this.mercancias, this.sumaFactura, this.role, usuario).subscribe((response) => this.volverMostrar.emit(true)); //this.volverMostrar.emit(true)
       console.log("grabado: ");
     } else {   // si es regimen update - update producto
-       if (this.mercancias && this.updateFacturaId) {
-         this.mercanciaService.actualizarFactura(this.updateFacturaId, this.mercancias, this.sumaFactura).subscribe((response) => this.volverMostrar.emit(true));
+       if (this.mercancias && this.updateFacturaId && this.usuario) {
+        const usuario = +this.usuario;
+         this.mercanciaService.actualizarFactura(this.updateFacturaId, this.mercancias, this.sumaFactura, usuario).subscribe((response) => this.volverMostrar.emit(true));
         console.log("editado: ");
       }
     }

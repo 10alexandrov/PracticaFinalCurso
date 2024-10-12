@@ -43,10 +43,10 @@ export class ImercanciaService {
     });
   }
 
-  createMercancia (mercancias: IMercancia [], f_suma: number): Observable<IMercancia[]> {
+  createMercancia (mercancias: IMercancia [], f_suma: number, role: string, usuario: number): Observable<IMercancia[]> {
 
     const headers = this.getHeaderAuth ();
-    const body = {mercancias, f_suma};
+    const body = {mercancias, f_suma, role, usuario};
 
     if (this.authService.checkTokenExpiration()) {
       const getURL = `http://localhost:8080/api/mercancias`;
@@ -59,10 +59,10 @@ export class ImercanciaService {
   }
 
 
-  actualizarFactura (id: number, mercancias: IMercancia [], f_suma: number): Observable<any> {
+  actualizarFactura (id: number, mercancias: IMercancia [], f_suma: number, usuario: number): Observable<any> {
 
     const headers = this.getHeaderAuth ();
-    const body = {mercancias, f_suma};
+    const body = {mercancias, f_suma, usuario};
     const urlConId = `${this.mercanciaUrl}/${id}`;
 
     if (this.authService.checkTokenExpiration()) {

@@ -60,6 +60,7 @@ logout(): void {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("role");
     localStorage.removeItem("tokenExpiry");
+    localStorage.removeItem("usuario");
   }
 
   isTokenExpired(): boolean {
@@ -93,6 +94,14 @@ logout(): void {
 
   getRole () : string | null {
     return localStorage.getItem('role');
+  }
+
+  setUsuario (usuario: string): void {
+    localStorage.setItem('usuario', usuario);
+  }
+
+  getUsuario () : string | null {
+    return localStorage.getItem('usuario');
   }
 
 }
