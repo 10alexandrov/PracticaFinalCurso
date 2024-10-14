@@ -77,6 +77,11 @@ ngAfterViewChecked(): void {
     updateQuantity(idProducto: number, value: number): void {
       if (value >= 0) {  // Можно добавить проверку на корректность введенного значения
         const index = this.mercancias.findIndex(obj => obj.m_id_productos === idProducto);
+        if (this.mercancias[index].m_cantidad_maximum) {
+          if (value > this.mercancias[index].m_cantidad_maximum) {  // Si pedido mas que cantidad ma
+            value = this.mercancias[index].m_cantidad_maximum;
+          }
+        }
         this.mercancias[index].m_cantidad_pedida = value;
         if (this.mercancias[index].m_precio_venta) {
           const suma = value * this.mercancias[index].m_precio_venta;

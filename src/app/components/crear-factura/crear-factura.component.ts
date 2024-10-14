@@ -64,9 +64,10 @@ private buttonsInitialized = false;  // Флаг для предотвращен
 
   // funccion para obtener la lista con todas productos
 obtenerListaProductos() {
-  this.productosService.getProductos().subscribe (
+  this.productosService.getProductosActivos().subscribe (
     (data) => {
       this.productos = data;
+      console.log (this.productos);
       this.buttonsInitialized = false; // Сбрасываем флаг для повторной инициализации после загрузки данных
       this.applyFilter();
     },
@@ -111,6 +112,7 @@ obtenerListaProductos() {
             m_suma_pedida: producto.p_precio_venta,
             m_suma_recogida: 0,
             m_aceptado: false,
+            m_cantidad_maximum: producto.p_cantidad_almacen,
           }
 
           this.mercancias = [... this.mercancias, newMercancia];
@@ -154,8 +156,6 @@ obtenerListaProductos() {
 
     applyFilter() {
 
-      console.log ("filtr", this.filterSearch, this.categoriaSearch);
-
         if(this.filterSearch || this.categoriaSearch >-1) {    // si hay algun filter
           console.log(this.filterSearch, this.categoriaSearch);
 
@@ -165,7 +165,6 @@ obtenerListaProductos() {
           );
 
           if (+this.categoriaSearch >0) {    // filtrar por categoria
-            console.log ("rrr");
             productosParaFilterar = productosParaFilterar.filter(producto =>
               producto.p_categoria == this.categoriaSearch)
            }
@@ -179,7 +178,7 @@ obtenerListaProductos() {
 
         this.totalPages = Math.ceil(this.productosFiltrated.length / this.itemsPerPage);   // Cantar paginas
         this.currentPage = 1;                    // Restablecer a la primera página
-        this.productosPaginated = this.getPaginatedData();;                //  Encender Paginacion
+        this.productosPaginated = this.getPaginatedData();                //  Encender Paginacion
 
     }
 

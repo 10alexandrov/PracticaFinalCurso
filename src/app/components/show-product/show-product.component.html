@@ -23,12 +23,15 @@
               <tr>
                 <th>Precio de compra</th>
                 <th>Precio de venta</th>
+                <th>Activo</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td> {{productoMostrar.p_precio_compra}}</td>
                 <td> {{productoMostrar.p_precio_venta}}</td>
+                <td *ngIf="productoMostrar.p_activo" style="color:green"> Activo</td>
+                <td *ngIf="!productoMostrar.p_activo" style="color:red"> Inactivo</td>
               </tr>
             </tbody>
           </table>

@@ -50,6 +50,7 @@ export class CrearProductoComponent implements OnInit {
       p_precio_compra: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.min(0.01)]],
       p_precio_venta: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.min(0.01)]],
       p_codigo: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(13), Validators.minLength(13) ]],
+      p_activo: [''],
       receiveInfo: [true]
     });
 
@@ -67,6 +68,7 @@ export class CrearProductoComponent implements OnInit {
           p_foto: this.productoParaEditar.p_foto,
           p_precio_compra: this.productoParaEditar.p_precio_compra,
           p_precio_venta: this.productoParaEditar.p_precio_venta,
+          p_activo: this.productoParaEditar.p_activo,
           p_codigo: this.productoParaEditar.p_codigo,
         });
       }
@@ -77,7 +79,7 @@ export class CrearProductoComponent implements OnInit {
 
     public sendDatos() {
       if (this.formCreateProducto.valid ) {
-        if (this.regimenUpdate && this.productoParaEditar) {
+        if (this.regimenUpdate && this.productoParaEditar) {  // si es regimen editar y hay producto para editar
           const productoNew: IProduct = {
             p_nombre: this.formCreateProducto.value.p_nombre,
             p_description: this.formCreateProducto.value.p_description,
@@ -93,6 +95,7 @@ export class CrearProductoComponent implements OnInit {
             p_cantidad_enviado: this.productoParaEditar.p_cantidad_enviado,
             p_cantidad_reservado: this.productoParaEditar.p_cantidad_reservado,
             p_cantidad_almacen: this.productoParaEditar.p_cantidad_almacen,
+            p_activo: this.formCreateProducto.value.p_activo,
             p_foto: this.p_foto,
           };
           if (this.productoParaEditar && this.productoParaEditar.product_id) {
@@ -115,6 +118,7 @@ export class CrearProductoComponent implements OnInit {
             p_cantidad_enviado: 0,
             p_cantidad_reservado: 0,
             p_cantidad_almacen: 0,
+            p_activo: this.formCreateProducto.value.p_activo,
             p_foto: this.p_foto,
           };
 

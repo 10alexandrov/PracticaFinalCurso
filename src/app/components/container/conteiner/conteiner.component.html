@@ -40,6 +40,7 @@
                 <th>{{headers.categoria}}</th>
                 <th>{{headers.cantidad}}</th>
                 <th>{{headers.precio}}</th>
+                <th>{{headers.activo}}</th>
               </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -48,6 +49,8 @@
                 <td>{{producto.p_nombre_categoria}}</td>
                 <td>{{producto.p_cantidad_almacen}}</td>
                 <td>{{producto.p_precio_venta}}</td>
+                <td *ngIf="producto.p_activo" style="color:green"> Activo</td>
+                <td *ngIf="!producto.p_activo" style="color:red"> Inactivo</td>
               </tr>
 
             </tbody>

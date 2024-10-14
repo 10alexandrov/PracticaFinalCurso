@@ -21,6 +21,8 @@ export class EstadisticaService {
 
     const headers = this.getHeaderAuth ();
 
+    console.log (headers);
+
     if (this.authService.checkTokenExpiration()) {
       return this.http.get<Iestadistica>(this.estadUrl, {headers}).pipe (
         map(response => {

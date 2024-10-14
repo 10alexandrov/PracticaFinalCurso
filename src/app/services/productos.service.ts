@@ -28,6 +28,20 @@ export class ProductosService {
       }
     }
 
+    getProductosActivos() : Observable<IProduct[]> {    // Para obtener array con productos activos
+
+      const headers = this.getHeaderAuth ();
+      const productUrlActivos = 'http://localhost:8080/api/productos/activos'
+
+      if (this.authService.checkTokenExpiration()) {
+        return this.http.get<IProduct[]>(productUrlActivos, { headers }).pipe(
+          map(response => response)
+        );
+      } else {
+        return EMPTY;
+      }
+    }
+
 
     deleteProducto (id: number): Observable<void> {
 

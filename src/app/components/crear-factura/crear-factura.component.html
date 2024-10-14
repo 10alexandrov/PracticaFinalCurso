@@ -47,15 +47,17 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr *ngFor = "let producto of productosPaginated">
-            <td>{{producto.p_nombre}}</td>
-            <td>{{producto.p_nombre_categoria}}</td>
-            <td>{{producto.p_cantidad_almacen}}</td>
-            <td>{{producto.p_precio_venta}}</td>
-            <td id="AW-td">
-              <button id="{{producto.product_id}}" class="btn btn-primary btn-AW anadir">+</button>
-            </td>
-          </tr>
+          <ng-container *ngFor = "let producto of productosPaginated">
+            <tr>
+              <td>{{producto.p_nombre}}</td>
+              <td>{{producto.p_nombre_categoria}}</td>
+              <td>{{producto.p_cantidad_almacen}}</td>
+              <td>{{producto.p_precio_venta}}</td>
+              <td id="AW-td">
+                <button *ngIf ="producto.p_cantidad_almacen > 0"  id="{{producto.product_id}}" class="btn btn-primary btn-AW anadir">+</button>
+              </td>
+            </tr>
+          </ng-container>
 
         </tbody>
       </table>

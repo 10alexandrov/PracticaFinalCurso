@@ -17,6 +17,7 @@ export interface IProduct {
   p_cantidad_enviado: number;
   p_precio_compra: number;
   p_precio_venta: number;
+  p_activo: boolean;
   p_codigo: string;
   p_nombre_categoria?: string;
   imagenUrl?: SafeUrl

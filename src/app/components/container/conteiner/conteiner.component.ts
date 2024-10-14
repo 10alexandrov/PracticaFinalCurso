@@ -25,7 +25,7 @@ export class ConteinerComponent {
       private categoriasService: CategoriasService,
       private sanitizer: DomSanitizer) {}  // injectar relaciones con BD
 
-  headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
+  headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta", activo: "Activo"};
 
   role = localStorage.getItem('role');  // obtener role usuario
 
