@@ -74,4 +74,20 @@ export class ImercanciaService {
     }
   }
 
+  aceptarFactura (controlarFacturaId: number, mercancias: IMercancia [], f_suma: number, usuario: number, aceptarFactura: boolean) {
+
+    const headers = this.getHeaderAuth ();
+    const body = {mercancias, f_suma, usuario, aceptarFactura };
+    const urlConId = `${this.mercanciaUrl}/aceptar/${controlarFacturaId}`;
+
+    if (this.authService.checkTokenExpiration()) {
+      console.log('update');
+      return this.http.post(urlConId, body, { headers});
+    } else {
+      console.log('no update');
+      return EMPTY;
+    }
+
+  }
+
 }

@@ -40,7 +40,7 @@ export class CrearProductoComponent implements OnInit {
 
     this.formCreateProducto = this.fb.group({
       p_nombre: ['', [Validators.required, Validators.maxLength(50)]],
-      p_description: ['', [Validators.maxLength(200)]],
+      p_descripcion: ['', [Validators.maxLength(200)]],
       p_ancho: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.min(1)]],
       p_longitud: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.min(1)]],
       p_altura: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.min(1)]],
@@ -59,7 +59,7 @@ export class CrearProductoComponent implements OnInit {
       if (this.productoParaEditar) {
         this.formCreateProducto.patchValue({
           p_nombre: this.productoParaEditar.p_nombre,
-          p_description: this.productoParaEditar.p_description,
+          p_descripcion: this.productoParaEditar.p_descripcion,
           p_ancho: this.productoParaEditar.p_ancho,
           p_longitud: this.productoParaEditar.p_longitud,
           p_altura: this.productoParaEditar.p_altura,
@@ -82,7 +82,7 @@ export class CrearProductoComponent implements OnInit {
         if (this.regimenUpdate && this.productoParaEditar) {  // si es regimen editar y hay producto para editar
           const productoNew: IProduct = {
             p_nombre: this.formCreateProducto.value.p_nombre,
-            p_description: this.formCreateProducto.value.p_description,
+            p_descripcion: this.formCreateProducto.value.p_descripcion,
             p_categoria: +this.formCreateProducto.value.p_categoria+1,
             p_altura: this.formCreateProducto.value.p_altura,
             p_ancho: this.formCreateProducto.value.p_ancho,
@@ -105,7 +105,7 @@ export class CrearProductoComponent implements OnInit {
         } else {
           const productoNew: IProduct = {
             p_nombre: this.formCreateProducto.value.p_nombre,
-            p_description: this.formCreateProducto.value.p_description,
+            p_descripcion: this.formCreateProducto.value.p_descripcion,
             p_categoria: +this.formCreateProducto.value.p_categoria+1,
             p_altura: this.formCreateProducto.value.p_altura,
             p_ancho: this.formCreateProducto.value.p_ancho,

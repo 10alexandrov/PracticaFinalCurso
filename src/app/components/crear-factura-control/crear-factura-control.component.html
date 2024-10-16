@@ -1,0 +1,41 @@
+<div class="d-flex mt-2 mb-2">
+  <h1> Detalles de Factura #{{controlarFacturaId}}</h1>
+
+  <div  class="ms-5 mt-2" >
+    <button (click) = "volverMostrarFactura()" class="btn btn-info btn-AW">Volver</button>
+  </div>
+  <div class="ms-2 mt-2" >
+    <button (click) = "guardarDatos(false)" class="btn btn-warning btn-AW">Guardar</button>
+  </div>
+  <div class="ms-2 mt-2" >
+    <button (click) = "guardarDatos(true)" class="btn btn-success btn-AW">Aceptar</button>
+  </div>
+</div>
+
+
+<table class="table table-striped table-primary table-bordered">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Cantidad nuevo</th>
+      <th>Aceptado</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <tr *ngFor = "let mercancia of mercancias">
+      <td> {{mercancia.m_nombre_producto}} </td>
+      <td> {{mercancia.m_cantidad_pedida}}</td>
+      <td>
+        <div class="d-flex">
+          <input #inputRef style="width:70px;" type="number" [(ngModel)]="mercancia.m_cantidad_recogida">
+        </div>
+      </td>
+      <td>
+        <button *ngIf = "!mercancia.m_aceptado"  (click) = "aceptarMercancia( mercancia.id ?  mercancia.id : 0, inputRef.value)" class="btn btn-AW btn-warning">Aceptar </button>
+        <button *ngIf = "mercancia.m_aceptado"  (click) = "aceptarMercancia(mercancia.id ?  mercancia.id : 0, inputRef.value)" class="btn btn-AW btn-success">Cancelar </button>
+      </td>
+    </tr>
+
+  </tbody>
+</table>

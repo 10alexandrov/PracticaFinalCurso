@@ -12,13 +12,14 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { FacturasFilterPipe  } from '../../pipes/facturas-filter.pipe'
 import { MenuComponent } from '../menu/menu.component';
 import { CrearFacturaComponent } from '../crear-factura/crear-factura.component';
+import { CrearFacturaControlComponent } from '../crear-factura-control/crear-factura-control.component';
 import { IMercancia } from '../../interfaces/imercancia';
 import { RemoveZeroAndFormaPipe } from '../../pipes/remove-zero-and-forma.pipe';
 
 @Component({
   selector: 'app-facturas',
   standalone: true,
-  imports: [CommonModule, FormsModule, ShowFacturaComponent, FacturasFilterPipe, MenuComponent, CrearFacturaComponent,],
+  imports: [CommonModule, FormsModule, ShowFacturaComponent, FacturasFilterPipe, MenuComponent, CrearFacturaComponent, CrearFacturaControlComponent ],
   templateUrl: './facturas.component.html',
   styleUrl: './facturas.component.scss'
 })
@@ -28,7 +29,7 @@ export class FacturasComponent implements OnInit{
     private sanitizer: DomSanitizer) {}  // injectar relaciones con BD
 
 
-headers = {numero: "Numero", nombre: "Client", suma: "Suma", direccion: "Direccion", estado: "Estado", created: "Creado"};
+headers = {numero: "Numero", nombre: "Client", suma: "Suma", direccion: "Direccion", estado: "Estado", created: "Creado", accion: "Acción"};
 direccion = ['entrante', 'saliente'];
 
 facturas: IFactura[] = [] // inicializar array facturas
@@ -46,13 +47,21 @@ facturaMostrar!: IFactura;   // использовать "!" для non-null ass
 regimenMostrar:boolean = false;   // encender regimen entre lista de factura/mostrar producto
 regimenCrear:boolean = false;  // encender regimen crear nuevu factura
 regimenUpdate: boolean = false; //  encender regimen editar factura
+regimenControlar: boolean = false;  // encender regimen controlar factura para receptor y recogedor
 role = localStorage.getItem('role');  // obtener role usuario
 usuario = localStorage.getItem('usuario'); // obtener usuario
 
+
+
+
+// conmutador de regimenes ******
+
 mostrarFactura(id:number) {
-  console.log(id);
   this.mostrarFacturaId = id;
   this.regimenMostrar = true;   // Encender el modo de visualisar de facturas
+  this.regimenUpdate = false;
+  this.regimenCrear = false;
+  this.regimenControlar = false;
 }
 
 // Volver a modo de lista de usuarios
@@ -60,10 +69,37 @@ volverListaFacturas ($flag: boolean) {
   this.regimenMostrar = false;   // Apagar el modo de visualisar de factura
   this.regimenCrear = false;   // Apagar el modo de crear de factura
   this.regimenUpdate = false; //  encender regimen editar factura
-  console.log ("flag recarga:", $flag);
+  this.regimenControlar = false;
 
   if ($flag) this.obtenerListaFacturas();
 }
+
+crearNuevaFactura() {
+  this.regimenCrear = true;   // Encender el modo de crear nueva factura
+  this.regimenMostrar = false;
+  this.regimenUpdate = false;
+  this.regimenControlar = false;
+}
+
+encenderRegimenEditar (flag: boolean) {   // Encender el modo de Update de producto
+  if (flag) {
+    this.regimenUpdate = true;
+    this.regimenMostrar = false;
+    this.regimenCrear = false;
+    this.regimenControlar = false;
+  }
+
+}
+
+controlarFactura (idFacturaControlado: number) {
+  this.regimenUpdate = false;
+  this.regimenMostrar = false;
+  this.regimenCrear = false;
+  this.regimenControlar = true;  // encender regimen Controlar facturas
+  this.mostrarFacturaId = idFacturaControlado;
+}
+
+
 
 // funccion para obtener la lista con todas usuarios
 obtenerListaFacturas() {
@@ -79,21 +115,6 @@ obtenerListaFacturas() {
 
 }
 
-  crearNuevaFactura() {
-    this.regimenCrear = true;   // Encender el modo de visualisar de usuario
-    this.regimenMostrar = false;
-    this.regimenUpdate = false;
-  }
-
-  encenderRegimenEditar (flag: boolean) {   // Encender el modo de Update de producto
-    console.log ("flag");
-    if (flag) {
-      this.regimenUpdate = true;
-      this.regimenMostrar = false;
-      this.regimenCrear = false;
-    }
-
-  }
 
 
     // Pagination y filtracion
@@ -168,6 +189,13 @@ obtenerListaFacturas() {
         if (this.role == 'vendedor' || this.role == 'cliente') {
           this.facturasFilteredPorRole = this.facturasFiltrated.filter(factura =>
             factura.f_id_cliente && factura.f_id_cliente == usuario );
+        } else if (this.role == 'receptor'){
+          this.facturasFilteredPorRole = this.facturasFiltrated.filter(factura =>
+            factura.f_tipo == false );
+        } else if (this.role == 'recogedor'){
+          this.facturasFilteredPorRole = this.facturasFiltrated.filter(factura =>
+            factura.f_tipo == true);
+
         } else {
           this.facturasFilteredPorRole = [...this.facturasFiltrated];
         }
@@ -200,5 +228,6 @@ obtenerListaFacturas() {
         this.facturasPaginated = this.getPaginatedData();
       }
     }
+
 
 }

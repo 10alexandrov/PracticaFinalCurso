@@ -52,9 +52,10 @@
               <td>{{producto.p_nombre}}</td>
               <td>{{producto.p_nombre_categoria}}</td>
               <td>{{producto.p_cantidad_almacen}}</td>
-              <td>{{producto.p_precio_venta}}</td>
+              <td *ngIf = "role == 'cliente'">{{producto.p_precio_venta}}</td>
+              <td *ngIf = "(role == 'vendedor') || (role == 'manager') || (role == 'admin') ">{{producto.p_precio_compra}}</td>
               <td id="AW-td">
-                <button *ngIf ="producto.p_cantidad_almacen > 0"  id="{{producto.product_id}}" class="btn btn-primary btn-AW anadir">+</button>
+                <button *ngIf ="(role !=='cliente') || (producto.p_cantidad_almacen > 0)"  id="{{producto.product_id}}" class="btn btn-primary btn-AW anadir">+</button>
               </td>
             </tr>
           </ng-container>

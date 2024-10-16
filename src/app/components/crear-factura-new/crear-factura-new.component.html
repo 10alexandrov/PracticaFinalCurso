@@ -27,7 +27,8 @@
           </div>
         </div>
       </td>
-      <td> {{mercancia.m_precio_venta}} </td>
+      <td *ngIf = "role == 'cliente'">{{mercancia.m_precio_venta }}</td>
+      <td *ngIf = "(role == 'vendedor') || (role == 'manager') || (role == 'admin')">{{mercancia.m_precio_compra}}</td>
       <td> {{mercancia.m_suma_pedida}} </td>
       <td>
         <button id="{{mercancia.m_id_productos}}" class="btn btn-primary btn-AW borrar">Borrar</button>

@@ -41,6 +41,12 @@ mercancias: IMercancia[] = [] // inicializar array mercancias de factura
 
 headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
 
+  // Autenticacion
+  role = localStorage.getItem('role');  // obtener role usuario
+  usuario = localStorage.getItem('usuario');  // obtener role usuario
+
+
+
 
 private buttonsInitialized = false;  // Флаг для предотвращения повторной инициализации
 
@@ -103,13 +109,20 @@ obtenerListaProductos() {
         const producto = this.productos.find(producto => producto.product_id == buttonId)
         const ifMercanciaExist = this.mercancias.find(mercancia => mercancia.m_id_productos == buttonId)
         if (producto && !ifMercanciaExist) {
+
+          // suma factura inicio depende de role
+          let sumaPedido = 0;
+          if (this.role == 'cliente') {sumaPedido = producto.p_precio_venta; } else {sumaPedido = producto.p_precio_compra;}
+
+          // crear nueva factura como array de mercancias
           const newMercancia: IMercancia = {
             m_id_productos: buttonId,
             m_nombre_producto: producto.p_nombre,
             m_precio_venta: producto.p_precio_venta,
+            m_precio_compra: producto.p_precio_compra,
             m_cantidad_pedida: 1,
             m_cantidad_recogida: 0,
-            m_suma_pedida: producto.p_precio_venta,
+            m_suma_pedida: sumaPedido,
             m_suma_recogida: 0,
             m_aceptado: false,
             m_cantidad_maximum: producto.p_cantidad_almacen,

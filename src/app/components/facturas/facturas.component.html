@@ -8,7 +8,7 @@
 
       <div class="card-block">
 
-        <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate">
+        <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate && !regimenControlar">
           <!-- filter -->
           <form class="form mt-2 mb-2">
             <div class="form-group row">
@@ -20,13 +20,13 @@
                   name="filterDesc" id="filterDesc" placeholder="buscamos ...">
               </div>
               <label class="col-form-label col-sm-2 text-sm-right" for="direccionSearch">
-                Direccion
+                acción
               </label>
               <div class="col-sm-3 mt-2">
                 <select name="direccionSearch" id="direccionSearch" [(ngModel)]="direccionSearch" (ngModelChange)="applyFilter()">
-                    <option [value]="-1">Seleccione direccion</option>
-                    <option [value]="0">Entante</option>
-                    <option [value]="1">Saliente</option>
+                    <option [value]="-1">Seleccione acción</option>
+                    <option [value]="0">Compra</option>
+                    <option [value]="1">Venta</option>
                 </select>
               </div>
               <label class="col-form-label col-sm-1 text-sm-right" for="statusSearch">
@@ -53,6 +53,7 @@
                   <th>{{headers.direccion}}</th>
                   <th>{{headers.estado}}</th>
                   <th>{{headers.created}}</th>
+                  <th *ngIf = "(role =='receptor' || role == 'recogedor')">{{headers.accion}}</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
@@ -60,13 +61,24 @@
                   <td (click) ="mostrarFactura(factura.factura_id)">{{factura.factura_id}}</td>
                   <td>{{factura.usuario_cliente.u_nombre}}</td>
                   <td>{{factura.f_suma}}</td>
-                  <td *ngIf="!factura.f_tipo">Entrada</td>
-                  <td *ngIf="factura.f_tipo">Salida</td>
+                  <td *ngIf="!factura.f_tipo">Compra</td>
+                  <td *ngIf="factura.f_tipo">Venta</td>
                   <td *ngIf="!factura.f_tipo && !factura.f_aceptado">No aceptado</td>
                   <td *ngIf="!factura.f_tipo && factura.f_aceptado" style="color:green">Aceptado</td>
                   <td *ngIf="factura.f_tipo && !factura.f_aceptado">No preparado</td>
                   <td *ngIf="factura.f_tipo && factura.f_aceptado">Preparado</td>
                   <td>{{factura.created_at | date : "mediumDate"}}</td>
+
+                  <!-- bloque para receptor y recogedor-->
+                  <td *ngIf = "role == 'receptor'">
+                    <button *ngIf = "!factura.f_aceptado" (click) ="controlarFactura(factura.factura_id)" class="btn btn-AW btn-warning">Comprobar</button>
+                    <button *ngIf = "factura.f_aceptado" class="btn btn-AW btn-success">Aceptado</button>
+                  </td>
+                  <td *ngIf = "role == 'recogedor'">
+                    <button *ngIf = "!factura.f_aceptado" (click) ="controlarFactura(factura.factura_id)" class="btn btn-AW btn-warning">Recoger</button>
+                    <button *ngIf = "factura.f_aceptado" class="btn btn-AW btn-success">Completado</button>
+                  </td>
+
                 </tr>
 
               </tbody>
@@ -105,6 +117,18 @@
                           [updateFacturaId] = "mostrarFacturaId">
 
         </app-crear-factura>
+      </div>
+
+      <!--Fin regimen Crear de factura-->
+
+
+      <!--Comienzo regimen Crear de factura-->
+
+      <div *ngIf="regimenControlar">
+        <app-crear-factura-control (volverMostrar) = "volverListaFacturas ($event)"
+          [controlarFacturaId] = "mostrarFacturaId">
+
+        </app-crear-factura-control>
       </div>
 
       <!--Fin regimen Crear de factura-->

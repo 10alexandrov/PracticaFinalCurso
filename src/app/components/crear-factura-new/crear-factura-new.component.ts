@@ -75,7 +75,7 @@ ngAfterViewChecked(): void {
 
     // Функция для обновления количества en mercancia
     updateQuantity(idProducto: number, value: number): void {
-      if (value >= 0) {  // Можно добавить проверку на корректность введенного значения
+      if (value >= 0) {
         const index = this.mercancias.findIndex(obj => obj.m_id_productos === idProducto);
         if (this.mercancias[index].m_cantidad_maximum) {
           if (value > this.mercancias[index].m_cantidad_maximum) {  // Si pedido mas que cantidad ma
@@ -83,8 +83,15 @@ ngAfterViewChecked(): void {
           }
         }
         this.mercancias[index].m_cantidad_pedida = value;
-        if (this.mercancias[index].m_precio_venta) {
-          const suma = value * this.mercancias[index].m_precio_venta;
+        console.log ('cantidad:', value);
+        let precioMercancia: number = 0;  // precio comprar o vender
+        if (this.role == 'cliente') {
+          precioMercancia = this.mercancias[index].m_precio_venta ?? 0;
+        } else {
+          precioMercancia = this.mercancias[index].m_precio_compra ?? 0;
+        }
+        if (precioMercancia) {
+          const suma = value * precioMercancia;
           this.mercancias[index].m_suma_pedida = suma;
           this.sumarFactura ();
         }

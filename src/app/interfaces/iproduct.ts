@@ -5,7 +5,7 @@ export interface IProduct {
   product_id?: number;
   p_nombre: string;
   p_categoria: number;
-  p_description?: string;
+  p_descripcion?: string;
   p_ancho: number;
   p_altura: number;
   p_longitud: number;

@@ -1,3 +1,4 @@
+
 export interface IMercancia {
 
   id?: number;
