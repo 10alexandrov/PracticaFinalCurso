@@ -20,5 +20,7 @@ export interface IProduct {
   p_activo: boolean;
   p_codigo: string;
   p_nombre_categoria?: string;
+  p_cantidad_palet: number;
+  p_peso_palet: number;
   imagenUrl?: SafeUrl
 }

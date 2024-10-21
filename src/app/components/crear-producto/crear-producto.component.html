@@ -155,6 +155,19 @@
         </div>
       </div>
 
+      <div class="col-3 me-1">
+        <label for="p_cantidad_palet" class="form-label">Unidades en palet, ud</label>
+        <input type="text" formControlName="p_cantidad_palet" placeholder="Unidades..." class="form-control col-md-6"
+        [ngClass]="{ 'is-valid': formCreateProducto.get('p_cantidad_palet')?.valid && formCreateProducto.get('p_cantidad_palet')?.touched,
+        'is-invalid': formCreateProducto.get('p_cantidad_palet')?.invalid && formCreateProducto.get('p_cantidad_palet')?.touched }">
+        <div *ngIf="formCreateProducto.get('p_cantidad_palet')?.invalid && formCreateProducto.get('p_cantidad_palet')?.touched" class="invalid-feedback col-md-4">
+          * Este campo es obligatorio!
+        </div>
+        <div *ngIf="formCreateProducto.get('p_cantidad_palet')?.errors?.['pattern'] && formCreateProducto.get('p_cantidad_palet')?.touched" class="invalid-feedback">
+          * En este campo solo cifras!
+        </div>
+      </div>
+
 
       <div class="col-3 me-1">
         <label for="p_peso" class="form-label">Código de barras</label>

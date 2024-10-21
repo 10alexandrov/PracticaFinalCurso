@@ -21,7 +21,7 @@
           type="number"
           [(ngModel)]="mercancia.m_cantidad_pedida"
           (blur)="updateQuantity(mercancia.m_id_productos, mercancia.m_cantidad_pedida)"/>
-          <div *ngIf = " mercancia.m_cantidad_maximum && mercancia.m_cantidad_pedida > mercancia.m_cantidad_maximum" class="AW-aviso">
+          <div *ngIf = "(role == 'cliente') && (mercancia.m_cantidad_maximum) && (mercancia.m_cantidad_pedida > mercancia.m_cantidad_maximum)" class="AW-aviso">
             <p>La cantidad no puede</p>
             <p>ser mayor que el resto.</p>
           </div>

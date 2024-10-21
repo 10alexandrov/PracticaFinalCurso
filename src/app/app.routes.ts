@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { rolesGuard } from './guards/roles.guard';
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
+import { AlmacenComponent } from './components/almacen/almacen.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent  },  // перенаправление на страницу продуктов
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'productos', component: ConteinerComponent, canActivate: [AuthGuard] },
   { path: 'facturas', component: FacturasComponent, canActivate: [AuthGuard] },
   { path: 'estadistica', component: EstadisticaComponent, canActivate: [AuthGuard] },
+  { path: 'almacen', component: AlmacenComponent, canActivate: [AuthGuard] },
   { path: 'usuarios',
      component: UsuariosComponent,
      canActivate: [AuthGuard, rolesGuard],

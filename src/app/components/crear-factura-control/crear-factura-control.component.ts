@@ -25,6 +25,13 @@ export class CrearFacturaControlComponent {
   role = localStorage.getItem('role');  // obtener role usuario
   usuario = localStorage.getItem('usuario');
 
+  // regimen redactar factura (factura/Almacen)
+  regimenAlmacen: boolean = false;
+
+  cambiarRegimenRedactar (): void {
+    this.regimenAlmacen = !this.regimenAlmacen;
+  }
+
   volverMostrarFactura () {
     console.log ("volver");
     this.volverMostrar.emit(false);
@@ -34,8 +41,12 @@ export class CrearFacturaControlComponent {
 
   ngOnInit(): void {
     if (this.controlarFacturaId > 0) {
-      this.mercanciaService.getMercancias(this.controlarFacturaId).subscribe (
-        (data) => {this.mercancias = data; console.log (data);},
+      this.mercanciaService.getMercanciasConLugares(this.controlarFacturaId).subscribe (
+        (data) => {this.mercancias = data;
+                   console.log (data);
+                  if (this.role == 'recogedor') {
+                    this.sortMercancias();
+                  }},
         (error) => { console.log('Error data de producto', error)}
       );
     } else {
@@ -99,6 +110,30 @@ export class CrearFacturaControlComponent {
         return total + parseFloat(String(mercancia.m_suma_pedida));
       }, start);
       console.log ('sumar', this.sumaFactura);
+    }
+
+    // function para seleccionar lugares de mercancia
+    sortMercancias(): void {
+
+      this.mercancias.sort((a, b) => {
+        const [secA, colA, floorA] = a.m_lugar ? a.m_lugar.split('-'): ['Z','0','0'];
+        const [secB, colB, floorB] = b.m_lugar ? b.m_lugar.split('-'): ['Z','0','0'];
+
+        // Сначала сравниваем секции (буквы)
+        if (secA < secB) return -1;
+        if (secA > secB) return 1;
+
+        // Если секции одинаковые, сравниваем колонки (числа)
+        if (parseInt(colA) < parseInt(colB)) return -1;
+        if (parseInt(colA) > parseInt(colB)) return 1;
+
+        // Если секции и колонки одинаковые, сравниваем этажи (числа)
+        if (parseInt(floorA) < parseInt(floorB)) return -1;
+        if (parseInt(floorA) > parseInt(floorB)) return 1;
+
+        return 0;
+      });
+
     }
 
 

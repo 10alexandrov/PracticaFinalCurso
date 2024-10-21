@@ -13,6 +13,7 @@ export interface IMercancia {
   m_suma_recogida: number;
   m_aceptado: boolean;
   m_precio?: number;
-  m_cantidad_maximum?: number;
+  m_cantidad_maximum?: number;   // Cuanto maximum mercancia puedo pedir
+  m_lugar?: string;    // Donde esta mercancia en almacen
 
 }

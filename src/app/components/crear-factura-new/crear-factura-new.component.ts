@@ -77,7 +77,7 @@ ngAfterViewChecked(): void {
     updateQuantity(idProducto: number, value: number): void {
       if (value >= 0) {
         const index = this.mercancias.findIndex(obj => obj.m_id_productos === idProducto);
-        if (this.mercancias[index].m_cantidad_maximum) {
+        if (this.mercancias[index].m_cantidad_maximum && this.role == 'cliente') {
           if (value > this.mercancias[index].m_cantidad_maximum) {  // Si pedido mas que cantidad ma
             value = this.mercancias[index].m_cantidad_maximum;
           }

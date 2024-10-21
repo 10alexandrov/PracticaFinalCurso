@@ -50,6 +50,7 @@ export class CrearProductoComponent implements OnInit {
       p_precio_compra: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.min(0.01)]],
       p_precio_venta: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$'), Validators.min(0.01)]],
       p_codigo: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(13), Validators.minLength(13) ]],
+      p_cantidad_palet: ['',[Validators.required, Validators.pattern('^[0-9]+$')]],
       p_activo: [''],
       receiveInfo: [true]
     });
@@ -70,6 +71,7 @@ export class CrearProductoComponent implements OnInit {
           p_precio_venta: this.productoParaEditar.p_precio_venta,
           p_activo: this.productoParaEditar.p_activo,
           p_codigo: this.productoParaEditar.p_codigo,
+          p_cantidad_palet: this.productoParaEditar.p_cantidad_palet,
         });
       }
     }
@@ -96,6 +98,8 @@ export class CrearProductoComponent implements OnInit {
             p_cantidad_reservado: this.productoParaEditar.p_cantidad_reservado,
             p_cantidad_almacen: this.productoParaEditar.p_cantidad_almacen,
             p_activo: this.formCreateProducto.value.p_activo,
+            p_cantidad_palet: this.formCreateProducto.value.p_cantidad_palet,
+            p_peso_palet: this. formCreateProducto.value.p_cantidad_palet * this.formCreateProducto.value.p_peso /1000,
             p_foto: this.p_foto,
           };
           if (this.productoParaEditar && this.productoParaEditar.product_id) {
@@ -119,6 +123,8 @@ export class CrearProductoComponent implements OnInit {
             p_cantidad_reservado: 0,
             p_cantidad_almacen: 0,
             p_activo: this.formCreateProducto.value.p_activo,
+            p_cantidad_palet: this.formCreateProducto.value.p_cantidad_palet,
+            p_peso_palet: this. formCreateProducto.value.p_cantidad_palet * this.formCreateProducto.value.p_peso /1000,
             p_foto: this.p_foto,
           };
 

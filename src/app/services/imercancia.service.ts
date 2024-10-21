@@ -30,6 +30,21 @@ export class ImercanciaService {
     }
   }
 
+  getMercanciasConLugares (id: number): Observable<IMercancia[]> {
+
+    const headers = this.getHeaderAuth ();
+
+    if (this.authService.checkTokenExpiration()) {
+      const getURL = `http://localhost:8080/api/mercancias/showWidthPlace/${id}`;
+      return this.http.get<IMercancia[]>(getURL, {headers}).pipe(
+        map(response => response)
+      );
+    } else {
+      return EMPTY;
+    }
+  }
+
+
   deleteMercancia (id: number): Observable<void> {
     const deleteURL = `http://localhost:8080/api/mercancias/${id}`;
     return this.http.delete<void>(deleteURL);

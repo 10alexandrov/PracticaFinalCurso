@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-  <div class="d-flex mt-3 mb-5">
+  <div class="d-flex mt-3 mb-2">
     <h1 class="pb-3"> {{productoMostrar.p_nombre}}</h1>
     <div *ngIf="role === 'admin' || role === 'manager'" class="ms-5 mt-2" >
       <button (click)="editarProducto()" class="btn btn-warning btn-AW">Editar</button>
@@ -17,7 +17,7 @@
 
   <div class="descripcion mb-2">{{productoMostrar.p_descripcion}}</div>
     <div class="row d-flex">
-      <div class="col-8">
+      <div class="col-8 mt-4">
         <table class="table table-striped table-bordered">
             <thead class="table-primary">
               <tr>
@@ -52,7 +52,16 @@
               </tr>
             </tbody>
           </table>
-          <h5>Demenciones</h5>
+
+      </div>
+      <div class="col-4">
+        <div class="wrapper-image">
+          <img class = "img-AW" [src] = "productoMostrar.p_foto">
+          <img *ngIf="productoMostrar.imagenUrl" [src]="productoMostrar.imagenUrl">
+        </div>
+      </div>
+    </div>
+    <h5>Demenciones</h5>
           <table class="table table-striped table-bordered">
             <thead class="table-primary">
               <tr>
@@ -60,6 +69,8 @@
                 <th>Anchura, mm</th>
                 <th>Longitud, mm</th>
                 <th>Peso, gr</th>
+                <th>Unidades en palet, ud</th>
+                <th>Peso de palet, kg</th>
               </tr>
             </thead>
             <tbody>
@@ -68,15 +79,11 @@
                 <td> {{productoMostrar.p_ancho}}</td>
                 <td> {{productoMostrar.p_longitud}}</td>
                 <td> {{productoMostrar.p_peso}}</td>
+                <td> {{productoMostrar.p_cantidad_palet}}</td>
+                <td> {{productoMostrar.p_peso_palet}}</td>
               </tr>
             </tbody>
           </table>
-      </div>
-      <div class="col-4">
-          <img class = "img-AW" [src] = "productoMostrar.p_foto">
-          <img *ngIf="productoMostrar.imagenUrl" [src]="productoMostrar.imagenUrl">
-      </div>
-    </div>
 </div>
 
       <!--Comienzo regimen Mostrar de producto-->
