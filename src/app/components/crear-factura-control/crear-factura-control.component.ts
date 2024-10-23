@@ -8,6 +8,7 @@ import { FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AlmacenShowComponent } from '../almacen-show/almacen-show.component';
 import { Ilugar} from '../../interfaces/ilugar';
+import { IFactura } from '../../interfaces/ifactura';
 
 @Component({
   selector: 'app-crear-factura-control',
@@ -21,6 +22,7 @@ export class CrearFacturaControlComponent {
   constructor( private mercanciaService: ImercanciaService,
                private lugarService: LugaresService, ) {}
   @Input() controlarFacturaId:number = -1;
+  @Input() facturaMostrar: IFactura | null = null;
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
   sumaFactura: number = 0; // Suma de factura controlado
   puedoAceptar: boolean = false;   // puedo aceptar factura cuando todos campos son correctos
@@ -71,6 +73,16 @@ export class CrearFacturaControlComponent {
     console.log ('check' + this.isDisabled);
   }
 
+  isHidden: boolean = false; // para ocultar button "Aceptar"
+
+  hidden () {
+    if (this.role == 'receptor' && this.facturaMostrar && this.facturaMostrar.f_aceptado == true) {
+      this.isHidden = true;
+    }
+  }
+
+
+
   aceptarMercancia ($idRecogida: number, $cantidadRecogida: any): void {
     const mercancia = this.mercancias.find(item => item.id == $idRecogida);
     if (mercancia && mercancia.m_cantidad_pedida == mercancia.m_cantidad_recogida) {
@@ -94,18 +106,32 @@ export class CrearFacturaControlComponent {
       console.log('send');
       if (this.mercancias && this.controlarFacturaId && this.usuario) {
         const usuario = +this.usuario;
-        this.mercancias.forEach((mercancia) => {
-          if (this.role == 'recogedor' && mercancia.m_precio_venta) {
-          mercancia.m_suma_recogida = mercancia.m_cantidad_recogida*mercancia.m_precio_venta;
-            this.sumaFactura += mercancia.m_suma_recogida;
-          }
-          if (this.role == 'receptor' && mercancia.m_precio_compra) {
+
+        if (this.role == 'recogedor') {
+          this.mercancias.forEach((mercancia) => {
+            if (mercancia.m_precio_venta) {
+            mercancia.m_suma_recogida = mercancia.m_cantidad_recogida*mercancia.m_precio_venta;
+              this.sumaFactura += mercancia.m_suma_recogida;
+            }
+          });
+        this.mercanciaService.aceptarFactura(this.controlarFacturaId, this.mercancias, this.sumaFactura, usuario, aceptarFactura).subscribe((response) => this.volverMostrar.emit(true));
+
+        }
+        if (this.role == 'receptor') {
+          this.mercancias.forEach((mercancia) => {
+            if (mercancia.m_precio_compra) {
             mercancia.m_suma_recogida = mercancia.m_cantidad_recogida*mercancia.m_precio_compra;
               this.sumaFactura += mercancia.m_suma_recogida;
+            }
+          })
+        this.mercanciaService.aceptarFactura(this.controlarFacturaId, this.mercancias, this.sumaFactura, usuario, aceptarFactura).subscribe(
+          (data) => {this.mercancias = data;
+                      console.log ("check4");
+                      console.log(this.mercancias);
           }
-        })
-        console.log (this.sumaFactura);
-        this.mercanciaService.aceptarFactura(this.controlarFacturaId, this.mercancias, this.sumaFactura, usuario, aceptarFactura).subscribe((response) => this.volverMostrar.emit(true));
+
+        );
+        }
       }
    }
 

@@ -16,5 +16,6 @@ export interface IMercancia {
   m_cantidad_maximum?: number;   // Cuanto maximum mercancia puedo pedir
   m_lugar?: string;    // Donde esta mercancia en almacen
   m_lugar_numero?: number;   //  Id lugar en formato number
+  m_lugares?: [];
 
 }

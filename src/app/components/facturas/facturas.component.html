@@ -127,7 +127,8 @@
 
       <div *ngIf="regimenControlar">
         <app-crear-factura-control (volverMostrar) = "volverListaFacturas ($event)"
-          [controlarFacturaId] = "mostrarFacturaId">
+          [controlarFacturaId] = "mostrarFacturaId"
+          [facturaMostrar] = "facturaMostrar">
 
         </app-crear-factura-control>
       </div>

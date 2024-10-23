@@ -14,7 +14,10 @@
     <button (click) = "guardarDatos(false)" class="btn btn-warning btn-AW">Guardar</button>
   </div>
   <div class="ms-2 mt-2" >
-    <button (click) = "guardarDatos(true)" [disabled] = "isDisabled" class="btn btn-success btn-AW">Aceptar</button>
+    <button (click) = "guardarDatos(true)" [disabled] = "isDisabled" [hidden] = "isHidden" class="btn btn-success btn-AW">Aceptar</button>
+  </div>
+  <div class="ms-2 mt-2" >
+    <button (click) = "volverMostrarFactura()" [disabled] = "isDisabled" [hidden] = "!isHidden" class="btn btn-dark btn-AW">Salir</button>
   </div>
 </div>
 
@@ -38,7 +41,11 @@
             <input #inputRef style="width:70px;" type="number" [(ngModel)]="mercancia.m_cantidad_recogida">
           </div>
         </td>
-        <td *ngIf = "role == 'receptor'">22</td>
+        <td *ngIf = "role == 'receptor'">
+          <ng-container *ngIf = "mercancia.m_lugar">
+            {{mercancia.m_lugar}}
+          </ng-container>
+        </td>
         <td *ngIf = "role == 'recogedor'">{{mercancia.m_lugar}}</td>
         <td>
           <button *ngIf = "!mercancia.m_aceptado"  (click) = "aceptarMercancia( mercancia.id ?  mercancia.id : 0, inputRef.value)" class="btn btn-AW btn-warning">Aceptar </button>
