@@ -2,20 +2,24 @@ import { Component, EventEmitter, Input, Output, ElementRef, OnInit, AfterViewCh
 import { IMercancia } from '../../interfaces/imercancia';
 import { CommonModule } from '@angular/common';
 import { ImercanciaService } from '../../services/imercancia.service';
+import { LugaresService } from '../../services/lugares.service';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { AlmacenShowComponent } from '../almacen-show/almacen-show.component';
+import { Ilugar} from '../../interfaces/ilugar';
 
 @Component({
   selector: 'app-crear-factura-control',
   standalone: true,
-  imports: [CommonModule, FormsModule,],
+  imports: [CommonModule, FormsModule, AlmacenShowComponent,],
   templateUrl: './crear-factura-control.component.html',
   styleUrl: './crear-factura-control.component.scss'
 })
 export class CrearFacturaControlComponent {
 
-  constructor( private mercanciaService: ImercanciaService) {}
+  constructor( private mercanciaService: ImercanciaService,
+               private lugarService: LugaresService, ) {}
   @Input() controlarFacturaId:number = -1;
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
   sumaFactura: number = 0; // Suma de factura controlado
@@ -37,7 +41,7 @@ export class CrearFacturaControlComponent {
     this.volverMostrar.emit(false);
   }
 
-  mercancias: IMercancia[] = [] // inicializar array usuarios
+  mercancias: IMercancia[] = [] // inicializar array merczncias
 
   ngOnInit(): void {
     if (this.controlarFacturaId > 0) {
@@ -46,7 +50,8 @@ export class CrearFacturaControlComponent {
                    console.log (data);
                   if (this.role == 'recogedor') {
                     this.sortMercancias();
-                  }},
+                  }
+                },
         (error) => { console.log('Error data de producto', error)}
       );
     } else {
@@ -55,25 +60,51 @@ export class CrearFacturaControlComponent {
 
   }
 
+  isDisabled: boolean = true;  // Activar/Desactivar button "Aceptar"
+
+  // comprobar todos campos acceptar para activar button "Aceptar"
+  disabled () {
+    let aceptado = true;
+    this.mercancias.forEach((mercancia) => {if (!mercancia.m_aceptado) aceptado= false});
+    console.log (aceptado);
+    this.isDisabled = !aceptado;
+    console.log ('check' + this.isDisabled);
+  }
+
   aceptarMercancia ($idRecogida: number, $cantidadRecogida: any): void {
     const mercancia = this.mercancias.find(item => item.id == $idRecogida);
     if (mercancia && mercancia.m_cantidad_pedida == mercancia.m_cantidad_recogida) {
       mercancia.m_aceptado = true;
     }
 
+    this.disabled ();
+
   }
 
   cancelarAceptadoMercancia ($idRecogida: number, $cantidadRecogida: any): void {
     const mercancia = this.mercancias.find(item => item.id == $idRecogida);
     if (mercancia && mercancia.m_cantidad_pedida == $cantidadRecogida) {
-      mercancia.m_aceptado = true;
+      mercancia.m_aceptado = false;
     }
+
+    this.disabled ();
    }
 
    guardarDatos (aceptarFactura: boolean): void {   // Guardamos datos sin aceptaccion la factura
       console.log('send');
       if (this.mercancias && this.controlarFacturaId && this.usuario) {
         const usuario = +this.usuario;
+        this.mercancias.forEach((mercancia) => {
+          if (this.role == 'recogedor' && mercancia.m_precio_venta) {
+          mercancia.m_suma_recogida = mercancia.m_cantidad_recogida*mercancia.m_precio_venta;
+            this.sumaFactura += mercancia.m_suma_recogida;
+          }
+          if (this.role == 'receptor' && mercancia.m_precio_compra) {
+            mercancia.m_suma_recogida = mercancia.m_cantidad_recogida*mercancia.m_precio_compra;
+              this.sumaFactura += mercancia.m_suma_recogida;
+          }
+        })
+        console.log (this.sumaFactura);
         this.mercanciaService.aceptarFactura(this.controlarFacturaId, this.mercancias, this.sumaFactura, usuario, aceptarFactura).subscribe((response) => this.volverMostrar.emit(true));
       }
    }
@@ -135,6 +166,5 @@ export class CrearFacturaControlComponent {
       });
 
     }
-
 
 }

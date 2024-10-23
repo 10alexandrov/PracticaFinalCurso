@@ -16,6 +16,7 @@ export class ShowFacturaComponent implements OnInit{
 
   constructor( private facturasService: FacturasService, private mercanciaService: ImercanciaService) {}
   @Input() mostrarFacturaId:number = -1;
+  @Input() facturaMostrar: IFactura | null = null;
   @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de usuarios
   @Output () encenderRegimenEditar = new EventEmitter <boolean> (); // Encender regimen editar de factura
 
@@ -44,7 +45,6 @@ export class ShowFacturaComponent implements OnInit{
   }
 
   volverMostrarFactura () {
-    console.log ("volver");
     this.volverMostrar.emit(false);
   }
 

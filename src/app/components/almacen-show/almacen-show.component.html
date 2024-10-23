@@ -1,0 +1,59 @@
+
+<div class="container">
+  <div *ngFor="let table of tables; let tableIndex = index" class="d-flex">
+      <div class="zona">
+        {{ zonas[tableIndex]}}
+      </div>
+      <table class="mb-2">
+        <tbody>
+          <tr *ngFor="let row of rows; let rowIndex = index">
+            <td *ngFor="let col of cols; let colIndex = index"
+                [attr.id]="getId(tableIndex, rowIndex, colIndex)"
+                (click) = "mostrarInfo( getId(tableIndex, rowIndex, colIndex), $event)">
+              <div class="celda" [ngStyle] ="getBackgroundColor (+getId(tableIndex, rowIndex, colIndex))"> {{ getNumeroCelda(rowIndex, colIndex) }} </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<div *ngIf = "isPopupVisible" class="popup">
+  <div *ngIf = "lugarParaMostrar">
+    <div class="header">
+      {{lugarParaMostrar.lugar_estanteria}}-{{lugarParaMostrar.lugar_column}}-{{lugarParaMostrar.lugar_planta}}
+    </div>
+    <div class="mt-1 mb-1 line"></div>
+    <div *ngIf = "lugarParaMostrar.lugar_productoInfo.p_nombre" class="d-flex">
+      <div class="infoProducto col-6">
+        <p class="mt-2 fw-bold">{{lugarParaMostrar.lugar_productoInfo.p_nombre}} </p>
+        <p>cantidad: {{lugarParaMostrar.lugar_cantidad}}</p>
+      </div>
+      <div class="col-6">
+        <img class = "img-AW" [src] = "lugarParaMostrar.lugar_productoInfo.p_foto">
+      </div>
+    </div>
+    <div class="d-flex buttons justify-content-around">
+      <div *ngIf = "mercancia" class="d-flex m-auto">
+        <label class=" pt-1 fw-bold">Cantidad</label>
+        <input  *ngIf = "mercancia" style="width:70px;" type="number" [(ngModel)]="mercancia.m_cantidad_recogida">
+      </div>
+      <button *ngIf = "mercancia && !mercancia.m_aceptado" (click) = "aceptarMercancia( mercancia.id ?  mercancia.id : 0, mercancia.m_cantidad_recogida)" class="btn btn-AW btn-warning m-auto">Aceptar </button>
+      <button *ngIf = "mercancia && mercancia.m_aceptado"  (click) = "cancelarAceptadoMercancia (mercancia.id ?  mercancia.id : 0, mercancia.m_cantidad_recogida)" class="btn btn-AW btn-success m-auto">Cancelar </button>
+      <button class="btn btn-AW btn-dark m-auto"    (click) = "cerrarPopup ()">Cerrar</button>
+    </div>
+
+
+
+    <div *ngIf = "!lugarParaMostrar.lugar_productoInfo.p_nombre">
+      <div class="disponible">
+        <p>LUGAR</p>
+        <p>DISPONIBLE</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

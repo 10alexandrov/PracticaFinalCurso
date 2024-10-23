@@ -1,6 +1,6 @@
 <div class="desktop-menu">
   <div class="wrapper" *ngIf="role === 'admin'">
-      <a class="cta" id = "desktop-menu-admin" href='/usuarios'>
+      <a class="cta" id = "desktop-menu-admin" href='/usuarios' [class.active]="isActive('/usuarios')">
         <span class = "desktop-menu-title">Usuarios</span>
         <span>
             <svg width="66px" height="60px" viewBox="0 10 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -16,7 +16,7 @@
 
 
   <div class="wrapper">
-    <a class="cta" id = "desktop-menu-admin" href='/productos'>
+    <a class="cta" id = "desktop-menu-admin" href='/productos' [class.active]="isActive('/productos')">
       <span class = "desktop-menu-title">Productos</span>
       <span>
           <svg width="66px" height="60px" viewBox="0 10 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -32,7 +32,7 @@
 
 
   <div class="wrapper">
-    <a class="cta" id = "desktop-menu-admin" href='/facturas'>
+    <a class="cta" id = "desktop-menu-admin" href='/facturas' [class.active]="isActive('/facturas')">
       <span class = "desktop-menu-title">Facturas</span>
       <span>
           <svg width="66px" height="60px" viewBox="0 10 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -48,7 +48,7 @@
 
 
   <div class="wrapper" *ngIf="role !== 'vendedor' && role !== 'cliente'" >
-    <a class="cta" id = "desktop-menu-admin" href='/almacen'>
+    <a class="cta" id = "desktop-menu-admin" href='/almacen' [class.active]="isActive('/almacen')">
       <span class = "desktop-menu-title">Almacen</span>
       <span>
           <svg width="66px" height="60px" viewBox="0 10 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -63,7 +63,7 @@
   </div>
 
   <div class="wrapper" *ngIf="role !== 'receptor' && role !== 'recogedor'">
-    <a class="cta" id = "desktop-menu-admin" href='/estadistica'>
+    <a class="cta" id = "desktop-menu-admin" href='/estadistica' [class.active]="isActive('/estadistica')">
       <span class = "desktop-menu-title">Análisis</span>
       <span>
           <svg width="66px" height="60px" viewBox="0 10 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

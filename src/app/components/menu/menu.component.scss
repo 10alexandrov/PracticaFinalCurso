@@ -28,6 +28,15 @@
     justify-content: space-between;
   }
 
+  .active {
+    color: white;
+    background: linear-gradient(to bottom, #3f31a5, #635acc, #3f31a5);
+    transition: 1s;
+    box-shadow: 6px 6px 0 black;
+    transform: skewX(-15deg);
+    justify-content: space-between;
+  }
+
   .cta-mini {
     display: flex;
     width: 300px;

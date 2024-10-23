@@ -7,7 +7,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MenuComponent, ConteinerComponent, InicioComponent],
+  imports: [RouterOutlet, MenuComponent, ConteinerComponent, InicioComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

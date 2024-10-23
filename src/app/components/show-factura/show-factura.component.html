@@ -38,6 +38,15 @@
         <td *ngIf = "!mercancia.m_aceptado" style="color:red">No</td>
         <td *ngIf = "mercancia.m_aceptado" style="color:green">Si</td>
       </tr>
+      <tr class="fw-bold">
+        <td>TOTAL</td>
+        <td></td>
+        <td *ngIf = "facturaMostrar">{{facturaMostrar.f_suma}}</td>
+        <td></td>
+        <td *ngIf = "facturaMostrar">{{facturaMostrar.f_suma_tramitacion}}</td>
+        <td *ngIf = "facturaMostrar && (facturaMostrar.f_aceptado==true)" style="color:green" > Si</td>
+        <td *ngIf = "facturaMostrar && (facturaMostrar.f_aceptado==false)" style="color:red" > No</td>
+      </tr>
 
     </tbody>
   </table>

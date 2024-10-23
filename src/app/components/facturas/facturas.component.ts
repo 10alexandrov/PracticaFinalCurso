@@ -62,6 +62,12 @@ mostrarFactura(id:number) {
   this.regimenUpdate = false;
   this.regimenCrear = false;
   this.regimenControlar = false;
+
+  const facturaMostrar = this.facturas.find((factura) => factura.factura_id == id);
+
+  if (facturaMostrar) {
+    this.facturaMostrar = facturaMostrar;
+  }
 }
 
 // Volver a modo de lista de usuarios

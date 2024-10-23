@@ -2,46 +2,8 @@
   <div class="sidebar">
     <app-menu></app-menu>
   </div>
-
-  <div class="container">
-    <div *ngFor="let table of tables; let tableIndex = index" >
-      <table>
-        <tbody>
-          <tr *ngFor="let row of rows; let rowIndex = index">
-            <td *ngFor="let col of cols; let colIndex = index"
-                [attr.id]="getId(tableIndex, rowIndex, colIndex)"
-                (click) = "mostrarInfo( getId(tableIndex, rowIndex, colIndex), $event)">
-              <div class="celda" [ngStyle] ="getBackgroundColor (+getId(tableIndex, rowIndex, colIndex))"> {{ getNumeroCelda(rowIndex, colIndex) }} </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br>
-    </div>
+  <div class="info-container">
+    <app-almacen-show [lugares] = "lugares">
+    </app-almacen-show>
   </div>
-
-  <div *ngIf = "isPopupVisible" class="popup" (click) = "cerrarPopup ()">
-    <div *ngIf = "lugarParaMostrar">
-      <div class="header">
-        {{lugarParaMostrar.lugar_estanteria}}-{{lugarParaMostrar.lugar_column}}-{{lugarParaMostrar.lugar_planta}}
-      </div>
-      <div *ngIf = "lugarParaMostrar.lugar_productoInfo.p_nombre" class="d-flex">
-        <div class="infoProducto col-6">
-          <p>{{lugarParaMostrar.lugar_productoInfo.p_nombre}} </p>
-          <p>cantidad: {{lugarParaMostrar.lugar_cantidad}}</p>
-        </div>
-        <div class="col-6">
-          <img class = "img-AW" [src] = "lugarParaMostrar.lugar_productoInfo.p_foto">
-        </div>
-      </div>
-      <div *ngIf = "!lugarParaMostrar.lugar_productoInfo.p_nombre">
-        <div class="disponible">
-          <p>LUGAR</p>
-          <p>DISPONIBLE</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
 </div>

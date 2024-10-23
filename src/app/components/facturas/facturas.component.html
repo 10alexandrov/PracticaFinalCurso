@@ -103,7 +103,8 @@
       <div *ngIf="regimenMostrar">
         <app-show-factura [mostrarFacturaId]="mostrarFacturaId"
                           (volverMostrar) = "volverListaFacturas ($event)"
-                          (encenderRegimenEditar) = "encenderRegimenEditar ($event)">
+                          (encenderRegimenEditar) = "encenderRegimenEditar ($event)"
+                          [facturaMostrar] = "facturaMostrar">
         </app-show-factura>
       </div>
       <!--Fin regimen mostrar de facturas-->
