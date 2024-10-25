@@ -2,7 +2,7 @@
   <h1> Factura #{{controlarFacturaId}}</h1>
 
   <div  class="ms-5 mt-2" >
-    <button (click) = "volverMostrarFactura()" class="btn btn-info btn-AW">Volver</button>
+    <button (click) = "volverMostrarFactura(false)" class="btn btn-info btn-AW">Volver</button>
   </div>
   <div *ngIf ="regimenAlmacen" class="ms-5 mt-2" >
     <button (click) = "cambiarRegimenRedactar ()" class="btn btn-primary btn-AW">Factura</button>
@@ -17,7 +17,7 @@
     <button (click) = "guardarDatos(true)" [disabled] = "isDisabled" [hidden] = "isHidden" class="btn btn-success btn-AW">Aceptar</button>
   </div>
   <div class="ms-2 mt-2" >
-    <button (click) = "volverMostrarFactura()" [disabled] = "isDisabled" [hidden] = "!isHidden" class="btn btn-dark btn-AW">Salir</button>
+    <button (click) = "volverMostrarFactura(true)" [disabled] = "isDisabled" [hidden] = "!isHidden" class="btn btn-dark btn-AW">Salir</button>
   </div>
 </div>
 
@@ -42,8 +42,13 @@
           </div>
         </td>
         <td *ngIf = "role == 'receptor'">
-          <ng-container *ngIf = "mercancia.m_lugar">
+          <ng-container *ngIf = "mercancia.m_lugar && !mercancia.m_lugares">
             {{mercancia.m_lugar}}
+          </ng-container>
+          <ng-container *ngIf = "mercancia.m_lugares">
+            <ng-container *ngFor ="let lugar of mercancia.m_lugares">
+              {{lugar.lugar_estanteria}}-{{lugar.lugar_planta}}-{{lugar.lugar_column}}
+            </ng-container>
           </ng-container>
         </td>
         <td *ngIf = "role == 'recogedor'">{{mercancia.m_lugar}}</td>
@@ -60,7 +65,8 @@
 
       <app-almacen-show [mercancias] = "mercancias"
                         [regimenAlmacen] = "regimenAlmacen"
-                        (disabled) = "disabled()">
+                        (disabled) = "disabled()"
+                        [isHidden] = "isHidden">
       </app-almacen-show>
 
   </div>

@@ -9,7 +9,7 @@
           <tr *ngFor="let row of rows; let rowIndex = index">
             <td *ngFor="let col of cols; let colIndex = index"
                 [attr.id]="getId(tableIndex, rowIndex, colIndex)"
-                (click) = "mostrarInfo( getId(tableIndex, rowIndex, colIndex), $event)">
+                (click) = "accionesConCelda( getId(tableIndex, rowIndex, colIndex), $event)">
               <div class="celda" [ngStyle] ="getBackgroundColor (+getId(tableIndex, rowIndex, colIndex))"> {{ getNumeroCelda(rowIndex, colIndex) }} </div>
             </td>
           </tr>
@@ -35,11 +35,11 @@
     </div>
     <div class="d-flex buttons justify-content-around">
       <div *ngIf = "mercancia" class="d-flex m-auto">
-        <label class=" pt-1 fw-bold">Cantidad</label>
-        <input  *ngIf = "mercancia" style="width:70px;" type="number" [(ngModel)]="mercancia.m_cantidad_recogida">
+        <label class=" pt-1 fw-bold" [hidden] = "isHidden">Cantidad</label>
+        <input  *ngIf = "mercancia" style="width:70px;" type="number" [hidden] = "isHidden" [(ngModel)]="mercancia.m_cantidad_recogida">
       </div>
-      <button *ngIf = "mercancia && !mercancia.m_aceptado" (click) = "aceptarMercancia( mercancia.id ?  mercancia.id : 0, mercancia.m_cantidad_recogida)" class="btn btn-AW btn-warning m-auto">Aceptar </button>
-      <button *ngIf = "mercancia && mercancia.m_aceptado"  (click) = "cancelarAceptadoMercancia (mercancia.id ?  mercancia.id : 0, mercancia.m_cantidad_recogida)" class="btn btn-AW btn-success m-auto">Cancelar </button>
+      <button *ngIf = "mercancia && !mercancia.m_aceptado" [hidden] = "isHidden" (click) = "aceptarMercancia( mercancia.id ?  mercancia.id : 0, mercancia.m_cantidad_recogida)" class="btn btn-AW btn-warning m-auto">Aceptar </button>
+      <button *ngIf = "mercancia && mercancia.m_aceptado"  [hidden] = "isHidden" (click) = "cancelarAceptadoMercancia (mercancia.id ?  mercancia.id : 0, mercancia.m_cantidad_recogida)" class="btn btn-AW btn-success m-auto">Cancelar </button>
       <button class="btn btn-AW btn-dark m-auto"    (click) = "cerrarPopup ()">Cerrar</button>
     </div>
 
@@ -52,6 +52,15 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<div *ngIf = "isPopupAcceptVisible" class="popup">
+    <p>Mover de celda {{firstCelda}} a celda {{secondCelda}}?</p>
+    <div class="d-flex buttons justify-content-around">
+      <button  (click) = "intercambioCeldas ()" class="btn btn-AW btn-warning m-auto">Mover</button>
+      <button  (click) = "cerrarPopup ()" class="btn btn-AW btn-success m-auto">Cancelar </button>
+    </div>
 </div>
 
 

@@ -20,7 +20,11 @@ export class AlmacenShowComponent {
   @Input() lugares: Ilugar [] = [];
   @Input() mercancias: IMercancia [] = [];
   @Input() regimenAlmacen: boolean = false;
-  @Output() disabled = new EventEmitter <void>();
+  @Input() regimenTrasladar: boolean = false;
+  @Input() productoSearch: String = "";
+  @Input() isHidden: boolean = false;   // Para ocultar button "Aceptar"
+  @Output() disabled = new EventEmitter <void>();  // Para encender button "Aceptar"
+  @Output() obtenerLugaresAlmacen = new EventEmitter <void> ();
 
   lugarParaMostrar: Ilugar | null = null;
 
@@ -44,19 +48,82 @@ export class AlmacenShowComponent {
     });
   }
 
-  isPopupVisible: boolean = false;
+  isPopupVisible: boolean = false;    // popup con info de celda
+  isPopupAcceptVisible: boolean = false;   // popup para aceptar intercambios entre celdas
   number: string = "";
   mercancia: IMercancia | undefined = undefined;
 
-  mostrarInfo (id: string, event: MouseEvent) {
+
+  // que accion executa en celda
+  accionesConCelda (id: string, event: MouseEvent) {
+
+    if(this.regimenTrasladar) {
+      this.cambiarCeldas (id);
+    } else {
+      event.stopPropagation ();
+      this.mostrarInfo (id)
+    }
+  }
+
+  // processo eleccion de celda
+  firstSelected: string | null = null;    // id celdas
+  secondSelected: string | null = null;
+  firstCelda: string = "";                // Celda en formato A-1-1
+  secondCelda: string = "";
+
+  cambiarCeldas (id: string) {
+      if (!this.firstSelected) {
+        this.firstSelected = id;
+          this.firstCelda = this.lugares[+id].lugar_estanteria + "-" + this.lugares[+id].lugar_planta + "-" +  (this.lugares[+id].lugar_column-1);
+        console.log ("first :" + this.firstSelected);
+      } else if (!this.secondSelected) {
+          this.secondSelected = id;
+          this.secondCelda = this.lugares[+id].lugar_estanteria + "-" + this.lugares[+id].lugar_planta + "-" +  (this.lugares[+id].lugar_column-1);
+          console.log ("second :" + this.secondSelected);
+          this.isPopupAcceptVisible = true;
+      }
+  }
+
+  // processo combinacion de celdas
+  intercambioCeldas () {
+    this.isPopupAcceptVisible = false;
+    if (this.firstSelected && this.secondSelected) {
+      const firstCelda = +this.firstSelected;
+      const secondCelda = +this.secondSelected;
+
+      this.lugaresService.cambiarLugares(firstCelda, secondCelda).subscribe(
+        (data) => {
+          this.obtenerLugaresAlmacen.emit();
+        },
+        (error) => {
+          console.log('Error data de lugares', error);
+        });
+
+        this.firstSelected = null;
+        this.secondSelected = null;
+        this.firstCelda = "";
+        this.secondCelda = "";
+
+    }
+
+  }
+
+
+
+
+  // mostrar info in celda
+  mostrarInfo (id: string) {
     this.isPopupVisible = !this.isPopupVisible;
-    console.log ('check 1');
-    event.stopPropagation ();
     this.getLugar (id);
   }
 
   cerrarPopup () {
-    this.isPopupVisible = !this.isPopupVisible;
+    this.isPopupVisible = false;
+    this.isPopupAcceptVisible = false;
+    this.firstSelected = null;
+    this.secondSelected = null;
+    this.firstCelda = "";
+    this.secondCelda = "";
   }
 
   getBackgroundColor (id: number): any {
@@ -73,8 +140,13 @@ export class AlmacenShowComponent {
       }
 
     } else {
-      if (this.lugares[id-1].lugar_llenado && this.lugares[id-1].lugar_llenado > 0) {
-        return {'background': 'blue'};
+      if (this.productoSearch) {
+        if (this.lugares.find((element) => element.id == id)) return {'background': 'green'};
+        else return {'background': 'white'};
+      } else {
+        if (this.lugares[id-1].lugar_cantidad && this.lugares[id-1].lugar_cantidad > 0) {
+          return {'background': 'blue'};
+        }
       }
     }
   }
@@ -105,7 +177,6 @@ export class AlmacenShowComponent {
     if (mercancia && mercancia.m_cantidad_pedida == mercancia.m_cantidad_recogida) {
       mercancia.m_aceptado = true;
     }
- console.log ('check2-2');
     this.disabled.emit();
 
   }

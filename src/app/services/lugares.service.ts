@@ -44,6 +44,22 @@ export class LugaresService {
     }
   }
 
+  cambiarLugares(firstCelda: number, secondCelda: number): Observable<any> {
+
+    const headers = this.getHeaderAuth ();
+    const body = {firstCelda, secondCelda};
+    const urlConId = `${this.lugarUrl}/cambiar`;
+
+    if (this.authService.checkTokenExpiration()) {
+      console.log('read');
+      return this.http.put(urlConId, body, { headers});
+    } else {
+      console.log('not read');
+      return EMPTY;
+    }
+
+  }
+
 
   getHeaderAuth (): HttpHeaders {  // creamos header para authenticacion
     const token = this.authService.getToken();

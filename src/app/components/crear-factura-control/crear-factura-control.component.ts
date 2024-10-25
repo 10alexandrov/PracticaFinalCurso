@@ -38,14 +38,15 @@ export class CrearFacturaControlComponent {
     this.regimenAlmacen = !this.regimenAlmacen;
   }
 
-  volverMostrarFactura () {
+  volverMostrarFactura ($recargaFacturas: boolean) {
     console.log ("volver");
-    this.volverMostrar.emit(false);
+    this.volverMostrar.emit($recargaFacturas);
   }
 
   mercancias: IMercancia[] = [] // inicializar array merczncias
 
   ngOnInit(): void {
+    console.log (this.facturaMostrar);
     if (this.controlarFacturaId > 0) {
       this.mercanciaService.getMercanciasConLugares(this.controlarFacturaId).subscribe (
         (data) => {this.mercancias = data;
@@ -74,13 +75,6 @@ export class CrearFacturaControlComponent {
   }
 
   isHidden: boolean = false; // para ocultar button "Aceptar"
-
-  hidden () {
-    if (this.role == 'receptor' && this.facturaMostrar && this.facturaMostrar.f_aceptado == true) {
-      this.isHidden = true;
-    }
-  }
-
 
 
   aceptarMercancia ($idRecogida: number, $cantidadRecogida: any): void {
@@ -126,8 +120,8 @@ export class CrearFacturaControlComponent {
           })
         this.mercanciaService.aceptarFactura(this.controlarFacturaId, this.mercancias, this.sumaFactura, usuario, aceptarFactura).subscribe(
           (data) => {this.mercancias = data;
-                      console.log ("check4");
-                      console.log(this.mercancias);
+                      console.log (this.mercancias);
+                      this.isHidden = true;
           }
 
         );
@@ -194,3 +188,5 @@ export class CrearFacturaControlComponent {
     }
 
 }
+
+

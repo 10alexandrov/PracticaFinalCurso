@@ -3,7 +3,31 @@
     <app-menu></app-menu>
   </div>
   <div class="info-container">
-    <app-almacen-show [lugares] = "lugares">
+
+    <!-- filter -->
+    <div class="mt-3 mb-3 ms-5 d-flex">
+      <form class="form">
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
+            Buscar
+          </label>
+          <div class="col-sm-3">
+            <input type="text" [(ngModel)]="productoSearch" (input)="applyFilter()" class="form-control"
+              name="filterDesc" id="filterDesc" placeholder="buscamos...">
+          </div>
+        </div>
+      </form>
+      <button *ngIf = "!regimenTrasladar" class="btn btn-primary btn-AW ms-5" (click) = "regimenTrasladarInterruptor()"> Trasladar</button>
+      <button *ngIf = "regimenTrasladar" class="btn btn-danger btn-AW ms-5" (click) = "regimenTrasladarInterruptor()"> Terminar trasladar</button>
+    </div>
+
+
+
+    <app-almacen-show
+                      [lugares] = "lugaresFiltrado"
+                      [productoSearch] = "productoSearch"
+                      [regimenTrasladar] = "regimenTrasladar"
+                      (obtenerLugaresAlmacen) = "obtenerLugaresAlmacen()">
     </app-almacen-show>
   </div>
 </div>
