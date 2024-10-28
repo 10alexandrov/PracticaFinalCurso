@@ -29,7 +29,7 @@ label{
 	font-size: 2.3em;
 	justify-content: center;
 	display: flex;
-	margin: 50px;
+	margin: 30px;
 	font-weight: bold;
 	cursor: pointer;
 	transition: .5s ease-in-out;
@@ -40,7 +40,7 @@ input{
 	background: #e0dede;
 	justify-content: center;
 	display: flex;
-	margin: 20px auto;
+	margin: 15px auto;
 	padding: 12px;
 	border: none;
 	outline: none;
@@ -56,7 +56,7 @@ button{
 	background: #573b8a;
 	font-size: 1em;
 	font-weight: bold;
-	margin-top: 30px;
+	margin-top: 10px;
 	outline: none;
 	border: none;
 	border-radius: 5px;
@@ -86,4 +86,13 @@ button:hover{
 }
 #chk:checked ~ .signup label{
 	transform: scale(.6);
+}
+
+.AW-logo {
+  width: 40%;
+}
+
+.AW-error {
+  color: rgb(253, 119, 119);
+  text-align: center;
 }

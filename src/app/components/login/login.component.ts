@@ -18,6 +18,7 @@ export class LoginComponent {
   u_login = '';
   u_password = '';
   public formLogin!: FormGroup;
+  error: boolean = false;
 
   constructor (
     private authService: AuthService,
@@ -39,7 +40,9 @@ export class LoginComponent {
          this.router.navigate(['/inicio']);
          } else { console.log('Error: autorización fallida'); }
      },
-     (error) => { console.log('Error en el proceso de login:', error); } );
+     (error) => { console.log('Error en el proceso de login:', error);
+      this.error = true;
+      } );
   }
 
   ngOnInit(): void {

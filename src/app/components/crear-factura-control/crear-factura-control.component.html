@@ -1,23 +1,25 @@
-<div class="d-flex mt-2 mb-2">
+<div class="d-flex mt-2 mb-2 justify-content-between">
   <h1> Factura #{{controlarFacturaId}}</h1>
 
-  <div  class="ms-5 mt-2" >
-    <button (click) = "volverMostrarFactura(false)" class="btn btn-info btn-AW">Volver</button>
-  </div>
   <div *ngIf ="regimenAlmacen" class="ms-5 mt-2" >
     <button (click) = "cambiarRegimenRedactar ()" class="btn btn-primary btn-AW">Factura</button>
   </div>
   <div *ngIf ="!regimenAlmacen" class="ms-5 mt-2" >
     <button (click) = "cambiarRegimenRedactar ()" class="btn btn-primary btn-AW">Almacen</button>
   </div>
-  <div class="ms-5 mt-2" >
-    <button (click) = "guardarDatos(false)" class="btn btn-warning btn-AW">Guardar</button>
-  </div>
-  <div class="ms-2 mt-2" >
-    <button (click) = "guardarDatos(true)" [disabled] = "isDisabled" [hidden] = "isHidden" class="btn btn-success btn-AW">Aceptar</button>
-  </div>
-  <div class="ms-2 mt-2" >
-    <button (click) = "volverMostrarFactura(true)" [disabled] = "isDisabled" [hidden] = "!isHidden" class="btn btn-dark btn-AW">Salir</button>
+  <div class="d-flex">
+    <div class="ms-5 mt-2" >
+      <button (click) = "guardarDatos(false)" class="btn btn-warning btn-AW">Guardar</button>
+    </div>
+    <div class="ms-2 mt-2" >
+      <button (click) = "guardarDatos(true)" [disabled] = "isDisabled" [hidden] = "isHidden" class="btn btn-success btn-AW">Aceptar</button>
+    </div>
+    <div class="ms-2 mt-2" >
+      <button (click) = "volverMostrarFactura(true)" [disabled] = "isDisabled" [hidden] = "!isHidden" class="btn btn-dark btn-AW">Salir</button>
+    </div>
+    <div  class="ms-2 mt-2" >
+      <button (click) = "volverMostrarFactura(false)" class="btn btn-info btn-AW">Volver</button>
+    </div>
   </div>
 </div>
 

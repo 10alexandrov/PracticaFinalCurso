@@ -2,7 +2,7 @@
 
 
   <form [formGroup] = "formCreateUser" (ngSubmit)="sendDatos()">
-    <div class="d-flex mt-3 mb-5">
+    <div class="d-flex mt-3 mb-5 justify-content-around">
       <h1 *ngIf = "!regimenUpdate">Crear nuevo Usuario</h1>
       <h1 *ngIf = "regimenUpdate">Editar producto</h1>
       <div *ngIf = "!regimenUpdate" class="ms-5 mt-2" >

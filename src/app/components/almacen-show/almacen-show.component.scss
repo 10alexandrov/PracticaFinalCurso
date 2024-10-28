@@ -28,7 +28,23 @@ td {
   height: 60%;
   background-color: white;
   border: 1px solid black;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+}
+
+.popup2 {
+  position: absolute;
+  top: 25%;
+  left: 35%;
+  padding: 10px;
+  width: 30%;
+  height: 30%;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+}
+
+.popup2 p {
+  font-size: 1.5rem;
 }
 
 .line {
@@ -68,3 +84,36 @@ td {
   text-align: center;
   padding: 20%;
 }
+
+
+
+.shelving {
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.shelving .cell {
+  border: 2px solid #ccc; /* Рамка ячейки */
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Тень для объема */
+}
+
+/* Визуализация вертикальных и горизонтальных балок стеллажа */
+.shelving tr {
+  border-bottom: 3px solid #8b4513; /* Горизонтальные балки стеллажа */
+}
+
+.shelving .cell:first-child {
+  border-left: 3px solid #8b4513; /* Левая вертикальная балка */
+}
+
+.shelving tr:last-child .cell {
+  border-bottom: 3px solid #8b4513; /* Нижняя балка */
+}
+
+
+

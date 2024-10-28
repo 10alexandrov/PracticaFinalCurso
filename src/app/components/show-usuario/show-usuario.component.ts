@@ -47,4 +47,10 @@ export class ShowUsuarioComponent {
     this.volverMostrar.emit (false);
   }
 
+  isPopupDisactiveVisible: boolean = false;
+
+  popupInterruptor () {
+    this.isPopupDisactiveVisible = !this.isPopupDisactiveVisible;
+  }
+
 }

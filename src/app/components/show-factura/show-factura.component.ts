@@ -22,6 +22,8 @@ export class ShowFacturaComponent implements OnInit{
 
   mercancias: IMercancia[] = [] // inicializar array usuarios
 
+  isPopupAcceptVisible: boolean = false; // Popup ventana
+
   ngOnInit(): void {
     if (this.mostrarFacturaId > 0) {
       this.mercanciaService.getMercancias(this.mostrarFacturaId).subscribe (
@@ -46,6 +48,11 @@ export class ShowFacturaComponent implements OnInit{
 
   volverMostrarFactura () {
     this.volverMostrar.emit(false);
+  }
+
+  // Interruptor ventana de popup
+  popupInterruptor () {
+    this.isPopupAcceptVisible = !this.isPopupAcceptVisible
   }
 
   borrarFactura (id_factura: number): void  {

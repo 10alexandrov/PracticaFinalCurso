@@ -1,12 +1,12 @@
 <div class="wrapper">
 
-  <div class="d-flex mt-3 mb-2">
+  <div class="d-flex mt-3 mb-2 justify-content-between">
     <h1 class="pb-3"> {{productoMostrar.p_nombre}}</h1>
     <div *ngIf="role === 'admin' || role === 'manager'" class="ms-5 mt-2" >
       <button (click)="editarProducto()" class="btn btn-warning btn-AW">Editar</button>
     </div>
     <div  *ngIf="role === 'admin' || role === 'manager'" class="ms-2 mt-2" >
-      <button (click)="(productoMostrar.product_id) ? deleteProducto(productoMostrar.product_id) : null" class="btn btn-danger btn-AW">Borrar</button>
+      <button (click) = "popupInterruptor()" class="btn btn-danger btn-AW">Desactivar</button>
     </div>
     <div  class="ms-5 mt-2" >
       <button (click) = "volverMostrarProducto()" class="btn btn-info btn-AW">Volver</button>
@@ -86,13 +86,11 @@
           </table>
 </div>
 
-      <!--Comienzo regimen Mostrar de producto-->
-
-      <!--<div *ngIf="regimenUpdate && productoParaEditar">
-        <app-update-product [productoParaEditar]="productoParaEditar">
-                          (volverMostrar) = "volverMostrarProducto (true)">
-        </app-update-product>
-        <button class="btn btn-info" (click)="volverMostrarProducto(false)">Volver</button>
-      </div>-->
-
-      <!--Fin regimen Mostrar de producto -->
+<!--Popup ventana-->
+<div *ngIf = "isPopupDisactiveVisible" class="popup2">
+  <p>Desea desactivar producto: {{productoMostrar.p_nombre}}</p>
+  <div class="d-flex buttons justify-content-around">
+    <button (click)="(productoMostrar.product_id) ? deleteProducto(productoMostrar.product_id) : null" class="btn btn-AW btn-danger m-auto">Desactivar</button>
+    <button  (click) = "popupInterruptor()" class="btn btn-AW btn-dark m-auto">Cerrar </button>
+  </div>
+</div>

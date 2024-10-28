@@ -1,13 +1,13 @@
 
-<div class="d-flex mt-2 mb-2">
+<div class="d-flex mt-2 mb-2 justify-content-between">
   <h1> Detalles de Factura #{{mostrarFacturaId}}</h1>
   <div *ngIf="role === 'admin' || role === 'manager'
-            || role === 'vendedor' || role === 'cliente'" class="ms-5 mt-2" >
+            || role === 'vendedor' || role === 'cliente'" class="mt-2 ms-5" >
     <button (click)="editarFactura()" class="btn btn-warning btn-AW">Editar</button>
   </div>
   <div  *ngIf="role === 'admin' || role === 'manager'
-           || role === 'vendedor' || role === 'cliente'" class="ms-2 mt-2" >
-    <button (click)="(mostrarFacturaId) ? borrarFactura(mostrarFacturaId) : null" class="btn btn-danger btn-AW">Borrar</button>
+           || role === 'vendedor' || role === 'cliente'" class="ms-1 mt-2" >
+    <button (click)="popupInterruptor()" class="btn btn-danger btn-AW">Borrar</button>
   </div>
   <div  class="ms-5 mt-2" >
     <button (click) = "volverMostrarFactura()" class="btn btn-info btn-AW">Volver</button>
@@ -55,4 +55,15 @@
 </div>
 
 <!--Fin la tabla de facturas-->
+
+<!--Popup ventana-->
+<div *ngIf = "isPopupAcceptVisible" class="popup2">
+  <p *ngIf = "facturaMostrar && !facturaMostrar.f_aceptado">Desea eliminar la factura #{{mostrarFacturaId}}?</p>
+  <p *ngIf = "facturaMostrar && facturaMostrar.f_aceptado">Factura ya esta acceptada,</p>
+  <p *ngIf = "facturaMostrar && facturaMostrar.f_aceptado">no se puede eliminar</p>
+  <div class="d-flex buttons justify-content-around">
+    <button *ngIf = "facturaMostrar && !facturaMostrar.f_aceptado" (click)="(mostrarFacturaId) ? borrarFactura(mostrarFacturaId) : null" class="btn btn-AW btn-danger m-auto">Borrar</button>
+    <button  (click) = "popupInterruptor()" class="btn btn-AW btn-dark m-auto">Cerrar </button>
+  </div>
+</div>
 

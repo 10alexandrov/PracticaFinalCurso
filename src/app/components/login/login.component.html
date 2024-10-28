@@ -3,10 +3,14 @@
 	<div class="main">
 			<div class="signup">
 				<form [formGroup] = "formLogin" (ngSubmit)="login()">
-					<label for="chk">Log In</label>
+          <div class="d-flex">
+            <img class="AW-logo mt-5 m-auto" src="https://omnigena.info/img/logo/1a_logotype.png">
+					</div>
+          <label for="chk">Log In</label>
 					<input type="text" formControlName="u_login" placeholder="Login" required="">
 					<input type="password" formControlName="u_password" placeholder="Password" required="">
-					<button>Login</button>
+					<div *ngIf="error" class="AW-error">Contraseña o login son incorrectos</div>
+          <button>Login</button>
 				</form>
 			</div>
 	</div>

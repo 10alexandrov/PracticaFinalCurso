@@ -4,10 +4,10 @@
       <div class="zona">
         {{ zonas[tableIndex]}}
       </div>
-      <table class="mb-2">
+      <table class="mb-3 shelving">
         <tbody>
           <tr *ngFor="let row of rows; let rowIndex = index">
-            <td *ngFor="let col of cols; let colIndex = index"
+            <td *ngFor="let col of cols; let colIndex = index" class="cell"
                 [attr.id]="getId(tableIndex, rowIndex, colIndex)"
                 (click) = "accionesConCelda( getId(tableIndex, rowIndex, colIndex), $event)">
               <div class="celda" [ngStyle] ="getBackgroundColor (+getId(tableIndex, rowIndex, colIndex))"> {{ getNumeroCelda(rowIndex, colIndex) }} </div>
@@ -55,14 +55,11 @@
 </div>
 
 
-<div *ngIf = "isPopupAcceptVisible" class="popup">
-    <p>Mover de celda {{firstCelda}} a celda {{secondCelda}}?</p>
+<div *ngIf = "isPopupAcceptVisible" class="popup2">
+    <p>Mover de celda {{firstCelda}} </p>
+    <p>a celda {{secondCelda}}?</p>
     <div class="d-flex buttons justify-content-around">
-      <button  (click) = "intercambioCeldas ()" class="btn btn-AW btn-warning m-auto">Mover</button>
-      <button  (click) = "cerrarPopup ()" class="btn btn-AW btn-success m-auto">Cancelar </button>
+      <button  (click) = "intercambioCeldas ()" class="btn btn-AW btn-success m-auto">Mover</button>
+      <button  (click) = "cerrarPopup ()" class="btn btn-AW btn-danger m-auto">Cancelar </button>
     </div>
 </div>
-
-
-
-

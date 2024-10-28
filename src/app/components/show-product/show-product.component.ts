@@ -52,4 +52,14 @@ export class ShowProductComponent implements OnInit {
     console.log ("editar");
     this.encenderRegimenEditar.emit(true);
   }
+
+
+  // Para popup ventanas
+  isPopupDisactiveVisible: boolean = false;
+
+  popupInterruptor () {
+    this.isPopupDisactiveVisible = !this.isPopupDisactiveVisible;
+  }
+
+
 }

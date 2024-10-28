@@ -3,9 +3,15 @@
   }
 
   .desktop-menu {
-    width:300px;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  }
+
+  .AW-logo-mini {
+    width:30%;
   }
 
   .wrapper {
@@ -15,11 +21,11 @@
 
   .cta {
     display: flex;
-    width: 340px;
+    width: 250px;
     padding: 0 20px;
     text-decoration: none;
     font-family: 'Jost', sans-serif;
-    font-size: 45px;
+    font-size: 33px;
     color: white;
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
     transition: 1s;
@@ -37,13 +43,6 @@
     justify-content: space-between;
   }
 
-  .cta-mini {
-    display: flex;
-    width: 300px;
-    margin: 0 20px;
-    justify-content: center;
-    font-size: 20px;
-  }
 
   .cta:focus {
    outline: none;
@@ -69,7 +68,8 @@
   }
 
   .desktop-menu-title {
-    width: 207px;
+    width: 190px;
+    text-align: left;
   }
 
   span:nth-child(2) {
