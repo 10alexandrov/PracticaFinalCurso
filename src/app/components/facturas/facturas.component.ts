@@ -15,11 +15,12 @@ import { CrearFacturaComponent } from '../crear-factura/crear-factura.component'
 import { CrearFacturaControlComponent } from '../crear-factura-control/crear-factura-control.component';
 import { IMercancia } from '../../interfaces/imercancia';
 import { RemoveZeroAndFormaPipe } from '../../pipes/remove-zero-and-forma.pipe';
+import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'app-facturas',
   standalone: true,
-  imports: [CommonModule, FormsModule, ShowFacturaComponent, FacturasFilterPipe, MenuComponent, CrearFacturaComponent, CrearFacturaControlComponent ],
+  imports: [CommonModule, FormsModule, MenuMobileComponent, ShowFacturaComponent, FacturasFilterPipe, MenuComponent, CrearFacturaComponent, CrearFacturaControlComponent ],
   templateUrl: './facturas.component.html',
   styleUrl: './facturas.component.scss'
 })

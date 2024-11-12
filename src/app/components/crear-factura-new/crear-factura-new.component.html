@@ -17,7 +17,7 @@
       <td> {{mercancia.m_nombre_producto}} </td>
       <td>
         <div class="d-flex">
-          <input style="width:70px;"
+          <input class="input-width"
           type="number"
           [(ngModel)]="mercancia.m_cantidad_pedida"
           (blur)="updateQuantity(mercancia.m_id_productos, mercancia.m_cantidad_pedida)"/>

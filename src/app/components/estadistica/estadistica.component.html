@@ -1,3 +1,6 @@
+<ng-container>
+  <app-menu-mobile class="mobile-menu"></app-menu-mobile>
+</ng-container>
 <div class="d-flex">
   <div class="sidebar">
     <app-menu></app-menu>
@@ -7,8 +10,8 @@
     <!-- Inicio Info-conteiner -->
     <div class="info-container">
       <h1>Estadísticas del almacén</h1>
-      <div class="d-flex">
-        <div id ="leftPart">
+      <div class="row">
+        <div id ="leftPart" class="order-2 order-sm-1 col-12 col-sm-8">
 
 
           <!--La tabla de facturas-->
@@ -59,12 +62,12 @@
           </div>
         </div>
       </div>
-      <div id="RightPart">
-        <form class="form ps-3">
+      <div id="RightPart" class="order-1 order-sm-2 col-12 col-sm-4 row justify-content-around">
+        <form class="form ps-3 col-12">
           <h5 class="pt-1">Seleccionar estadísticas por fecha</h5>
-          <input type="date" name="date" #date required>
+          <input type="date" name="date" #date  [(ngModel)]="currentDate" required class="mb-2">
           <div>
-            <button class="btn btn-info" (click) = "obtenerEstadisticaPorFecha (date.value, $event)">Obtener</button>
+            <button class="btn btn-info mb-2" (click) = "obtenerEstadisticaPorFecha (date.value, $event)">Obtener</button>
           </div>
         </form>
       </div>

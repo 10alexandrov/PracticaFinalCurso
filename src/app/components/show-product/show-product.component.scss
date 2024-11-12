@@ -12,26 +12,17 @@
 
 }
 
-.popup2 {
-  position: absolute;
-  top: 25%;
-  left: 35%;
-  padding: 10px;
-  width: 30%;
-  height: 30%;
-  background-color: white;
-  border: 1px solid black;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+.mobile-version {
+  display: none;
 }
 
-.popup2 p {
-  font-size: 1.5rem;
-  text-align: center;
-}
+@media screen and (max-width:576px) {
 
-.buttons {
-  position: absolute;
-  bottom: 5px;
-  width: 93%;
-}
+  .mobile-version {
+    display: block;
+  }
 
+  .desktop-version {
+    display: none;
+  }
+}

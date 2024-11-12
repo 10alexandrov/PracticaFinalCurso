@@ -16,8 +16,8 @@
                 <th>Role</th>
                 <th>Active</th>
                 <th>Created at</th>
-                <th>Editar</th>
-                <th>Borrar</th>
+                <th class="mobileInvisibleTable">Editar</th>
+                <th class="mobileInvisibleTable">Borrar</th>
               </tr>
             </thead>
             <tbody>
@@ -28,12 +28,12 @@
                   <span *ngIf="usuarioMostrar.u_active" style="font-weight: 600; color: green;" >Active</span>
                 </td>
                 <td> {{usuarioMostrar.created_at | date: 'dd-MM-yyyy'}}</td>
-                <td>
+                <td class="mobileInvisibleTable">
                   <div class="icon blue" (click)="(usuarioMostrar.usuario_id) ? editarUsuario() : null">
                     <button class="btn btn-danger btn-AW">Editar</button>
                   </div>
                 </td>
-                <td>
+                <td class="mobileInvisibleTable">
                   <div class="icon red" (click)="popupInterruptor ()">
                     <button class="btn btn-warning btn-AW">Desactivar</button>
                   </div>
@@ -41,6 +41,14 @@
               </tr>
             </tbody>
           </table>
+          <div class="d-flex">
+            <div class="icon blue ms-2 mobileVisible" (click)="(usuarioMostrar.usuario_id) ? editarUsuario() : null">
+              <button class="btn btn-danger btn-AW">Editar</button>
+            </div>
+            <div class="icon red ms-2 mobileVisible" (click)="popupInterruptor ()">
+              <button class="btn btn-warning btn-AW">Desactivar</button>
+            </div>
+          </div>
       </div>
     </div>
 </div>

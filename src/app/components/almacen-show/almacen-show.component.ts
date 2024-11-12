@@ -127,13 +127,14 @@ export class AlmacenShowComponent {
   }
 
   getBackgroundColor (id: number): any {
+    if (id.toString() == this.firstSelected || id.toString() == this.secondSelected) return {'background': 'red'}
     if (this.regimenAlmacen) {
       const mercancia = this.mercancias.find((element) => element.m_lugar_numero == id);
       if (mercancia) {
         if (mercancia.m_aceptado)  {
           return {'background': 'green'};
         } else {
-        return {'background': 'red'};
+          return {'background': 'red'};
         }
       } else {
         return {'background': 'white'};

@@ -2,3 +2,17 @@ button:disabled {
   background-color: gris;
   cursor: not-allowed;
 }
+
+table input {
+  width: 70px;
+}
+
+@media screen and (max-width:767px) {
+  table button {
+    font-size: 0.5rem;
+  }
+
+  table input {
+    width: 50px;
+  }
+}

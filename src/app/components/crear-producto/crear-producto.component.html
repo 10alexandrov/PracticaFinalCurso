@@ -1,21 +1,23 @@
 
 <div class="wrapper">
   <form [formGroup] = "formCreateProducto" (ngSubmit)="sendDatos()">
-    <div class="d-flex mt-3 mb-5">
-      <h1 *ngIf = "!regimenUpdate">Crear nuevo Producto</h1>
-      <h1 *ngIf = "regimenUpdate">Editar producto</h1>
-      <div *ngIf = "!regimenUpdate" class="ms-5 mt-2" >
-        <button type="submit" class="btn btn-primary btn-AW">Crear producto</button>
-      </div>
-      <div *ngIf = "regimenUpdate" class="ms-5 mt-2" >
-        <button type="submit" class="btn btn-primary btn-AW">Editar datos</button>
-      </div>
-      <div  class="ms-5 mt-2" >
-        <button (click) = "volverMostrarProductos ()" class="btn btn-info btn-AW">Volver</button>
+    <div class="row mt-3 mb-5">
+      <h1 *ngIf = "!regimenUpdate" class="col-12 col-sm-7 col-md-7 col-lg-8">Crear nuevo Producto</h1>
+      <h1 *ngIf = "regimenUpdate" class="col-12 col-sm-7 col-md-7 col-lg-8">Editar producto</h1>
+      <div class="col-12 col-sm-5 col-md-5 col-lg-4 d-flex justify-content-between">
+        <div *ngIf = "!regimenUpdate" class="mt-2" >
+          <button type="submit" class="btn btn-primary btn-AW">Crear</button>
+        </div>
+        <div *ngIf = "regimenUpdate" class="mt-2" >
+          <button type="submit" class="btn btn-primary btn-AW">Guardar</button>
+        </div>
+        <div  class="ms-5 mt-2" >
+          <button (click) = "volverMostrarProductos ()" class="btn btn-info btn-AW">Volver</button>
+        </div>
       </div>
     </div>
-    <div class="d-flex mb-2">
-      <div class="m-1 col-6 ">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-4 desctop-color pb-2">
         <label for="nombre" class="form-label-AW">Nombre producto</label>
         <div>
           <input type="text" formControlName="p_nombre" placeholder="Nombre..." class="form-control col-md-6"
@@ -29,7 +31,7 @@
 
 
       <!-- Categoria select -->
-      <div class="m-1 col-3">
+      <div class="col-12 col-sm-6 col-md-4 desctop-color pb-2">
         <label for="p_categoria" class="form-label-AW">Categoria</label>
         <div>
           <select formControlName="p_categoria" class="form-control col-md-6"
@@ -45,7 +47,7 @@
       </div>
 
       <!--  Activar/desactivar producto -->
-      <div class="m-2 col-3 pt-4">
+      <div class="col-12 col-sm-12 col-md-4 pt-4 mobile-color pb-2">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="checkbox" formControlName="p_activo" [value]="true" id="activeTrue">
           <label class="form-check-label form-label-AW" for="activeTrue">
@@ -58,18 +60,19 @@
     </div>
 
     <!-- Description  -->
-    <div class="mb-3">
-      <label for="description" class="form-label-AW">Descripcion</label>
-      <div class="d-flex col-md-12">
-        <input type="text-area" formControlName="p_descripcion" placeholder="Descripcion..." class="form-control col-md-6">
+    <div class="row">
+      <div class="pb-3 mobile-color-2">
+        <label for="description" class="form-label-AW">Descripcion</label>
+        <div class="d-flex col-md-12">
+          <input type="text-area" formControlName="p_descripcion" placeholder="Descripcion..." class="form-control col-md-6">
+        </div>
       </div>
     </div>
 
-
     <!-- Group para demensiones -->
-    <div class="d-flex">
+    <div class="row">
 
-      <div class="col-md-3 me-1">
+      <div class="col-6 col-md-3 mobile-color pb-2">
         <label for="p_longitud" class="form-label">Longitud, mm</label>
         <input type="text" formControlName="p_longitud" placeholder="Longitud..." class="form-control col-md-6"
             [ngClass]="{ 'is-valid': formCreateProducto.get('p_longitud')?.valid && formCreateProducto.get('p_longitud')?.touched,
@@ -82,7 +85,7 @@
             </div>
       </div>
 
-      <div class="col-md-3 me-1">
+      <div class="col-6 col-md-3 mobile-color pb-2">
         <label for="p_altura" class="form-label">Altura, mm</label>
         <input type="text" formControlName="p_altura" placeholder="Altura..." class="form-control col-md-6"
         [ngClass]="{ 'is-valid': formCreateProducto.get('p_longitud')?.valid && formCreateProducto.get('p_longitud')?.touched,
@@ -95,7 +98,7 @@
         </div>
       </div>
 
-      <div class="col-md-3 me-1">
+      <div class="col-6 col-md-3 desctop-color pb-2">
         <label for="p_ancho" class="form-label">Anchura, mm</label>
         <input type="text" formControlName="p_ancho" placeholder="Anchura..." class="form-control col-md-6"
         [ngClass]="{ 'is-valid': formCreateProducto.get('p_ancho')?.valid && formCreateProducto.get('p_longitud')?.touched,
@@ -108,7 +111,7 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-6 col-md-3 desctop-color pb-2">
         <label for="p_peso" class="form-label">Peso, gr</label>
         <input type="text" formControlName="p_peso" placeholder="Peso..." class="form-control col-md-6"
         [ngClass]="{ 'is-valid': formCreateProducto.get('p_ancho')?.valid && formCreateProducto.get('p_peso')?.touched,
@@ -126,8 +129,8 @@
 
     <!-- Bloque de precio -->
 
-    <div class="d-flex mt-3">
-      <div class="col-3 me-1">
+    <div class="row">
+      <div class="col-6 col-md-3 desctop-color-2 pb-2">
         <label for="p_precio_compra" class="form-label">Precio de Compra, euro</label>
         <input type="text" formControlName="p_precio_compra" placeholder="Precio de Compra..." class="form-control col-md-6"
         [ngClass]="{ 'is-valid': formCreateProducto.get('p_precio_compra')?.valid && formCreateProducto.get('p_precio_compra')?.touched,
@@ -142,7 +145,7 @@
 
 
 
-      <div class="col-3 me-1">
+      <div class="col-6 col-md-3 desctop-color-2 pb-2">
         <label for="p_peso" class="form-label">Precio de Venta, euro</label>
         <input type="text" formControlName="p_precio_venta" placeholder="Precio de Venta..." class="form-control col-md-6"
         [ngClass]="{ 'is-valid': formCreateProducto.get('p_precio_venta')?.valid && formCreateProducto.get('p_precio_venta')?.touched,
@@ -155,7 +158,7 @@
         </div>
       </div>
 
-      <div class="col-3 me-1">
+      <div class="col-6 col-md-3 mobile-color-2 pb-2" >
         <label for="p_cantidad_palet" class="form-label">Unidades en palet, ud</label>
         <input type="text" formControlName="p_cantidad_palet" placeholder="Unidades..." class="form-control col-md-6"
         [ngClass]="{ 'is-valid': formCreateProducto.get('p_cantidad_palet')?.valid && formCreateProducto.get('p_cantidad_palet')?.touched,
@@ -169,7 +172,7 @@
       </div>
 
 
-      <div class="col-3 me-1">
+      <div class="col-6 col-md-3 mobile-color-2 pb-2" >
         <label for="p_peso" class="form-label">Código de barras</label>
         <input type="text" formControlName="p_codigo" placeholder="Codigo..." class="form-control col-md-6"
         [ngClass]="{ 'is-valid': formCreateProducto.get('p_codigo')?.valid && formCreateProducto.get('p_codigo')?.touched,
@@ -192,12 +195,12 @@
     <!-- Bloque de image -->
 
     <div class="form-group">
-      <div class="d-flex">
-        <div>
+      <div class="row mobile-color p-2">
+        <div class="col-12 col-sm-6">
           <label for="name">Image</label>
           <input type="file" class="form-control" name="image" (change)="onFileSelected($event)">
         </div>
-        <img *ngIf="p_foto" [src]="p_foto" alt="Preview" class="img-thumbnail mt-2">
+        <img *ngIf="p_foto" [src]="p_foto" alt="Preview" class="img-thumbnail col-12 col-sm-6 p-2">
       </div>
     </div>
 

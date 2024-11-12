@@ -1,10 +1,12 @@
 
-<div class="container">
-  <div *ngFor="let table of tables; let tableIndex = index" class="d-flex">
-      <div class="zona">
-        {{ zonas[tableIndex]}}
+<div class="container-almacen ms-2 me-2">
+  <div *ngFor="let table of tables; let tableIndex = index" class="row">
+      <div class="zona col-12 col-sm-1 d-flex">
+        <div class="m-auto">
+          {{ zonas[tableIndex]}}
+        </div>
       </div>
-      <table class="mb-3 shelving">
+      <table class="mb-3 shelving col-12 col-sm-11">
         <tbody>
           <tr *ngFor="let row of rows; let rowIndex = index">
             <td *ngFor="let col of cols; let colIndex = index" class="cell"

@@ -1,1 +1,14 @@
 
+.padding-mobile {
+  padding-left: 5%;
+}
+
+@media screen and (max-width:767px) {
+  .t-font {
+    font-size: 3rem;
+  }
+
+  .padding-mobile {
+    padding-left: 5%;
+  }
+}

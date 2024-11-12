@@ -2,39 +2,45 @@
 
 
   <form [formGroup] = "formCreateUser" (ngSubmit)="sendDatos()">
-    <div class="d-flex mt-3 mb-5 justify-content-around">
-      <h1 *ngIf = "!regimenUpdate">Crear nuevo Usuario</h1>
-      <h1 *ngIf = "regimenUpdate">Editar producto</h1>
-      <div *ngIf = "!regimenUpdate" class="ms-5 mt-2" >
-        <button type="submit" class="btn btn-primary btn-AW">Crear usuario</button>
-      </div>
-      <div *ngIf = "regimenUpdate" class="ms-5 mt-2" >
-        <button type="submit" class="btn btn-primary btn-AW">Editar datos</button>
-      </div>
-      <div  class="ms-5 mt-2" >
-        <button (click) = "volverMostrarUsuario()" class="btn btn-info btn-AW">Volver</button>
+    <div class="d-flex mt-3 mb-5 justify-content-around row">
+      <h1 *ngIf = "!regimenUpdate" class="col-12 col-sm-6">Crear nuevo Usuario</h1>
+      <h1 *ngIf = "regimenUpdate" class="col-12 col-sm-6">Editar usuario</h1>
+      <div class="d-flex mt-2 justify-content-between col-12 col-sm-6">
+        <div *ngIf = "!regimenUpdate" class="ms-2 me-2" >
+          <button type="submit" class="btn btn-primary btn-AW">Crear</button>
+        </div>
+        <div *ngIf = "regimenUpdate" class="ms-2 me-2" >
+          <button type="submit" class="btn btn-primary btn-AW">Editar</button>
+        </div>
+        <div  class="ms-2 me-2" >
+          <button (click) = "volverMostrarUsuario()" class="btn btn-info btn-AW">Volver</button>
+        </div>
       </div>
     </div>
     <div class="mb-3">
       <label for="nombre" class="form-label-AW">Nombre</label>
-      <div class="d-flex col-md-6">
-        <input type="text" formControlName="u_nombre" placeholder="Nombre..." class="form-control col-md-6"
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <input type="text" formControlName="u_nombre" placeholder="Nombre..." class="form-control col-md-6"
             [ngClass]="{ 'is-valid': formCreateUser.get('u_nombre')?.valid && formCreateUser.get('u_nombre')?.touched,
                         'is-invalid': formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched }">
-          <div *ngIf="formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched" class="invalid-feedback col-md-4 ps-3">
+          </div>
+          <div *ngIf="formCreateUser.get('u_nombre')?.invalid && formCreateUser.get('u_nombre')?.touched" class="invalid-feedback-AW col-md-4 col-12 ps-3">
             * Este campo es obligatorio!
           </div>
       </div>
     </div>
     <div class="mb-3">
       <label for="login" class="form-label-AW">Login</label>
-      <div class="d-flex col-md-6">
-        <input type="text" formControlName="u_login" placeholder="Login..." class="form-control col-md-6"
-            [ngClass]="{ 'is-valid': formCreateUser.get('u_login')?.valid && formCreateUser.get('u_login')?.touched,
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <input type="text" formControlName="u_login" placeholder="Login..." class="form-control"
+              [ngClass]="{ 'is-valid': formCreateUser.get('u_login')?.valid && formCreateUser.get('u_login')?.touched,
                         'is-invalid': formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_login')?.touched }">
-          <div *ngIf="formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_login')?.touched" class="invalid-feedback col-md-4 ps-3">
+        </div>
+        <div *ngIf="formCreateUser.get('u_login')?.invalid && formCreateUser.get('u_login')?.touched" class="invalid-feedback-AW col-md-4 col-12 ps-3">
             * Este campo es obligatorio!
-          </div>
+        </div>
       </div>
     </div>
 
@@ -42,21 +48,23 @@
     <div formGroupName="passGroup">
       <div class="mb-3">
         <label for="contrsena" class="form-label-AW">Contraseña</label>
-        <div class="d-flex col-md-6">
-          <input type="password" formControlName="u_password" placeholder="Password..." class="form-control col-md-6"
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <input type="password" formControlName="u_password" placeholder="Password..." class="form-control col-md-6"
               [ngClass]="{ 'is-valid': formCreateUser.get('passGroup')?.get('u_password')?.valid && formCreateUser.get('passGroup')?.get('u_password')?.touched,
                'is-invalid': formCreateUser.get('passGroup')?.get('u_password')?.invalid && formCreateUser.get('passGroup')?.get('u_password')?.touched }">
-                <div class="col-md-10">
-                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['required'] && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback-AW ps-3">
-                    Contraseña es obligatoria.
-                  </div>
-                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['minlength'] && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback-AW ps-3">
-                    La contraseña debe tener al menos 8 caracteres
-                  </div>
-                  <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['passwordStrength'] && formCreateUser.get('passGroup.u_password')?.touched && !formCreateUser.get('passGroup.u_password')?.errors?.['required']" class="invalid-feedback-AW ps-3">
-                    La contraseña debe contener letras, números y caracteres especiales
-                  </div>
-                </div>
+          </div>
+          <div class="col-md-4 col-12">
+            <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['required'] && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback-AW ps-3">
+              Contraseña es obligatoria.
+            </div>
+            <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['minlength'] && formCreateUser.get('passGroup.u_password')?.touched" class="invalid-feedback-AW ps-3">
+              La contraseña debe tener al menos 8 caracteres
+            </div>
+            <div *ngIf="formCreateUser.get('passGroup.u_password')?.errors?.['passwordStrength'] && formCreateUser.get('passGroup.u_password')?.touched && !formCreateUser.get('passGroup.u_password')?.errors?.['required']" class="invalid-feedback-AW ps-3">
+              La contraseña debe contener letras, números y caracteres especiales
+            </div>
+          </div>
         </div>
       </div>
 <!-- В поле "Repite su contraseña" -->
@@ -64,11 +72,13 @@
         <label for="contrsena" class="form-label-AW">
           Repite su contraseña
         </label>
-        <div class="d-flex col-md-6">
-          <input type="password" formControlName="u_password2" placeholder="Password..." class="form-control col-md-6"
-          [ngClass]="{ 'is-valid': formCreateUser.get('passGroup.u_password2')?.valid && formCreateUser.get('passGroup.u_password2')?.touched,
+        <div class="row">
+          <div class="d-flex col-md-6">
+            <input type="password" formControlName="u_password2" placeholder="Password..." class="form-control col-md-6"
+              [ngClass]="{ 'is-valid': formCreateUser.get('passGroup.u_password2')?.valid && formCreateUser.get('passGroup.u_password2')?.touched,
                      'is-invalid': formCreateUser.get('passGroup.u_password2')?.invalid && formCreateUser.get('passGroup.u_password2')?.touched
                     || formCreateUser.get('passGroup')?.errors?.['match'] && formCreateUser.get('passGroup.u_password2')?.touched }">
+          </div>
           <!-- Сообщение о несовпадении паролей -->
           <div *ngIf="formCreateUser.get('passGroup')?.errors?.['match'] && formCreateUser.get('passGroup.u_password2')?.touched" class="invalid-feedback-AW col-md-4 ps-3">
             Las contraseñas no coinciden
@@ -80,21 +90,24 @@
 
     <div class="mb-3">
       <label for="role" class="form-label-AW">Role</label>
-      <div class="d-flex col-md-6">
-        <select formControlName="u_role" class="form-control col-md-6"
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <select formControlName="u_role" class="form-control col-md-6"
             [ngClass]="{ 'is-valid': formCreateUser.get('u_role')?.valid && formCreateUser.get('u_role')?.touched,
             'is-invalid': formCreateUser.get('u_role')?.invalid && formCreateUser.get('u_role')?.touched }">
-          <option value="">-- Elije un role --</option>
-          <option value="admin">Admin</option>
-          <option value="vendedor">Vendedor</option>
-          <option value="cliente">Cliente</option>
-          <option value="receptor">Receptor</option>
-          <option value="recogedor">Recojedor</option>
-          <option value="manager">Manager</option>
-        </select>
-          <div *ngIf="formCreateUser.get('u_role')?.invalid && formCreateUser.get('u_role')?.touched" class="invalid-feedback col-md-4 ps-3">
+             <option value="">-- Elije un role --</option>
+            <option value="admin">Admin</option>
+            <option value="vendedor">Vendedor</option>
+            <option value="cliente">Cliente</option>
+            <option value="receptor">Receptor</option>
+            <option value="recogedor">Recojedor</option>
+            <option value="manager">Manager</option>
+          </select>
+        </div>
+        <div *ngIf="formCreateUser.get('u_role')?.invalid && formCreateUser.get('u_role')?.touched" class="invalid-feedback-AW col-12 col-md-4 ps-3">
             * Este campo es obligatorio!
-          </div>      </div>
+        </div>
+      </div>
     </div>
 
 

@@ -1,3 +1,6 @@
+<ng-container>
+  <app-menu-mobile class="mobile-menu"></app-menu-mobile>
+</ng-container>
 <div class="d-flex">
   <div class="sidebar">
     <app-menu></app-menu>
@@ -11,17 +14,17 @@
         <!-- filter -->
         <form class="form mt-3 mb-3">
           <div class="form-group row">
-            <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
-              Filtro
+            <label class="col-form-label col-2 col-sm-1 col-lg-1 text-sm-right fw-semibold" for="filterDesc">
+              Filtro:
             </label>
-            <div class="col-sm-3">
+            <div class="col-9 col-sm-5 col-lg-4 pe-5">
               <input type="text" [(ngModel)]="usuarioSearch" class="form-control"
                 name="filterDesc" id="filterDesc" placeholder="filtramos por...">
             </div>
-            <label class="col-form-label col-sm-2 text-sm-right" for="roleSarch">
-              Role
+            <label class="col-form-label col-2 col-sm-1 col-lg-1 text-sm-right fw-semibold" for="roleSarch">
+              Role:
             </label>
-            <div class="col-sm-3 mt-2">
+            <div class="col-9 col-sm-5 col-lg-4 mt-2">
               <select name="roleSearch" id="roleSearch" [(ngModel)]="roleSearch">
                   <option value="">Seleccione una role</option>
                   <option *ngFor = "let role of roles" [value]="role">{{role}}</option>

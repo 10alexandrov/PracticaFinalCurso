@@ -1,15 +1,19 @@
 <div class="wrapper">
 
-  <div class="d-flex mt-3 mb-2 justify-content-between">
-    <h1 class="pb-3"> {{productoMostrar.p_nombre}}</h1>
-    <div *ngIf="role === 'admin' || role === 'manager'" class="ms-5 mt-2" >
-      <button (click)="editarProducto()" class="btn btn-warning btn-AW">Editar</button>
-    </div>
-    <div  *ngIf="role === 'admin' || role === 'manager'" class="ms-2 mt-2" >
-      <button (click) = "popupInterruptor()" class="btn btn-danger btn-AW">Desactivar</button>
-    </div>
-    <div  class="ms-5 mt-2" >
-      <button (click) = "volverMostrarProducto()" class="btn btn-info btn-AW">Volver</button>
+  <div class="row mt-3 mb-2 justify-content-between">
+    <h1 class="pb-3 col-12 col-sm-5 col-md-6"> {{productoMostrar.p_nombre}}</h1>
+    <div class="col-12 col-sm-5 col-md-6 row justify-content-between pb-3">
+      <div class="col-8 d-flex">
+        <div *ngIf="role === 'admin' || role === 'manager'" class="mt-2" >
+          <button (click)="editarProducto()" class="btn btn-warning btn-AW">Editar</button>
+        </div>
+        <div  *ngIf="role === 'admin' || role === 'manager'" class="mt-2 ms-1" >
+          <button (click) = "popupInterruptor()" class="btn btn-danger btn-AW">Desactivar</button>
+        </div>
+      </div>
+      <div  class="mt-2 col-4 text-end" >
+        <button (click) = "volverMostrarProducto()" class="btn btn-info btn-AW">Volver</button>
+      </div>
     </div>
   </div>
 
@@ -17,7 +21,7 @@
 
   <div class="descripcion mb-2">{{productoMostrar.p_descripcion}}</div>
     <div class="row d-flex">
-      <div class="col-8 mt-4">
+      <div class="col-12 col-sm-8 mt-4">
         <table class="table table-striped table-bordered">
             <thead class="table-primary">
               <tr>
@@ -54,7 +58,7 @@
           </table>
 
       </div>
-      <div class="col-4">
+      <div class="col-4 desktop-version">
         <div class="wrapper-image">
           <img class = "img-AW" [src] = "productoMostrar.p_foto">
           <img *ngIf="productoMostrar.imagenUrl" [src]="productoMostrar.imagenUrl">
@@ -62,6 +66,7 @@
       </div>
     </div>
     <h5>Demenciones</h5>
+        <div class="desktop-version">
           <table class="table table-striped table-bordered">
             <thead class="table-primary">
               <tr>
@@ -84,6 +89,50 @@
               </tr>
             </tbody>
           </table>
+        </div>
+
+
+          <!-- Mobile versin-->
+        <div class="mobile-version">
+          <table class="table table-striped table-bordered">
+            <thead class="table-primary">
+              <tr>
+                <th>Altura, mm</th>
+                <th>Anchura, mm</th>
+                <th>Longitud, mm</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> {{productoMostrar.p_altura}}</td>
+                <td> {{productoMostrar.p_ancho}}</td>
+                <td> {{productoMostrar.p_longitud}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-striped table-bordered">
+            <thead class="table-primary">
+              <tr>
+                <th>Peso, gr</th>
+                <th>Unidades en palet, ud</th>
+                <th>Peso palet, kg</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> {{productoMostrar.p_peso}}</td>
+                <td> {{productoMostrar.p_cantidad_palet}}</td>
+                <td> {{productoMostrar.p_peso_palet}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <div class="wrapper-image">
+              <img class = "img-AW" [src] = "productoMostrar.p_foto">
+              <img *ngIf="productoMostrar.imagenUrl" [src]="productoMostrar.imagenUrl">
+            </div>
+          </div>
+        </div>
 </div>
 
 <!--Popup ventana-->

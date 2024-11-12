@@ -1,0 +1,42 @@
+<!-- Mobile version-->
+
+<div class="desktop-menu-mobile">
+
+
+
+  <nav class="navbar navbar-expand-custom navbar-mainbg">
+    <a class="navbar-brand navbar-logo ms-3" href="#">
+      <img class="AW-logo-micro m-auto" src="https://omnigena.info/img/logo/1a_logotype-mini.png">
+    </a>
+    <button class="hamburger me-5" id="mobile-menu-btn" type="button" (click)="menuVisible ()">
+      <div class="btn__hamb">
+          <div></div>
+      </div>
+    </button>
+  </nav>
+    <div *ngIf ="isMenuVisible" class="menuList">
+        <ul class="navbar-nav ml-auto">
+            <li *ngIf="role === 'admin'" class="nav-item" [class.active]="isActive('/usuarios')">
+                <a class="nav-link" class="cta" id = "desktop-menu-admin" href="/usuarios">Usuarios</a>
+            </li>
+            <li class="nav-item" [class.active]="isActive('/productos')">
+                <a class="cta" id = "desktop-menu-admin" href="/productos">Productos</a>
+            </li>
+            <li class="nav-item" [class.active]="isActive('/facturas')">
+                <a class="cta" id = "desktop-menu-admin" href="/facturas">Facturas</a>
+            </li>
+            <li *ngIf="role !== 'vendedor' && role !== 'cliente'" class="nav-item" [class.active]="isActive('/almacen')">
+                <a class="cta" id = "desktop-menu-admin" href="/almacen">Almacen</a>
+            </li>
+            <li class="nav-item" [class.active]="isActive('/estadistica')">
+                <a class="cta" id = "desktop-menu-admin" href="/estadistica">Análisis</a>
+            </li>
+            <li class="nav-item">
+                <a class="cta" id = "desktop-menu-admin" (click)="logout()" >Log Out</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+

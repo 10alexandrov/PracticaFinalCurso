@@ -1,5 +1,4 @@
 table {
-  width:90%;
   margin: 0 auto;
   border-collapse: collapse;
   border: 1px solid black;
@@ -19,34 +18,6 @@ td {
   line-height: 30px;
 }
 
-.popup {
-  position: absolute;
-  top: 10%;
-  left: 35%;
-  padding: 10px;
-  width: 30%;
-  height: 60%;
-  background-color: white;
-  border: 1px solid black;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
-}
-
-.popup2 {
-  position: absolute;
-  top: 25%;
-  left: 35%;
-  padding: 10px;
-  width: 30%;
-  height: 30%;
-  background-color: white;
-  border: 1px solid black;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
-}
-
-.popup2 p {
-  font-size: 1.5rem;
-}
-
 .line {
   background-color:black;
   height: 2px;
@@ -55,9 +26,7 @@ td {
 }
 
 .zona {
-  width: 5%;
-  margin-top: 3%;
-  margin-left: 4%;
+  margin-top: 4%;
   font-size: 30px;
   font-weight: 600;
 }
@@ -76,6 +45,7 @@ td {
 
 .img-AW {
   width: 90%;
+  max-width: 150px;
 }
 
 .disponible {
@@ -115,5 +85,11 @@ td {
   border-bottom: 3px solid #8b4513; /* Нижняя балка */
 }
 
+@media screen and (max-width:767px) {
+  table, table button {
+    font-size: 3vw;
+  }
+
+}
 
 

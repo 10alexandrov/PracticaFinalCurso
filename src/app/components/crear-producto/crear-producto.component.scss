@@ -25,3 +25,27 @@
 .btn-AW:hover {
   transition: all .3s
 }
+
+label {
+  font-weight: 600;
+}
+
+.desctop-color, .mobile-color {
+  background-color: #c5d7f2;;
+}
+
+.desctop-color-2, .mobile-color-2 {
+  background-color: #cfe2ff;
+}
+
+@media screen and (max-width:766px) {
+
+  .mobile-color {
+    background-color: #cfe2ff;
+  }
+
+  .mobile-color-2 {
+    background-color: #c5d7f2;
+  }
+
+}

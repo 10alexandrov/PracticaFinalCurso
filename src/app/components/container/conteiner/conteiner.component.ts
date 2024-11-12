@@ -11,11 +11,12 @@ import { CategoriasService } from '../../../services/categorias.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MenuComponent } from '../../menu/menu.component';
 import { CrearProductoComponent } from '../../crear-producto/crear-producto.component';
+import { MenuMobileComponent } from '../../menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'app-conteiner',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductFilterPipe, ShowProductComponent, MenuComponent, CrearProductoComponent],
+  imports: [CommonModule, FormsModule, MenuMobileComponent, ProductFilterPipe, ShowProductComponent, MenuComponent, CrearProductoComponent],
   templateUrl: './conteiner.component.html',
   styleUrl: './conteiner.component.scss'
 })

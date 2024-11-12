@@ -9,11 +9,12 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ShowUsuarioComponent } from '../show-usuario/show-usuario.component';
 import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
 import { MenuComponent } from '../menu/menu.component';
+import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule, FormsModule, ShowUsuarioComponent, IusuariosFilterPipe, CrearUsuarioComponent, MenuComponent ],
+  imports: [CommonModule, FormsModule, ShowUsuarioComponent, IusuariosFilterPipe, CrearUsuarioComponent, MenuComponent, MenuMobileComponent ],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })

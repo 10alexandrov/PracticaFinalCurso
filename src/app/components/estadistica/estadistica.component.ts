@@ -3,17 +3,24 @@ import { MenuComponent } from '../menu/menu.component';
 import { EstadisticaService } from '../../services/estadistica.service';
 import { Iestadistica } from '../../interfaces/iestadistica';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'app-estadistica',
   standalone: true,
-  imports: [MenuComponent, CommonModule,],
+  imports: [MenuComponent, CommonModule, MenuMobileComponent, FormsModule],
   templateUrl: './estadistica.component.html',
   styleUrl: './estadistica.component.scss'
 })
 export class EstadisticaComponent implements OnInit{
 
-constructor (private estadisticaService: EstadisticaService) {}
+currentDate: string = "";
+constructor (private estadisticaService: EstadisticaService) {
+  const today = new Date ();
+  this.currentDate = today.toISOString().split('T')[0];
+  console.log (this.currentDate);
+}
 
 estadistica!: Iestadistica  // inicializar array facturas
 

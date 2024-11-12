@@ -20,3 +20,19 @@
   margin: 0;
   padding-left: 5px;
 }
+
+.input-width {
+  width: 70px;
+}
+
+@media screen and (max-width:767px) {
+  table, table button {
+    font-size: 3vw;
+  }
+
+  .input-width {
+    width: 100%;
+  }
+
+}
+

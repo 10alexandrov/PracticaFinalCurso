@@ -7,3 +7,28 @@
 .AW-center {
   text-align: center;
 }
+
+.AW-img {
+  width: 30%;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+
+@media screen and (max-width:767px) {
+
+  .sidebar {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .AW-img {
+    width: 40%;
+  }
+
+}

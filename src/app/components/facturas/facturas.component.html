@@ -1,3 +1,7 @@
+<ng-container>
+  <app-menu-mobile class="mobile-menu"></app-menu-mobile>
+</ng-container>
+
 <div class="d-flex">
   <div class="sidebar">
     <app-menu></app-menu>
@@ -12,32 +16,34 @@
           <!-- filter -->
           <form class="form mt-2 mb-2">
             <div class="form-group row">
-              <label class="col-form-label col-sm-1 text-sm-right" for="filterDesc">
+              <label class="col-form-label col-3 col-md-2 col-lg-1 text-sm-right" for="filterDesc">
                 Client
               </label>
-              <div class="col-sm-2">
+              <div class="col-9 col-md-9 col-lg-3">
                 <input type="text" [(ngModel)]="clientSearch" (input)="applyFilter()" class="form-control"
                   name="filterDesc" id="filterDesc" placeholder="buscamos ...">
               </div>
-              <label class="col-form-label col-sm-2 text-sm-right" for="direccionSearch">
-                acción
-              </label>
-              <div class="col-sm-3 mt-2">
-                <select name="direccionSearch" id="direccionSearch" [(ngModel)]="direccionSearch" (ngModelChange)="applyFilter()">
-                    <option [value]="-1">Seleccione acción</option>
-                    <option [value]="0">Compra</option>
-                    <option [value]="1">Venta</option>
-                </select>
-              </div>
-              <label class="col-form-label col-sm-1 text-sm-right" for="statusSearch">
-                Status
-              </label>
-              <div class="col-sm-3 mt-2">
-                <select name="statusSearch" id="statusSearch" [(ngModel)]="statusSearch" (ngModelChange)="applyFilter()">
-                    <option [value]=-1>Seleccione Status</option>
-                    <option [value]=0>En processo</option>
-                    <option [value]=1>Terminado</option>
-                </select>
+              <div class="row col-12 col-lg-8">
+                <label class="col-3 col-sm-2 text-sm-right pt-2 pe-0" for="direccionSearch">
+                  Acción
+               </label>
+                <div class="col-9 col-sm-4 mt-2">
+                  <select name="direccionSearch" id="direccionSearch" [(ngModel)]="direccionSearch" (ngModelChange)="applyFilter()" class="w-100">
+                      <option [value]="-1">Seleccione acción</option>
+                      <option [value]="0">Compra</option>
+                      <option [value]="1">Venta</option>
+                   </select>
+                </div>
+                <label class="col-3 col-sm-2 text-sm-right pt-2 pe-0" for="statusSearch">
+                  Status
+                </label>
+                <div class="col-9 col-sm-4 mt-2">
+                  <select name="statusSearch" id="statusSearch" [(ngModel)]="statusSearch" (ngModelChange)="applyFilter()" class="w-100">
+                      <option [value]=-1>Seleccione Status</option>
+                      <option [value]=0>En processo</option>
+                      <option [value]=1>Terminado</option>
+                 </select>
+                </div>
               </div>
             </div>
           </form>
@@ -50,7 +56,7 @@
                   <th>{{headers.numero}}</th>
                   <th >{{headers.nombre}}</th>
                   <th>{{headers.suma}}</th>
-                  <th>{{headers.direccion}}</th>
+                  <th *ngIf = "(role !=='receptor' && role !== 'recogedor')">{{headers.direccion}}</th>
                   <th>{{headers.estado}}</th>
                   <th>{{headers.created}}</th>
                   <th *ngIf = "(role =='receptor' || role == 'recogedor')">{{headers.accion}}</th>
@@ -61,8 +67,8 @@
                   <td (click) ="mostrarFactura(factura.factura_id)">{{factura.factura_id}}</td>
                   <td>{{factura.usuario_cliente.u_nombre}}</td>
                   <td>{{factura.f_suma}}</td>
-                  <td *ngIf="!factura.f_tipo">Compra</td>
-                  <td *ngIf="factura.f_tipo">Venta</td>
+                  <td *ngIf="!factura.f_tipo && (role !=='receptor' && role !== 'recogedor')">Compra</td>
+                  <td *ngIf="factura.f_tipo && (role !=='receptor' && role !== 'recogedor')">Venta</td>
                   <td *ngIf="!factura.f_tipo && !factura.f_aceptado">No aceptado</td>
                   <td *ngIf="!factura.f_tipo && factura.f_aceptado" style="color:green">Aceptado</td>
                   <td *ngIf="factura.f_tipo && !factura.f_aceptado">No preparado</td>

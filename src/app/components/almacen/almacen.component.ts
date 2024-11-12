@@ -6,11 +6,12 @@ import { Ilugar} from '../../interfaces/ilugar';
 import { LugaresService } from '../../services/lugares.service';
 import { AlmacenShowComponent } from '../almacen-show/almacen-show.component';
 import { FormsModule, Validators } from '@angular/forms';
+import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'app-almacen',
   standalone: true,
-  imports: [MenuComponent, CommonModule, AlmacenShowComponent, FormsModule,],
+  imports: [MenuComponent, CommonModule, AlmacenShowComponent, FormsModule, MenuMobileComponent],
   templateUrl: './almacen.component.html',
   styleUrl: './almacen.component.scss'
 })
