@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class EstadisticaService {
 
-  private estadUrl = 'http://localhost:8080/api/estadistica'
+  private estadUrl = 'http://almacen-admin/api/estadistica'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -41,7 +41,7 @@ export class EstadisticaService {
     const headers = this.getHeaderAuth ();
     const id = this.formatDateToDDMMYYYY(fecha);
 
-    const urlConFecha = `http://localhost:8080/api/estadistica/${id}`;
+    const urlConFecha = `http://almacen-admin/api/estadistica/${id}`;
 
     console.log(urlConFecha);
 

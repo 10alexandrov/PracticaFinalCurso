@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 })
 export class ProductosService {
 
-  private productUrl = 'http://localhost:8080/api/productos'
+  private productUrl = 'http://almacen-admin/api/productos'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -31,7 +31,7 @@ export class ProductosService {
     getProductosActivos() : Observable<IProduct[]> {    // Para obtener array con productos activos
 
       const headers = this.getHeaderAuth ();
-      const productUrlActivos = 'http://localhost:8080/api/productos/activos'
+      const productUrlActivos = 'http://almacen-admin/api/productos/activos'
 
       if (this.authService.checkTokenExpiration()) {
         return this.http.get<IProduct[]>(productUrlActivos, { headers }).pipe(
@@ -47,7 +47,7 @@ export class ProductosService {
 
       const headers = this.getHeaderAuth ();
 
-      const deleteURL = `http://localhost:8080/api/productos/${id}`;
+      const deleteURL = `http://almacen-admin/api/productos/${id}`;
       if (this.authService.checkTokenExpiration()) {
           return this.http.delete<void>(deleteURL, { headers });
       } else {

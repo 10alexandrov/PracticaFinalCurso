@@ -1,0 +1,11 @@
+{
+  "routes": [
+    "/almacen",
+    "/estadistica",
+    "/facturas",
+    "/inicio",
+    "/login",
+    "/productos",
+    "/usuarios"
+  ]
+}

@@ -9,13 +9,13 @@
   </div>
   <div class="d-flex col-12 col-lg-5 ps-0 pe-3 justify-content-end">
     <div class="mt-2" >
-      <button (click) = "guardarDatos(false)" class="btn btn-warning btn-AW">Guardar</button>
+      <button (click) = "guardarDatos(false)" [disabled] = "!isDisabled" class="btn btn-warning btn-AW">Guardar</button>
     </div>
     <div class="ms-2 mt-2" >
       <button (click) = "guardarDatos(true)" [disabled] = "isDisabled" [hidden] = "isHidden" class="btn btn-success btn-AW">Aceptar</button>
     </div>
     <div class="ms-2 mt-2" >
-      <button (click) = "volverMostrarFactura(true)" [disabled] = "isDisabled" [hidden] = "!isHidden" class="btn btn-dark btn-AW">Salir</button>
+      <button (click) = "volverMostrarFactura(true)" [disabled] = "!isHidden" [hidden] = "!isHidden" class="btn btn-dark btn-AW">Salir</button>
     </div>
     <div  class="ms-2 mt-2" >
       <button (click) = "volverMostrarFactura(false)" class="btn btn-info btn-AW">Volver</button>
@@ -63,7 +63,7 @@
     </tbody>
   </table>
 
-  <div *ngIf="regimenAlmacen" class="info-container">
+  <div *ngIf="regimenAlmacen">
 
       <app-almacen-show [mercancias] = "mercancias"
                         [regimenAlmacen] = "regimenAlmacen"

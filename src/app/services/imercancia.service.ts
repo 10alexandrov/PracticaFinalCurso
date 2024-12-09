@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 })
 export class ImercanciaService {
 
-  private mercanciaUrl = 'http://localhost:8080/api/mercancias'
+  private mercanciaUrl = 'http://almacen-admin/api/mercancias'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -21,7 +21,7 @@ export class ImercanciaService {
     const headers = this.getHeaderAuth ();
 
     if (this.authService.checkTokenExpiration()) {
-      const getURL = `http://localhost:8080/api/mercancias/${id}`;
+      const getURL = `http://almacen-admin/api/mercancias/${id}`;
       return this.http.get<IMercancia[]>(getURL, {headers}).pipe(
         map(response => response)
       );
@@ -35,7 +35,7 @@ export class ImercanciaService {
     const headers = this.getHeaderAuth ();
 
     if (this.authService.checkTokenExpiration()) {
-      const getURL = `http://localhost:8080/api/mercancias/showWidthPlace/${id}`;
+      const getURL = `http://almacen-admin/api/mercancias/showWidthPlace/${id}`;
       return this.http.get<IMercancia[]>(getURL, {headers}).pipe(
         map(response => response)
       );
@@ -46,7 +46,7 @@ export class ImercanciaService {
 
 
   deleteMercancia (id: number): Observable<void> {
-    const deleteURL = `http://localhost:8080/api/mercancias/${id}`;
+    const deleteURL = `http://almacen-admin/api/mercancias/${id}`;
     return this.http.delete<void>(deleteURL);
   }
 
@@ -64,7 +64,7 @@ export class ImercanciaService {
     const body = {mercancias, f_suma, role, usuario};
 
     if (this.authService.checkTokenExpiration()) {
-      const getURL = `http://localhost:8080/api/mercancias`;
+      const getURL = `http://almacen-admin/api/mercancias`;
       return this.http.post<IMercancia[]>(getURL, body, {headers}).pipe(
         map(response => response)
       );

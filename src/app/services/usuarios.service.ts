@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 })
 export class UsuariosService {
 
-  private usuariosUrl = 'http://localhost:8080/api/usuarios'
+  private usuariosUrl = 'http://almacen-admin/api/usuarios'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

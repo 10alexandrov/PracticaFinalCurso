@@ -40,9 +40,10 @@ export class AlmacenShowComponent {
 
   ngOnInit(): void {
 
+    // Anadimos info sobre lugares productos
     let estanerias: string [] = ['A', 'B', 'C', 'D'];
     this.mercancias.forEach(element => {
-      const [secA, colA, floorA] = element.m_lugar ? element.m_lugar.split('-'): ['Z','0','0'];
+      const [secA, floorA, colA] = element.m_lugar ? element.m_lugar.split('-'): ['Z','0','0'];
       let lugar = estanerias.indexOf(secA)*30+(+floorA - 1) * 10 + +colA;
       element.m_lugar_numero = lugar;
     });
@@ -131,6 +132,8 @@ export class AlmacenShowComponent {
     if (this.regimenAlmacen) {
       const mercancia = this.mercancias.find((element) => element.m_lugar_numero == id);
       if (mercancia) {
+        console.log(id);
+        console.log(mercancia);
         if (mercancia.m_aceptado)  {
           return {'background': 'green'};
         } else {

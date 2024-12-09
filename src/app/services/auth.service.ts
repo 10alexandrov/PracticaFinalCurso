@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 export class AuthService {
 
-  private apiUrl = 'http://localhost:8080/api/user';
+  private apiUrl = 'http://almacen-admin/api/user';
 
   constructor(private http: HttpClient, private router: Router) {}
 
