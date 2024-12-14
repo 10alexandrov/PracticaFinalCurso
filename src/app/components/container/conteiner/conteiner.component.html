@@ -14,21 +14,21 @@
 
       <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate">
         <!-- filter -->
-        <form class="form mt-3 mb-3">
+        <form class="form mt-3 mb-3 find-container pt-1 pb-1">
           <div class="form-group row">
             <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
               Filtro
             </label>
             <div class="col-sm-3">
               <input type="text" [(ngModel)]="filterSearch" (input)="applyFilter()" class="form-control"
-                name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+                name="filterDesc" id="filterDesc" placeholder="buscar...">
             </div>
             <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">
-              Categoria
+              Categoría
             </label>
             <div class="col-sm-3 mt-2">
               <select name="categoriaSearch" id="categoriaSearch" [(ngModel)]="categoriaSearch" (ngModelChange)="applyFilter()">
-                  <option value="0">Seleccione una categoria</option>
+                  <option value="0">Seleccione una categoría</option>
                   <option *ngFor = "let categoria of categorias" [value]="categoria.id_categoria">{{categoria.c_nombre}}</option>
               </select>
             </div>
@@ -50,9 +50,9 @@
             <tbody class="table-group-divider">
               <tr *ngFor = "let producto of productosPaginated">
                 <td (click) ="mostrarProducto(producto.product_id ?? 1)">{{producto.p_nombre}}</td>
-                <td>{{producto.p_nombre_categoria}}</td>
-                <td>{{producto.p_cantidad_almacen}}</td>
-                <td>{{producto.p_precio_venta}}</td>
+                <td (click) ="mostrarProducto(producto.product_id ?? 1)">{{producto.p_nombre_categoria}}</td>
+                <td (click) ="mostrarProducto(producto.product_id ?? 1)">{{producto.p_cantidad_almacen}}</td>
+                <td (click) ="mostrarProducto(producto.product_id ?? 1)">{{producto.p_precio_venta}}</td>
                 <td *ngIf="producto.p_activo" style="color:green"> Activo</td>
                 <td *ngIf="!producto.p_activo" style="color:red"> Inactivo</td>
               </tr>
@@ -65,7 +65,7 @@
             <!-- pagination -->
             <div class="pagination-controls mb-2">
               <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-              <span class="ms-3 me-3">Pagina {{ currentPage }} de {{ totalPages }}</span>
+              <span class="ms-3 me-3">Página {{ currentPage }} de {{ totalPages }}</span>
               <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
             </div>
 

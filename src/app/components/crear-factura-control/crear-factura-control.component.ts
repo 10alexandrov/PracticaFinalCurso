@@ -43,7 +43,7 @@ export class CrearFacturaControlComponent {
     this.volverMostrar.emit($recargaFacturas);
   }
 
-  mercancias: IMercancia[] = [] // inicializar array merczncias
+  mercancias: IMercancia[] = [] // inicializar array mercancias
 
   ngOnInit(): void {
     console.log (this.facturaMostrar);

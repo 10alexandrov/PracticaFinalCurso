@@ -54,6 +54,7 @@ export class CrearFacturaNewComponent implements OnInit, AfterViewChecked, OnCha
             this.mercancias.splice(index, 1);
             this.buttonsInitialized = false;
           }
+        this.sumarFactura ();
         })
     })
 

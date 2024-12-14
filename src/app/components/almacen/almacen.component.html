@@ -8,9 +8,9 @@
   <div class="info-container">
 
     <!-- filter -->
-    <div class="mt-3 padding-mobile row">
-      <form class="form col-12 col-md-7">
-        <div class="form-group d-flex mb-3">
+    <div class="mt-3 padding-mobile row find-container pt-1 mb-2">
+      <form class="form col-12 col-md-7 mb-1">
+        <div class="form-group d-flex">
           <label class="col-form-label col-3 text-sm-right" for="filterDesc">
             Buscar
           </label>
@@ -20,7 +20,7 @@
           </div>
         </div>
       </form>
-      <div class="col-12 col-md-3 mb-3 d-flex justify-content-around">
+      <div class="col-12 col-md-3 mb-2 pt-1 d-flex justify-content-around">
         <button *ngIf = "!regimenTrasladar" class="btn btn-primary btn-AW col-6 col-md-12 m-auto" (click) = "regimenTrasladarInterruptor()"> Trasladar</button>
         <button *ngIf = "regimenTrasladar" class="btn btn-danger btn-AW col-6 col-md-12 m-auto" (click) = "regimenTrasladarInterruptor()"> Terminar trasladar</button>
       </div>

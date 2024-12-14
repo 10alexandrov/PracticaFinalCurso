@@ -14,14 +14,14 @@
 
         <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate && !regimenControlar">
           <!-- filter -->
-          <form class="form mt-2 mb-2">
+          <form class="form mt-2 mb-2 find-container pt-1 pb-1">
             <div class="form-group row">
               <label class="col-form-label col-3 col-md-2 col-lg-1 text-sm-right" for="filterDesc">
-                Client
+                Cliente
               </label>
               <div class="col-9 col-md-9 col-lg-3">
                 <input type="text" [(ngModel)]="clientSearch" (input)="applyFilter()" class="form-control"
-                  name="filterDesc" id="filterDesc" placeholder="buscamos ...">
+                  name="filterDesc" id="filterDesc" placeholder="buscar ...">
               </div>
               <div class="row col-12 col-lg-8">
                 <label class="col-3 col-sm-2 text-sm-right pt-2 pe-0" for="direccionSearch">
@@ -65,14 +65,14 @@
               <tbody class="table-group-divider">
                 <tr *ngFor = "let factura of facturasPaginated">
                   <td (click) ="mostrarFactura(factura.factura_id)">{{factura.factura_id}}</td>
-                  <td>{{factura.usuario_cliente.u_nombre}}</td>
-                  <td>{{factura.f_suma}}</td>
+                  <td (click) ="mostrarFactura(factura.factura_id)">{{factura.usuario_cliente.u_nombre}}</td>
+                  <td (click) ="mostrarFactura(factura.factura_id)">{{factura.f_suma}}</td>
                   <td *ngIf="!factura.f_tipo && (role !=='receptor' && role !== 'recogedor')">Compra</td>
                   <td *ngIf="factura.f_tipo && (role !=='receptor' && role !== 'recogedor')">Venta</td>
-                  <td *ngIf="!factura.f_tipo && !factura.f_aceptado">No aceptado</td>
+                  <td *ngIf="!factura.f_tipo && !factura.f_aceptado" style="color:rgb(110, 1, 1)">No aceptado</td>
                   <td *ngIf="!factura.f_tipo && factura.f_aceptado" style="color:green">Aceptado</td>
-                  <td *ngIf="factura.f_tipo && !factura.f_aceptado">No preparado</td>
-                  <td *ngIf="factura.f_tipo && factura.f_aceptado">Preparado</td>
+                  <td *ngIf="factura.f_tipo && !factura.f_aceptado" style="color:rgb(110, 1, 1)">No preparado</td>
+                  <td *ngIf="factura.f_tipo && factura.f_aceptado" style="color:green">Preparado</td>
                   <td>{{factura.created_at | date : "mediumDate"}}</td>
 
                   <!-- bloque para receptor y recogedor-->
@@ -93,7 +93,7 @@
                <!-- pagination -->
                   <div class="pagination-controls mb-2">
                     <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-                    <span class="ms-3 me-3">Pagina {{ currentPage }} de {{ totalPages }}</span>
+                    <span class="ms-3 me-3">Página {{ currentPage }} de {{ totalPages }}</span>
                     <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
                   </div>
 

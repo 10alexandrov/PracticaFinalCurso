@@ -30,7 +30,7 @@ export class FacturasComponent implements OnInit{
     private sanitizer: DomSanitizer) {}  // injectar relaciones con BD
 
 
-headers = {numero: "Numero", nombre: "Client", suma: "Suma", direccion: "Direccion", estado: "Estado", created: "Creado", accion: "Acción"};
+headers = {numero: "Número", nombre: "Cliente", suma: "Suma", direccion: "Dirección", estado: "Estado", created: "Creado", accion: "Acción"};
 direccion = ['entrante', 'saliente'];
 
 facturas: IFactura[] = [] // inicializar array facturas

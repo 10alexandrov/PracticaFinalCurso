@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 })
 export class ImercanciaService {
 
-  private mercanciaUrl = 'http://almacen-admin/api/mercancias'
+  private mercanciaUrl = 'http://localhost:8080/api/mercancias'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -21,7 +21,7 @@ export class ImercanciaService {
     const headers = this.getHeaderAuth ();
 
     if (this.authService.checkTokenExpiration()) {
-      const getURL = `http://almacen-admin/api/mercancias/${id}`;
+      const getURL = `${this.mercanciaUrl}/${id}`;
       return this.http.get<IMercancia[]>(getURL, {headers}).pipe(
         map(response => response)
       );
@@ -35,7 +35,7 @@ export class ImercanciaService {
     const headers = this.getHeaderAuth ();
 
     if (this.authService.checkTokenExpiration()) {
-      const getURL = `http://almacen-admin/api/mercancias/showWidthPlace/${id}`;
+      const getURL = `${this.mercanciaUrl}/showWidthPlace/${id}`;
       return this.http.get<IMercancia[]>(getURL, {headers}).pipe(
         map(response => response)
       );
@@ -46,7 +46,7 @@ export class ImercanciaService {
 
 
   deleteMercancia (id: number): Observable<void> {
-    const deleteURL = `http://almacen-admin/api/mercancias/${id}`;
+    const deleteURL = `${this.mercanciaUrl}/${id}`;
     return this.http.delete<void>(deleteURL);
   }
 
@@ -64,7 +64,7 @@ export class ImercanciaService {
     const body = {mercancias, f_suma, role, usuario};
 
     if (this.authService.checkTokenExpiration()) {
-      const getURL = `http://almacen-admin/api/mercancias`;
+      const getURL = `${this.mercanciaUrl}`;
       return this.http.post<IMercancia[]>(getURL, body, {headers}).pipe(
         map(response => response)
       );
@@ -89,6 +89,7 @@ export class ImercanciaService {
     }
   }
 
+  // guardar o aceptar factura de compra
   aceptarFactura (controlarFacturaId: number, mercancias: IMercancia [], f_suma: number, usuario: number, aceptarFactura: boolean): Observable<IMercancia[]> {
 
     const headers = this.getHeaderAuth ();

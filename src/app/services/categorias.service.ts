@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 })
 export class CategoriasService {
 
-  private categoriaUrl = 'http://almacen-admin/api/categorias'
+  private categoriaUrl = 'http://localhost:8080/api/categorias'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

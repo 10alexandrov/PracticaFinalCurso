@@ -23,13 +23,14 @@
 <div *ngIf = "isPopupVisible" class="popup">
   <div *ngIf = "lugarParaMostrar">
     <div class="header">
-      {{lugarParaMostrar.lugar_estanteria}}-{{lugarParaMostrar.lugar_column}}-{{lugarParaMostrar.lugar_planta}}
+      {{lugarParaMostrar.lugar_estanteria}}-{{lugarParaMostrar.lugar_planta}}-{{lugarParaMostrar.lugar_column}}
     </div>
     <div class="mt-1 mb-1 line"></div>
     <div *ngIf = "lugarParaMostrar.lugar_productoInfo.p_nombre" class="d-flex">
       <div class="infoProducto col-6">
         <p class="mt-2 fw-bold">{{lugarParaMostrar.lugar_productoInfo.p_nombre}} </p>
-        <p>cantidad: {{lugarParaMostrar.lugar_cantidad}}</p>
+        <p>Cantidad: {{lugarParaMostrar.lugar_cantidad}} ud.</p>
+        <p>Ocupado: {{lugarParaMostrar.lugar_llenado}} %</p>
       </div>
       <div class="col-6">
         <img class = "img-AW" [src] = "lugarParaMostrar.lugar_productoInfo.p_foto">
@@ -58,7 +59,7 @@
 
 
 <div *ngIf = "isPopupAcceptVisible" class="popup2">
-    <p>Mover de celda {{firstCelda}} </p>
+    <p>¿Mover de celda {{firstCelda}} </p>
     <p>a celda {{secondCelda}}?</p>
     <div class="d-flex buttons justify-content-around">
       <button  (click) = "intercambioCeldas ()" class="btn btn-AW btn-success m-auto">Mover</button>

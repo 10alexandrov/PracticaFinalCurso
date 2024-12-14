@@ -13,8 +13,8 @@
             <thead class="table-primary">
               <tr>
                 <th>Login</th>
-                <th>Role</th>
-                <th>Active</th>
+                <th>Rol</th>
+                <th>Estado</th>
                 <th>Created at</th>
                 <th class="mobileInvisibleTable">Editar</th>
                 <th class="mobileInvisibleTable">Borrar</th>
@@ -25,7 +25,8 @@
                 <td> {{usuarioMostrar.u_login}}</td>
                 <td> {{usuarioMostrar.u_role}}</td>
                 <td>
-                  <span *ngIf="usuarioMostrar.u_active" style="font-weight: 600; color: green;" >Active</span>
+                  <span *ngIf="!usuarioMostrar.u_active" style="font-weight: 600; color: rgb(156, 0, 0);" >Inactivo</span>
+                  <span *ngIf="usuarioMostrar.u_active" style="font-weight: 600; color: green;" >Activo</span>
                 </td>
                 <td> {{usuarioMostrar.created_at | date: 'dd-MM-yyyy'}}</td>
                 <td class="mobileInvisibleTable">
@@ -55,7 +56,7 @@
 
 <!--Popup ventana-->
 <div *ngIf = "isPopupDisactiveVisible" class="popup2">
-  <p>Desea desactivar usuario: {{usuarioMostrar.u_nombre}}</p>
+  <p>¿Desea desactivar usuario: {{usuarioMostrar.u_nombre}}?</p>
   <div class="d-flex buttons justify-content-around">
     <button *ngIf ="usuarioMostrar.usuario_id" (click)="deleteUsuario(usuarioMostrar.usuario_id)" class="btn btn-AW btn-danger m-auto">Desactivar</button>
     <button  (click) = "popupInterruptor()" class="btn btn-AW btn-dark m-auto">Cerrar </button>

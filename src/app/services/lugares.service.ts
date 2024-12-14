@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 })
 export class LugaresService {
 
-  private lugarUrl = 'http://almacen-admin/api/lugares';
+  private lugarUrl = 'http://localhost:8080/api/lugares';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 

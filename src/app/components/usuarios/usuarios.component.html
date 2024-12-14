@@ -12,21 +12,21 @@
 
       <div *ngIf="!regimenMostrar && !regimenCrear && !regimenUpdate">
         <!-- filter -->
-        <form class="form mt-3 mb-3">
+        <form class="form mt-3 mb-3 find-container pt-1 pb-1">
           <div class="form-group row">
             <label class="col-form-label col-2 col-sm-1 col-lg-1 text-sm-right fw-semibold" for="filterDesc">
               Filtro:
             </label>
             <div class="col-9 col-sm-5 col-lg-4 pe-5">
               <input type="text" [(ngModel)]="usuarioSearch" class="form-control"
-                name="filterDesc" id="filterDesc" placeholder="filtramos por...">
+                name="filterDesc" id="filterDesc" placeholder="buscar ...">
             </div>
             <label class="col-form-label col-2 col-sm-1 col-lg-1 text-sm-right fw-semibold" for="roleSarch">
-              Role:
+              Rol:
             </label>
             <div class="col-9 col-sm-5 col-lg-4 mt-2">
               <select name="roleSearch" id="roleSearch" [(ngModel)]="roleSearch">
-                  <option value="">Seleccione una role</option>
+                  <option value="">Seleccione un rol</option>
                   <option *ngFor = "let role of roles" [value]="role">{{role}}</option>
               </select>
             </div>
@@ -47,10 +47,11 @@
             <tbody class="table-group-divider">
               <tr *ngFor = "let usuario of usuarios | iusuariosFilter:usuarioSearch:roleSearch">
                 <td (click) ="mostrarUsuario(usuario.usuario_id ?? 1 )">{{usuario.u_nombre}}</td>
-                <td>{{usuario.u_login}}</td>
-                <td>{{usuario.u_role}}</td>
+                <td (click) ="mostrarUsuario(usuario.usuario_id ?? 1 )">{{usuario.u_login}}</td>
+                <td (click) ="mostrarUsuario(usuario.usuario_id ?? 1 )">{{usuario.u_role}}</td>
                 <td>
-                  <span *ngIf="usuario.u_active" style="font-weight: 600; color: green;" >Active</span>
+                  <span *ngIf="!usuario.u_active" style="font-weight: 600; color: rgb(156, 0, 0);" >Inactivo</span>
+                  <span *ngIf="usuario.u_active" style="font-weight: 600; color: green;" >Activo</span>
                 </td>
               </tr>
 

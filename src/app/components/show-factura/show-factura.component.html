@@ -2,8 +2,9 @@
 <div class="row mt-2 mb-2 justify-content-between">
   <h1 class="col-12 col-md-6"> Detalles de Factura #{{mostrarFacturaId}}</h1>
   <div class="col-12 col-md-6 d-flex justify-content-between">
-  <div *ngIf="role === 'admin' || role === 'manager'
-              || role === 'vendedor' || role === 'cliente'" class="mt-2" >
+  <div *ngIf="(role === 'admin' || role === 'manager'
+              || role === 'vendedor' || role === 'cliente')
+              && !facturaMostrar?.f_aceptado" class="mt-2" >
       <button (click)="editarFactura()" class="btn btn-warning btn-AW">Editar</button>
     </div>
     <div  *ngIf="role === 'admin' || role === 'manager'
@@ -60,7 +61,7 @@
 
 <!--Popup ventana-->
 <div *ngIf = "isPopupAcceptVisible" class="popup2">
-  <p *ngIf = "facturaMostrar && !facturaMostrar.f_aceptado">Desea eliminar la factura #{{mostrarFacturaId}}?</p>
+  <p *ngIf = "facturaMostrar && !facturaMostrar.f_aceptado">¿Desea eliminar la factura #{{mostrarFacturaId}}?</p>
   <p *ngIf = "facturaMostrar && facturaMostrar.f_aceptado">Factura ya esta acceptada,</p>
   <p *ngIf = "facturaMostrar && facturaMostrar.f_aceptado" >no se puede eliminar</p>
   <div class="d-flex buttons justify-content-around">

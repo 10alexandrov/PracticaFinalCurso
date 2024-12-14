@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 })
 export class FacturasService {
 
-  private facturaUrl = 'http://almacen-admin/api/facturas'
+  private facturaUrl = 'http://localhost:8080/api/facturas'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -33,7 +33,7 @@ export class FacturasService {
 
     const headers = this.getHeaderAuth ();
 
-    const deleteURL = `http://almacen-admin/api/facturas/${id}`;
+    const deleteURL = `${this.facturaUrl}/${id}`;
     return this.http.delete<void>(deleteURL, {headers});
   }
 

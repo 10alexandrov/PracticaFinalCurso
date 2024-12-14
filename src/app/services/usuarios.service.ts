@@ -11,14 +11,16 @@ import { AuthService } from './auth.service';
 })
 export class UsuariosService {
 
-  private usuariosUrl = 'http://almacen-admin/api/usuarios'
+  private usuariosUrl = 'http://localhost:8080/api/usuarios'
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getUsuarios (): Observable<IUsuarios[]> {
 
+    const headers = this.getHeaderAuth ();
+
     if (this.authService.checkTokenExpiration()) {
-      return this.http.get<IUsuarios[]>(this.usuariosUrl).pipe(
+      return this.http.get<IUsuarios[]>(this.usuariosUrl, { headers }).pipe(
         map(response => response)
       );
     } else {
@@ -28,12 +30,16 @@ export class UsuariosService {
 
 
   createUsuario (usario: IUsuarios): Observable<any> {
-    return this.http.post(this.usuariosUrl, usario);
+
+    const headers = this.getHeaderAuth ();
+
+    return this.http.post(this.usuariosUrl, usario, { headers });
   }
 
   deleteUsuario (id: number): Observable<void> {
+    const headers = this.getHeaderAuth ();
     const deleteURL = `${this.usuariosUrl}/${id}`;
-    return this.http.delete<void>(deleteURL);
+    return this.http.delete<void>(deleteURL, { headers });
   }
 
   actualizarUsuario (id: number, usuario: IUsuarios): Observable<any> {
